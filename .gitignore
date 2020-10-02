@@ -1,0 +1,8 @@
+### CakePHP3 ###
+# CakePHP 3
+
+/config/app_local.php
+/config/.env
+/logs/*
+/tmp/*
+/vendor/*

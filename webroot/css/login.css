@@ -1,0 +1,28 @@
+/*------------------------------------------------------------------
+Login, Recover, change and validate CSS template
+-------------------------------------------------------------------*/
+.page-wrapper {
+    overflow: hidden;
+}
+
+.login-content {
+    height: 100%;
+}
+
+.login-bg {
+    background-image: url('../img/login_bg.jpg');
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.recover a {
+    color: var(--red);
+}
+
+.copyright {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
