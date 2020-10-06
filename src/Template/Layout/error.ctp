@@ -19,8 +19,6 @@
     <?= $this->Html->css('../vendor/slick/slick.css') ?>
     <?= $this->Html->css('../vendor/select2/select2.min.css') ?>
     <?= $this->Html->css('../vendor/daterange-picker/daterangepicker.css') ?>
-    <!-- THEME CSS -->
-    <?= $this->Html->css('theme.css') ?>
     <!-- CUSTOM CSS -->
     <?= $this->Html->css('custom.css') ?>
     <?= $this->fetch('css') ?>
