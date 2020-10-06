@@ -10,19 +10,60 @@ Login, Recover, change and validate CSS template
 }
 
 .login-bg {
-    background-image: url('../img/login_bg.jpg');
-    background-position: top left;
+    background-image: url('../img/logotipo_66.png');
+    background-position: bottom;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 300px;
 }
-
+.h5-custom{
+    color: var(--secondary);
+}
 .recover a {
-    color: var(--red);
+    color: var(--secondary);
 }
-
+.recover a:hover {
+    color: var(--secondary_hover);
+}
 .copyright {
+    background-color: var(--primary);
+    color: var(--secondary);
     position: absolute;
     bottom: 0;
     right: 0;
     left: 0;
+}
+body{
+    font-family: sans-serif;
+}
+/* NAVBAR */
+.navbar-default{
+    border-bottom: 2px solid var(--primary_hover);
+}
+.navbar-right a{
+    margin-right: 75px;
+    font-size: 20px;
+}
+/* END NAVBAR */
+
+.btn-default {
+    border-radius: 20px;
+    background-color: var(--secondary);
+}
+.btn-default:hover {
+    border-radius: 20px;
+    background-color: var(--secondary_hover);
+}
+.form-control-custom {
+    margin-bottom: 25px;
+    border-color: var(--secondary_hover);
+    border-radius: 20px;
+}
+
+/* CARD */
+.card-custom {
+    border: 3px solid var(--primary);
+}
+/* END CARD */
+i{
+    color: var(--secondary);
 }
