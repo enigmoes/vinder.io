@@ -1,19 +1,20 @@
 <?php
 use Cake\Routing\Router;
 ?>
-<div class="container">
+<?= $this->Html->css('login.css') ?>
+<!-- <nav class="navbar border border-bottom">
+    <a class="navbar-brand" href="#">
+        <?= $this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10')) ?>
+    </a>
+</nav>-->
+<div class="container text-center mt-5">
     <div class="row">
         <div class="col-12 offset-md-3 col-md-6">
             <?= $this->Flash->render() ?>
         </div>
         <?php if (isset($isRequest) && !$isRequest): ?>
         <div class="col-12 offset-md-3 col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
-                        <?= $this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'w-50')) ?>
-                    </a>
-                </div>
+            <div class="card card-custom">
                 <div class="card-body">
                     <div class="mb-5 mt-3">
                         <?= $this->Flash->render() ?>
@@ -46,9 +47,6 @@ use Cake\Routing\Router;
                             </button>
                         </div>
                     <?= $this->Form->end() ?>
-                </div>
-                <div class="card-footer">
-                    <p>Copyright © <?= date('Y') ?> Vinder. All rights reserved.</p>
                 </div>
             </div>
         </div>

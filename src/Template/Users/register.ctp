@@ -1,6 +1,7 @@
 <?php
 use Cake\Routing\Router;
 ?>
+<?= $this->Html->css('login.css') ?>
 <div class="container">
     <div class="row">
         <div class="col-12 offset-md-3 col-md-6">
@@ -16,7 +17,6 @@ use Cake\Routing\Router;
             <div class="card-body">
                 <?= $this->Form->create($user) ?>
                     <div class="form-group">
-                        <label><?= __('Usuario') ?></label>
                         <?= $this->Form->control('username', [
                             'label' => false,
                             'class' => 'form-control',
@@ -24,7 +24,6 @@ use Cake\Routing\Router;
                         ]) ?>
                     </div>
                     <div class="form-group">
-                        <label><?= __('Email') ?></label>
                         <?= $this->Form->control('email', [
                             'label' => false,
                             'class' => 'form-control',
@@ -32,7 +31,6 @@ use Cake\Routing\Router;
                         ]) ?>
                     </div>
                     <div class="form-group">
-                        <label><?= __('Contraseña') ?></label>
                         <?= $this->Form->control('password', [
                             'label' => false,
                             'class' => 'form-control',
@@ -68,9 +66,9 @@ use Cake\Routing\Router;
                     </button>
                 <?= $this->Form->end() ?>
             </div>
-            <div class="card-footer">
-                <p>Copyright © <?= date('Y') ?> Vinder. All rights reserved.</p>
-            </div>
         </div>
     </div>
+</div>
+<div class="copyright">
+    <p>Copyright © <?=date('Y')?> Vinder. All rights reserved.</p>
 </div>
