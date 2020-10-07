@@ -1,23 +1,15 @@
 $(document).ready(function () {
     // Use Strict
     "use strict";
-
-    // Abrir url en ventana nueva
-    $('.add-button').on('click', function (event) {
-        event.preventDefault();
-        let url = $(this).attr('href');
-        document.cookie = 'back=' + location.href;
-        location.href = url;
-    });
-
-    // Al hacer click en una fila de la tabla (se abre en nueva ventana)
+    
+    // Al hacer click en una fila de la tabla abrir en pestaña
     $(".tr-edit").on("click", function() {
         let url = $(this).data("url");
         document.cookie = 'back=' + location.href;
         location.href = url;
     });
 
-    // Al hacer click en una fila de la tabla abrir en pestaña
+    // Al hacer click en una fila de la tabla (se abre en nueva ventana)
     $(".tr-edit-blank").on("click", function() {
         let url = $(this).data("url");
         window.open(url, '_blank');
