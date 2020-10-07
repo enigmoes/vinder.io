@@ -13,7 +13,7 @@ use Cake\Routing\Router;
 									<tr>
 										<td align="left" style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-size: 0px; padding: 10px 25px; padding-top: 0; padding-bottom: 20px; word-break: break-word;">
         									<div style="font-family:Open sans, arial, sans-serif;font-size: 18px;font-weight:600;line-height:25px;text-align:left;color:#363A41;" align="left">
-          										<?= __('Hola') ?> <?= ucfirst($body->name) ?>,
+          										<?= __('Hola') ?> <?= ucfirst($body->username) ?>,
         									</div>
         								</td>
         							</tr>
