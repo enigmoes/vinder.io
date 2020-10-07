@@ -9,7 +9,7 @@ Login, Recover, change and validate CSS template
     height: 100%;
 }
 
-.login-bg {
+.login-bg{
     background-image: url('../img/logotipo_66.png');
     background-position: bottom;
     background-repeat: no-repeat;
@@ -24,6 +24,7 @@ Login, Recover, change and validate CSS template
 .recover a:hover {
     color: var(--secondary_hover);
 }
+/* FOOTER */
 .copyright {
     background-color: var(--primary);
     color: var(--secondary);
@@ -31,7 +32,13 @@ Login, Recover, change and validate CSS template
     bottom: 0;
     right: 0;
     left: 0;
+    text-align: center;
 }
+.img-footer{
+    margin: 0 auto;
+    display: block;
+}
+/* END FOOTER */
 body{
     font-family: sans-serif;
 }
@@ -62,8 +69,16 @@ body{
 /* CARD */
 .card-custom {
     border: 3px solid var(--primary);
+    margin-bottom: 25px;
 }
 /* END CARD */
+/* ICONS */
 i{
     color: var(--secondary);
+    font-size: x-large;
 }
+i:hover{
+    color: var(--secondary_hover);
+    font-size: x-large;
+}
+/* END ICONS */

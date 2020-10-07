@@ -224,3 +224,18 @@ a:hover {
     line-height: 44px;
 }
 /* --- */
+/* SIDEBAR */
+.sidebar-default{
+    height: 100%; 
+    width: 160px; 
+    position: fixed; 
+    overflow-x: hidden; 
+
+}
+/* END SIDEBAR*/
+
+/* CARD */
+.custom-shadow{
+    
+}
+/* END CARD */
