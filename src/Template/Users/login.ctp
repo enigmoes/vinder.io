@@ -22,7 +22,7 @@ use Cake\Routing\Router;
         <div class="col-12 offset-md-3 col-md-6">
         <div class="card card-custom rounded-0">
             <div class="card-body">
-                <div class="h5 mb-5 h5-custom">INICIAR SESIÓN</div>
+                <div class="h5 mb-4 h5-custom">INICIAR SESIÓN</div>
                 <?=$this->Form->create('Login')?>
                     <div class="form-group">
                         <?=$this->Form->control('email', [
@@ -31,20 +31,16 @@ use Cake\Routing\Router;
                             'placeholder' => __('Correo o nombre de usuario'),
                         ])?>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-group-icon-right">
+                        <i class='fas fa-eye input-icon'></i>
                         <?=$this->Form->control('password', [
+                            'div' => false,
                             'label' => false,
                             'class' => 'form-control form-control-custom',
                             'placeholder' => __('Contraseña'),
-                            /*'a' => [
-                                'href' => '#',
-                                'i' => [
-                                    'class' => 'fas fa-eye'
-                                ]
-                            ],*/
                         ])?>
                     </div>
-                    <button class="btn my-4 px-4 btn-default" type="submit">
+                    <button class="btn my-2 px-4 btn-default" type="submit">
                         <?=__('Iniciar sesión')?>
                     </button>
                     <div class="recover">
@@ -66,6 +62,9 @@ use Cake\Routing\Router;
         </div>
     </div>
 </div>
+<a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
+    <?=$this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'img-footer'))?>
+</a>
 <div class="copyright">
     <p>Copyright © <?=date('Y')?> Vinder. All rights reserved.</p>
 </div>

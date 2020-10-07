@@ -2,11 +2,6 @@
 use Cake\Routing\Router;
 ?>
 <?= $this->Html->css('login.css') ?>
-<!-- <nav class="navbar border border-bottom">
-    <a class="navbar-brand" href="#">
-        <?= $this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10')) ?>
-    </a>
-</nav>-->
 <div class="container text-center mt-5">
     <div class="row">
         <div class="col-12 offset-md-3 col-md-6">
@@ -14,13 +9,13 @@ use Cake\Routing\Router;
         </div>
         <?php if (isset($isRequest) && !$isRequest): ?>
         <div class="col-12 offset-md-3 col-md-6">
-            <div class="card card-custom">
+            <div class="card card-custom rounded-0">
                 <div class="card-body">
                     <div class="mb-5 mt-3">
                         <?= $this->Flash->render() ?>
                     </div>
                     <div class="mb-3 pr-4 pl-4">
-                        <h3><?= __('Recuperación de contraseña') ?></h3>
+                        <div class="h5 mb-4 h5-custom"><?= __('Recuperación de contraseña') ?></div>
                         <p>
                             <small><?= __('Introduce el e-mail asociado a tu cuenta de Vinder y te enviaremos un enlace para restaurar tu contraseña.') ?></small>
                         </p>
@@ -30,7 +25,7 @@ use Cake\Routing\Router;
                             <label for="email" class="sr-only"><?= __('Email') ?></label>
                             <?= $this->Form->control('email', [
                                 'label' => false,
-                                'class' => 'form-control',
+                                'class' => 'form-control form-control-custom',
                                 'placeholder' => __('Email')
                             ]) ?>
                         </div>
@@ -52,4 +47,10 @@ use Cake\Routing\Router;
         </div>
         <?php endif; ?>
     </div>
+</div>
+<a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
+    <?=$this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'img-footer'))?>
+</a>
+<div class="copyright">
+    <p>Copyright © <?=date('Y')?> Vinder. All rights reserved.</p>
 </div>

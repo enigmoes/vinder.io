@@ -2,38 +2,33 @@
 use Cake\Routing\Router;
 ?>
 <?= $this->Html->css('login.css') ?>
-<div class="container">
+<div class="container text-center mt-5">
     <div class="row">
         <div class="col-12 offset-md-3 col-md-6">
             <?= $this->Flash->render() ?>
         </div>
         <div class="col-12 offset-md-3 col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
-                    <?= $this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'w-50')) ?>
-                </a>
-            </div>
+        <div class="card card-custom rounded-0">
             <div class="card-body">
                 <?= $this->Form->create($user) ?>
                     <div class="form-group">
                         <?= $this->Form->control('username', [
                             'label' => false,
-                            'class' => 'form-control',
+                            'class' => 'form-control form-control-custom',
                             'placeholder' => __('Usuario')
                         ]) ?>
                     </div>
                     <div class="form-group">
                         <?= $this->Form->control('email', [
                             'label' => false,
-                            'class' => 'form-control',
+                            'class' => 'form-control form-control-custom',
                             'placeholder' => __('Email')
                         ]) ?>
                     </div>
                     <div class="form-group">
                         <?= $this->Form->control('password', [
                             'label' => false,
-                            'class' => 'form-control',
+                            'class' => 'form-control form-control-custom',
                             'placeholder' => __('Contraseña')
                         ]) ?>
                     </div>
@@ -69,6 +64,9 @@ use Cake\Routing\Router;
         </div>
     </div>
 </div>
+<a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
+    <?=$this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'img-footer'))?>
+</a>
 <div class="copyright">
     <p>Copyright © <?=date('Y')?> Vinder. All rights reserved.</p>
 </div>
