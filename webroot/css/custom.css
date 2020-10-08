@@ -230,12 +230,53 @@ a:hover {
     width: 160px; 
     position: fixed; 
     overflow-x: hidden; 
-
+}
+.components li a{
+    color: black;
+}
+.active{
+    color: black;
+    font-weight: bold;
 }
 /* END SIDEBAR*/
 
 /* CARD */
 .custom-shadow{
-    
+    border: 1px solid;
+    border-color: rgba(var(--primary_hover), 0.5);
+    box-shadow: 1px 1px 5px black;
 }
 /* END CARD */
+/* TITLES  */
+.h4-custom{
+    border-bottom: 2px solid var(--primary);
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    color: var(--secondary);
+}
+.h6-custom{
+    color: black;
+    text-align: center;
+}
+/* END TITLES  */
+
+/* FORM LABELS */
+.form-group-custom  label{
+    color: var(--secondary);
+}
+/* END FORM LABELS */
+/* BUTTON */
+.btn-custom {
+    color: var(--primary);
+    border-radius: 20px;
+    background-color: var(--secondary);
+    margin-bottom: 25px;
+    margin-right: 25px;
+}
+.btn-custom:hover {
+    color: var(--primary);
+    border-radius: 20px;
+    background-color: var(--secondary_hover);
+}
+/* END BUTTON */

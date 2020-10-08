@@ -9,15 +9,24 @@ Login, Recover, change and validate CSS template
     height: 100%;
 }
 
-.login-bg{
-    background-image: url('../img/logotipo_66.png');
+.login-bg {
+    background-image: url("../img/logotipo_66.png");
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: 300px;
 }
-.h5-custom{
+/* H5 */
+.h5-custom {
     color: var(--secondary);
 }
+#nav1-h5{
+    border-bottom: 3px solid var(--primary);
+}
+#nav2-h5{
+    margin-top: 50px;
+}
+/*END H5 */
+
 .recover a {
     color: var(--secondary);
 }
@@ -34,19 +43,19 @@ Login, Recover, change and validate CSS template
     left: 0;
     text-align: center;
 }
-.img-footer{
+.img-footer {
     margin: 0 auto;
     display: block;
 }
 /* END FOOTER */
-body{
+body {
     font-family: sans-serif;
 }
 /* NAVBAR */
-.navbar-default{
+.navbar-default {
     border-bottom: 2px solid var(--primary_hover);
 }
-.navbar-right a{
+.navbar-right a {
     margin-right: 75px;
     font-size: 20px;
 }
@@ -62,7 +71,7 @@ body{
 }
 .form-control-custom {
     margin-bottom: 25px;
-    border-color: var(--secondary_hover);
+    border-color: var(--secondary);
     border-radius: 20px;
 }
 
@@ -73,12 +82,18 @@ body{
 }
 /* END CARD */
 /* ICONS */
-i{
+i {
     color: var(--secondary);
     font-size: x-large;
 }
-i:hover{
+i:hover {
     color: var(--secondary_hover);
     font-size: x-large;
+}
+.input-icon {
+    float: right;
+    position: relative;
+    margin: -55px 15px 0 0;
+    cursor: pointer;
 }
 /* END ICONS */
