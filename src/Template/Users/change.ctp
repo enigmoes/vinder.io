@@ -2,6 +2,7 @@
 use Cake\Routing\Router;
 ?>
 <?=$this->Html->css('login.css')?>
+<?=$this->Html->script('login.js')?>
 <div class="container text-center mt-5">
     <div class="row">
         <div class="col-12 offset-md-3 col-md-6">
@@ -24,6 +25,7 @@ use Cake\Routing\Router;
                             'class' => 'form-control form-control-custom',
                             'placeholder' => __('Nueva contraseña')
                         ]) ?>
+                        <i class='fas fa-eye input-icon'></i>
                     </div>
                     <div class="form-group">
                         <?= $this->Form->control('password_confirm', [

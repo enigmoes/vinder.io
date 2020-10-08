@@ -2,6 +2,7 @@
 use Cake\Routing\Router;
 ?>
 <?=$this->Html->css('login.css')?>
+<?=$this->Html->script('login.js')?>
 <nav class="navbar navbar-default">
     <div class="navbar-header pl-5">
         <a class="navbar-brand" href="#">
@@ -22,7 +23,7 @@ use Cake\Routing\Router;
         <div class="col-12 offset-md-3 col-md-6">
         <div class="card card-custom rounded-0">
             <div class="card-body">
-                <div class="h5 mb-4 h5-custom">INICIAR SESIÓN</div>
+                <div class="h5 mb-4 h5-custom"><?= __('INICIAR SESIÓN') ?></div>
                 <?=$this->Form->create('Login')?>
                     <div class="form-group">
                         <?=$this->Form->control('email', [
@@ -32,13 +33,13 @@ use Cake\Routing\Router;
                         ])?>
                     </div>
                     <div class="form-group form-group-icon-right">
-                        <i class='fas fa-eye input-icon'></i>
                         <?=$this->Form->control('password', [
                             'div' => false,
                             'label' => false,
                             'class' => 'form-control form-control-custom',
                             'placeholder' => __('Contraseña'),
                         ])?>
+                        <i class='fas fa-eye input-icon'></i>
                     </div>
                     <button class="btn my-2 px-4 btn-default" type="submit">
                         <?=__('Iniciar sesión')?>
