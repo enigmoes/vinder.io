@@ -55,10 +55,9 @@
         <!-- CONTENT -->
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
-        <!-- END CONTENT -->
-        <button type="button" class="btn text-white scroll animated fadeOut">
-            <i class="fas fa-chevron-up"></i>
-        </button>
+        <!-- FOOTER -->
+        <?= $this->element('Common/footer') ?>
+        <!-- FOOTER -->
     </div>
 </body>
 </html>

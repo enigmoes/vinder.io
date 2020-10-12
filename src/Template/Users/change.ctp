@@ -1,43 +1,37 @@
 <?php
 use Cake\Routing\Router;
 ?>
-<div class="container">
+<?=$this->Html->css('login.css')?>
+<?=$this->Html->script('login.js')?>
+<div class="container text-center mt-5">
     <div class="row">
         <div class="col-12 offset-md-3 col-md-6">
             <?= $this->Flash->render() ?>
         </div>
         <div class="col-12 offset-md-3 col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
-                        <?= $this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'w-50')) ?>
-                    </a>
-                </div>
+            <div class="card card-custom rounded-0">
                 <div class="card-body">
                     <div class="mb-5 mt-3">
                         <?= $this->Flash->render() ?>
                     </div>
                     <div class="mb-3 pr-4 pl-4">
-                        <p>
-                            <small><?= __('Escribe aquí tu nueva contraseña') ?></small>
-                        </p>
+                        <div class="h5"><?= __('Escribe aquí tu nueva contraseña') ?></div>
                     </div>
                     <?= $this->Form->create() ?>
                     <div class="form-group">
-                        <label><?= __('Nueva contraseña') ?></label>
                         <?= $this->Form->control('password', [
                             'label' => false,
                             'type' => 'password',
-                            'class' => 'form-control',
+                            'class' => 'form-control form-control-custom',
                             'placeholder' => __('Nueva contraseña')
                         ]) ?>
+                        <i class='fas fa-eye input-icon'></i>
                     </div>
                     <div class="form-group">
-                        <label><?= __('Confirma nueva contraseña') ?></label>
                         <?= $this->Form->control('password_confirm', [
                             'label' => false,
                             'type' => 'password',
-                            'class' => 'form-control',
+                            'class' => 'form-control form-control-custom',
                             'placeholder' => __('Confirma nueva contraseña')
                         ]) ?>
                     </div>
@@ -48,10 +42,10 @@ use Cake\Routing\Router;
                     </div>
                     <?= $this->Form->end() ?>
                 </div>
-                <div class="card-footer">
-                    <p>Copyright © <?= date('Y') ?> Vinder. All rights reserved.</p>
-                </div>
             </div>
         </div>
     </div>
 </div>
+<a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
+    <?=$this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'img-footer'))?>
+</a>

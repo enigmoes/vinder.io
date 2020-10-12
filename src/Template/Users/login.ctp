@@ -1,58 +1,56 @@
 <?php
 use Cake\Routing\Router;
 ?>
-<div class="container">
+<?=$this->Html->css('login.css')?>
+<?=$this->Html->script('login.js')?>
+<div class="container text-center mt-5">
     <div class="row">
         <div class="col-12 offset-md-3 col-md-6">
-            <?= $this->Flash->render() ?>
+            <?=$this->Flash->render()?>
         </div>
         <div class="col-12 offset-md-3 col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
-                    <?= $this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'w-50')) ?>
-                </a>
-            </div>
+        <div class="card card-custom rounded-0">
             <div class="card-body">
-                <?= $this->Form->create('Login') ?>
+                <div class="h5 mb-4 h5-custom"><?= __('INICIAR SESIÓN') ?></div>
+                <?=$this->Form->create('Login')?>
                     <div class="form-group">
-                        <label><?= __('Email') ?></label>
-                        <?= $this->Form->control('email', [
+                        <?=$this->Form->control('email', [
                             'label' => false,
-                            'class' => 'form-control',
-                            'placeholder' => __('Email')
-                        ]) ?>
+                            'class' => 'form-control form-control-custom',
+                            'placeholder' => __('Correo o nombre de usuario'),
+                        ])?>
                     </div>
-                    <div class="form-group">
-                        <label><?= __('Contraseña') ?></label>
-                        <?= $this->Form->control('password', [
+                    <div class="form-group form-group-icon-right">
+                        <?=$this->Form->control('password', [
+                            'div' => false,
                             'label' => false,
-                            'class' => 'form-control',
-                            'placeholder' => __('Contraseña')
-                        ]) ?>
+                            'class' => 'form-control form-control-custom',
+                            'placeholder' => __('Contraseña'),
+                        ])?>
+                        <i class='fas fa-eye input-icon'></i>
                     </div>
-                    <div class="recover mb-2">
-                        <label style="font-size: 13px">
-                            <a href="<?= Router::url(['controller' => 'users', 'action' => 'recover']) ?>">
-                                <?= __('¿Olvidaste tu contraseña?') ?>
-                            </a>
-                        </label>
-                    </div>
-                    <div class="recover mb-2">
-                        <label style="font-size: 13px">
-                            <a href="<?= Router::url(['controller' => 'users', 'action' => 'register']) ?>">
-                                <?= __('¿No tienes una cuenta? Registrate') ?>
-                            </a>
-                        </label>
-                    </div>
-                    <button class="btn btn-default btn-block m-b-20" type="submit">
-                        <?= __('Entrar') ?>
+                    <button class="btn my-2 px-4 btn-default" type="submit">
+                        <?=__('Iniciar sesión')?>
                     </button>
-                <?= $this->Form->end() ?>
-            </div>
-            <div class="card-footer">
-                <p>Copyright © <?= date('Y') ?> Vinder. All rights reserved.</p>
+                    <div class="recover">
+                        <label style="font-size: 13px">
+                            <a href="<?=Router::url(['controller' => 'users', 'action' => 'recover'])?>">
+                                <?=__('¿Has olvidado tu usuario o la contraseña?')?>
+                            </a>
+                        </label>
+                    </div>
+                    <div class="recover">
+                        <label style="font-size: 13px">
+                            <a href="<?=Router::url(['controller' => 'users', 'action' => 'register'])?>">
+                                <?=__('Si eres nuevo Regístrate ahora >')?>
+                            </a>
+                        </label>
+                    </div>
+                <?=$this->Form->end()?>
             </div>
         </div>
     </div>
 </div>
+<a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
+    <?=$this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'img-footer'))?>
+</a>

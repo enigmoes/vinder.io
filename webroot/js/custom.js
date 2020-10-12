@@ -1,11 +1,10 @@
 $(document).ready(function () {
     // Use Strict
     "use strict";
-    
+  
     // Al hacer click en una fila de la tabla abrir en pestaña
     $(".tr-edit").on("click", function() {
         let url = $(this).data("url");
-        document.cookie = 'back=' + location.href;
         location.href = url;
     });
 

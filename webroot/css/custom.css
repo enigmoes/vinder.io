@@ -7,7 +7,7 @@ Overrides custom theme.css
     --primary_hover: #b6b99b;
     --secondary: #213e03;
     --secondary_rgb: 33, 62, 3;
-    --secondary_hover: #172b02;
+    --secondary_hover: #0b1401;
 }
 
 a {
@@ -224,3 +224,78 @@ a:hover {
     line-height: 44px;
 }
 /* --- */
+/* SIDEBAR */
+.sidebar-default{
+    height: 100%; 
+    width: 160px; 
+    position: fixed; 
+    overflow-x: hidden; 
+}
+.components li a{
+    color: black;
+}
+.active{
+    color: black;
+    font-weight: bold;
+}
+/* END SIDEBAR*/
+
+/* CARD */
+.custom-shadow{
+    border: 1px solid;
+    border-color: rgba(var(--primary_hover), 0.5);
+    box-shadow: 1px 1px 5px black;
+}
+/* END CARD */
+/* TITLES  */
+.h4-custom{
+    border-bottom: 2px solid var(--primary);
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    color: var(--secondary);
+}
+.h6-custom{
+    color: black;
+    text-align: center;
+}
+/* END TITLES  */
+
+/* FORM LABELS */
+.form-group-custom  label{
+    color: var(--secondary);
+}
+/* END FORM LABELS */
+/* BUTTON */
+.btn-custom {
+    color: var(--primary);
+    border-radius: 20px;
+    background-color: var(--secondary);
+    margin-bottom: 25px;
+    margin-right: 25px;
+}
+.btn-custom:hover {
+    color: var(--primary);
+    border-radius: 20px;
+    background-color: var(--secondary_hover);
+}
+/* END BUTTON */
+/* FOOTER */
+.copyright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+    color: var(--secondary);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    min-height: 40px;
+}
+.img-footer {
+    margin: 0 auto;
+    display: block;
+}
+/* END FOOTER */
