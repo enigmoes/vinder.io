@@ -33,21 +33,6 @@ Login, Recover, change and validate CSS template
 .recover a:hover {
     color: var(--secondary_hover);
 }
-/* FOOTER */
-.copyright {
-    background-color: var(--primary);
-    color: var(--secondary);
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    text-align: center;
-}
-.img-footer {
-    margin: 0 auto;
-    display: block;
-}
-/* END FOOTER */
 body {
     font-family: sans-serif;
 }

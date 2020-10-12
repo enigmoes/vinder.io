@@ -280,3 +280,22 @@ a:hover {
     background-color: var(--secondary_hover);
 }
 /* END BUTTON */
+/* FOOTER */
+.copyright {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+    color: var(--secondary);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    min-height: 40px;
+}
+.img-footer {
+    margin: 0 auto;
+    display: block;
+}
+/* END FOOTER */
