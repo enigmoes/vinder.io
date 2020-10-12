@@ -119,7 +119,7 @@ use Cake\Routing\Router;
 										<td align="left" style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-size: 0px; padding: 10px 25px; padding-top: 0px; padding-bottom: 0px; word-break: break-word;">
                                             <table cellpadding="0" cellspacing="0" border="0" align="center" width="200" height="50">
                                                 <tr>
-                                                    <td bgcolor="#2ed6ba" align="center" width="200" height="50">
+                                                    <td bgcolor="#213e03" align="center" width="200" height="50">
                                                         <div align='center'>
                                                             <a style="color: #ffffff;text-decoration: none;"
                                                             target='_blank' href="<?= Router::url('/', true) ?>recover/change/<?=$body->token->token?>">
