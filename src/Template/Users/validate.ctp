@@ -33,6 +33,3 @@ use Cake\Routing\Router;
 <a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
     <?=$this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'img-footer'))?>
 </a>
-<div class="copyright">
-    <p>Copyright © <?=date('Y')?> Vinder. All rights reserved.</p>
-</div>
