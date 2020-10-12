@@ -89,7 +89,7 @@ use Cake\Routing\Router;
 									<tr>
 										<td align="center" style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-size: 16px; padding: 10px 25px; word-break: break-word;">
 											<p align='center'>
-                                                <h3 style="color: #09647a"><?= $body->token->token ?></h3>
+                                                <h3 style="color: #213e03"><?= $body->token->token ?></h3>
                                             </p>
 										</td>
         							</tr>
