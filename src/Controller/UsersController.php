@@ -173,6 +173,8 @@ class UsersController extends AppController
                             if ($this->Mail->sendEmail($user['email'], __('Validación email | vinder.io'), 'validate', $user)) {
                                 $this->commit();
                                 $this->Flash->success(__('Hemos enviado un codigo de validación a su email, por favor introduzcalo en el siguiente campo.'));
+                                $this->request->getSession()->write('Validate.User.id', $user['id']);
+                                $this->redirect(['action' => 'validate']);
                             } else {
                                 $this->Flash->error(__('Se ha producido un error en el registro'));
                             }
