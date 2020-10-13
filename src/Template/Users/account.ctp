@@ -2,29 +2,17 @@
 use Cake\Routing\Router;
 ?>
 <?= $this->Html->css('login.css') ?>
-<nav class="navbar navbar-default">
-    <div class="navbar-header pl-5">
-        <a class="navbar-brand" href="#">
-            <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
-        </a>
-    </div>
-    <ul class="nav navbar-right pr-5">
-      <li><a href="#"><i class="fas fa-search"></i></a></li>
-      <li><a href="#"><i class="fas fa-plus"></i></a></li>
-      <li><a href="#"><i class="fas fa-user"></i></a></li>
-    </ul>
-</nav>
 <div class="container mt-5">
     <div class="wrapper">
         <!-- Sidebar -->
         <nav class="sidebar sidebar-default">
             <div class="sidebar-header">
-                <div id="nav1-h5" class="h5 h5-custom"><?= h($user->email)?></div>
+                <div id="nav1-h5" class="h5 h5-custom"><?=h($user->email)?></div>
             </div>
 
             <ul class="list-unstyled components">
                 <li>
-                    <a href="#"><?= __('Ir a mi lista') ?></a>
+                    <a href="<?= Router::url(['controller' => 'home', 'action' => 'index']) ?>"><?= __('Ir a mi lista') ?></a>
                 </li>
                 <li>
                     <a href="<?= Router::url(['controller' => 'users', 'action' => 'logout']) ?>"><?= __('Cerrar sesión') ?></a>
@@ -33,14 +21,14 @@ use Cake\Routing\Router;
             <div class="sidebar-header">
                 <div id="nav2-h5" class="h5 h5-custom"><?= __('Opciones') ?></div>
             </div>
-            <ul class="list-unstyled components">
-                <li class="active">
+            <ul id="lista" class="list-unstyled components">
+                <li id="perfil" class="active">
                     <a href="#"><?= __('Editar perfil') ?></a>
                 </li>
-                <li>
+                <li id="correo">
                     <a href="#"><?= __('Editar correo') ?></a>
                 </li>
-                <li>
+                <li id="pass">
                     <a href="#"><?= __('Editar contraseña') ?></a>
                 </li>
             </ul>
@@ -51,7 +39,7 @@ use Cake\Routing\Router;
             <?= $this->Flash->render() ?>
         </div>
         <div class="col-12 offset-md-3 col-md-6">
-            <div class="card custom-shadow">
+            <div id="form-perfil" class="card custom-shadow">
                 <?= $this->Form->create($user) ?>
                 <div class="card-body card-block">
                 <div class="h4 h4-custom"><?= __('Editar perfil') ?></div>
@@ -83,7 +71,7 @@ use Cake\Routing\Router;
                     </div>
                 <?= $this->Form->end() ?>
             </div>
-            <div class="card custom-shadow d-none">
+            <div id="form-correo" class="card custom-shadow d-none">
                 <?= $this->Form->create($user) ?>
                 <div class="card-body card-block">
                 <div class="h4 h4-custom"><?= __('Cambia tu correo principal') ?></div>
@@ -110,11 +98,12 @@ use Cake\Routing\Router;
                     </div>
                 <?= $this->Form->end() ?>
             </div>
-            <div class="card custom-shadow d-none">
+            <div id="form-pass" class="card custom-shadow d-none">
                 <?= $this->Form->create($user) ?>
                 <div class="card-body card-block">
                 <div class="h4 h4-custom"><?= __('Cambiar contraseña') ?></div>
-                    <div class="h6 h6-custom"><?= __('Tu correo actual es: ') ?><?= h($user->email)?></div>
+                    <div class="h6 h6-custom"><?= __('Recuerda que si usas cualquier aplicación de Vinder,
+                    deberás volver a iniciar sesión en ella tras haber cambiado el usuario o contraseña.') ?></div>
                     <div class="form-group form-group-custom">
                         <?= $this->Form->control('password', [
                             'label' => 'Contraseña actual',
@@ -128,7 +117,7 @@ use Cake\Routing\Router;
                         ]) ?>
                     </div>
                     <div class="form-group form-group-custom">
-                        <?= $this->Form->control('email_confirm', [
+                        <?= $this->Form->control('password_confirm', [
                             'label' => 'Confirmar contraseña',
                             'class' => 'form-control form-control-custom m-0',
                         ]) ?>
@@ -145,8 +134,5 @@ use Cake\Routing\Router;
             </div>
         </div>
     </div>
-</div>
-<div class="copyright">
-    <p>Copyright © <?=date('Y')?> Vinder. All rights reserved.</p>
 </div>
 <?= $this->Html->script('account.js', ['defer' => 'defer']); ?>
