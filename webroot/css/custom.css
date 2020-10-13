@@ -224,6 +224,31 @@ a:hover {
     line-height: 44px;
 }
 /* --- */
+/* NAVBAR */
+.navbar-default {
+    border-bottom: 2px solid var(--primary_hover);
+}
+.navbar-right a {
+    margin-right: 75px;
+    font-size: 20px;
+}
+/* END NAVBAR */
+/* ICONS */
+i {
+    color: var(--secondary);
+    font-size: x-large;
+}
+i:hover {
+    color: var(--secondary_hover);
+    font-size: x-large;
+}
+.input-icon {
+    float: right;
+    position: relative;
+    margin: -55px 15px 0 0;
+    cursor: pointer;
+}
+/* END ICONS */
 /* SIDEBAR */
 .sidebar-default{
     height: 100%; 
@@ -237,6 +262,10 @@ a:hover {
 .active{
     color: black;
     font-weight: bold;
+}
+.components i{
+    font-size: medium;
+    margin-right: 5px;
 }
 /* END SIDEBAR*/
 
@@ -299,3 +328,60 @@ a:hover {
     display: block;
 }
 /* END FOOTER */
+/* DROPDOWN */
+.dropdown-menu-custom{
+    border: 0;
+}
+.dropdown-menu-custom a{
+    color: var(--secondary);
+    font-size: medium;
+    margin-right: 20px;
+}
+.dropdown-menu-custom .h6{
+    color: var(--secondary);
+    margin-left: 5px;
+}
+.dropdown-divider-custom{
+    border-color: var(--primary);
+    margin-left: 15px;
+    margin-right: 15px;
+}
+/* END DROPDOWN */
+/* INPUT SEARCH-SAVE */
+.container-input-custom{
+    background: var(--primary);
+    border-radius: 30px;
+}
+.input-custom{
+    background: var(--primary);
+    border: 0;
+    color: var(--secondary);
+}
+.input-custom::placeholder{
+    color: var(--secondary);
+}
+.btn-input-custom1{
+    background: #69bb12;
+    color: var(--secondary_hover);
+    border: 1px solid var(--secondary_hover);
+    border-radius: 20px;
+}
+.btn-input-custom1:hover{
+    background: var(--secondary_hover);
+    color:  #69bb12;
+    border: 1px solid  #69bb12;
+    border-radius: 20px;
+}
+.btn-input-custom2{
+    background: white;
+    color: var(--secondary_hover);
+    border: 1px solid var(--secondary_hover);
+    border-radius: 20px;
+}
+.btn-input-custom2:hover{
+    background: var(--secondary_hover);
+    color: white;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+/* END INPUT SEARCH-SAVE */

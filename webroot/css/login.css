@@ -33,18 +33,6 @@ Login, Recover, change and validate CSS template
 .recover a:hover {
     color: var(--secondary_hover);
 }
-body {
-    font-family: sans-serif;
-}
-/* NAVBAR */
-.navbar-default {
-    border-bottom: 2px solid var(--primary_hover);
-}
-.navbar-right a {
-    margin-right: 75px;
-    font-size: 20px;
-}
-/* END NAVBAR */
 
 .btn-default {
     border-radius: 20px;
@@ -66,19 +54,3 @@ body {
     margin-bottom: 25px;
 }
 /* END CARD */
-/* ICONS */
-i {
-    color: var(--secondary);
-    font-size: x-large;
-}
-i:hover {
-    color: var(--secondary_hover);
-    font-size: x-large;
-}
-.input-icon {
-    float: right;
-    position: relative;
-    margin: -55px 15px 0 0;
-    cursor: pointer;
-}
-/* END ICONS */
