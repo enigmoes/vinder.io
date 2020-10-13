@@ -20,7 +20,7 @@ use Cake\Routing\Router;
                             ]) ?>
                         </div>
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-default btn-block text-secondary font-weight-bold">
+                            <button type="submit" class="btn btn-default btn-block m-b-20">
                                 <?= __('Validar') ?>
                             </button>
                         </div>
