@@ -263,9 +263,24 @@ i:hover {
     color: black;
     font-weight: bold;
 }
-.components i{
+.components2 li{
+    margin-bottom: 15px;
+}
+.components2 li a{
+    color: var(--secondary);
+}
+.components2 li a:hover{
+    color: var(--secondary_hover);
+}
+.components2 i{
     font-size: medium;
     margin-right: 5px;
+    margin-left: 3px;
+}
+.bg-active{
+    background-color: var(--primary);
+    border-radius: 20px;
+    padding: 3px;
 }
 /* END SIDEBAR*/
 
@@ -287,6 +302,10 @@ i:hover {
 .h6-custom{
     color: black;
     text-align: center;
+}
+.h5-default{
+    color: var(--secondary);
+    border-bottom: 2px solid var(--primary);
 }
 /* END TITLES  */
 
@@ -351,14 +370,19 @@ i:hover {
 .container-input-custom{
     background: var(--primary);
     border-radius: 30px;
+    margin-right: 150px;
 }
 .input-custom{
     background: var(--primary);
     border: 0;
     color: var(--secondary);
+    width: 600px;
 }
 .input-custom::placeholder{
     color: var(--secondary);
+}
+.input-custom:focus{
+    outline: none;
 }
 .btn-input-custom1{
     background: #69bb12;
