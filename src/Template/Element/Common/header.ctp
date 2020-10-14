@@ -8,20 +8,22 @@ use Cake\Routing\Router;
         </a>
     </div>
     <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
-    <div class="container-input-custom d-flex align-items-center px-4 py-1">
-        <?=$this->Form->control('input', [
-            'label' => false,
-            'class' => 'input-custom',
-            'placeholder' => __('Buscar...'),
-        ])?>
-        <button class="btn ml-3 btn-input-custom1 mr-3 px-3 py-0" type="submit">
-            <?=__('Buscar')?>
-        </button>
-        <button class="btn btn-input-custom2 px-3 py-0" type="button">
-            <?=__('Cancelar')?>
-        </button>         
+    <div id="input-custom" class="d-none">
+        <div class="container-input-custom d-flex align-items-center px-4 py-1">
+            <?=$this->Form->control('input', [
+                'label' => false,
+                'class' => 'input-custom',
+                'placeholder' => __('Buscar...'),
+            ])?>
+            <button class="btn ml-3 btn-input-custom1 mr-3 px-3 py-0" type="submit">
+                <?=__('Buscar')?>
+            </button>
+            <button class="btn btn-input-custom2 px-3 py-0" type="button">
+                <?=__('Cancelar')?>
+            </button>         
+        </div>
     </div>
-    <ul class="nav navbar-right pr-5">
+    <ul class="nav navbar-right pr-5 navbar-icons">
         <li>
             <a href="#">
                 <i class="fas fa-search"></i>
