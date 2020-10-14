@@ -23,4 +23,8 @@ class HomeController extends AppController
         ]);
     }
 
+    public function mostrar(){
+        $lists = $this->Lists->find()->all();
+    }
+
 }
