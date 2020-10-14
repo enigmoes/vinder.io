@@ -2,12 +2,12 @@ $(document).ready(function () {
     // Use Strict
     "use strict";
 
-    // Iniciamos objeto login
-    Login.init();
+    // Iniciamos objeto home
+    Home.init();
 });
 
-// Objeto login
-let Login = {
+// Objeto home
+let Home = {
     // Constructor
     init: function () {
         // LLamada a eventos
@@ -15,18 +15,28 @@ let Login = {
     },
     // Eventos
     events: function () {
-        // Evento mostrar contraseña
-        $(".input-icon").on("click", function (event) {
-            let $input = $(this).siblings().find("input");
-            if ($input.attr("type") === "password") {
-                $input.attr("type", "text");
-                $(this).removeClass("fas fa-eye");
-                $(this).addClass("fas fa-eye-slash");
-            } else {
-                $input.attr("type", "password");
-                $(this).removeClass("fas fa-eye-slash");
-                $(this).addClass("fas fa-eye");
-            }
+        window.onload = function () {
+            Cargar();    
+        }
+        // Evento desplegar input buscar
+        $(".fa-search").on("click", function (event) {
+            $("#input-custom").removeClass("d-none");
+            $(".navbar-icons").addClass("d-none");
         });
-    }
+        // Evento desplegar input guardar
+        $(".fa-plus").on("click", function (event) {
+            $("#input-custom").removeClass("d-none");
+            $(".navbar-icons").addClass("d-none");
+            $(".input-custom").attr("placeholder","Guardar una URL https//...");
+            $(".btn-input-custom1").text("Guardar");
+        });
+        $(".btn-input-custom1").on("click", function (event) {
+            $("#input-custom").addClass("d-none");
+            $(".navbar-icons").removeClass("d-none");
+        });
+        $(".btn-input-custom2").on("click", function (event) {
+            $("#input-custom").addClass("d-none");
+            $(".navbar-icons").removeClass("d-none");
+        });
+    },
 };
