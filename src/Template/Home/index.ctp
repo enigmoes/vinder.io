@@ -23,6 +23,13 @@ use Cake\Routing\Router;
             </ul>
         </nav>
     </div>
-    <div class="results"></div>
+    <div class="row">
+        <div class="col-12">
+            <div class="h4 h4-default"><?=__('MI LISTA')?></div>
+            <div class="results"></div>
+        </div>
+    </div>
+    <?=$this->Form->create()?>
+    <?=$this->Form->end()?>
 </div>
 <?=$this->Html->script('home.js')?>
