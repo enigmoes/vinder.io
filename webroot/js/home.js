@@ -25,7 +25,7 @@ let Home = {
                 xhr.setRequestHeader("X-CSRF-Token", $('[name="_csrfToken"]').val());
             },
             success: function (data) {
-                // $('.results').html(data);
+                $('.results').html(data);
             },
         });
     },
