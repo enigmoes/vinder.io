@@ -306,13 +306,17 @@ i:hover {
     padding-bottom: 10px;
     color: var(--secondary);
 }
+.h5-default {
+    color: var(--secondary);
+    border-bottom: 2px solid var(--primary);
+}
 .h6-custom {
     color: black;
     text-align: center;
 }
-.h5-default {
-    color: var(--secondary);
-    border-bottom: 2px solid var(--primary);
+.h6-default {
+    color: black;
+    text-align: left;
 }
 /* END TITLES  */
 
@@ -416,3 +420,13 @@ i:hover {
     border-radius: 20px;
 }
 /* END INPUT SEARCH-SAVE */
+
+/* CARD ITEMS */
+.card-items{
+    border: 0;
+    border-bottom: 2px solid grey;
+}
+.card-items i{
+    font-size: small;
+}
+/* END CARD ITEMS */
