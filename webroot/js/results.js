@@ -2,25 +2,33 @@ $(document).ready(function () {
     // Use Strict
     "use strict";
 
-    // Iniciamos objeto home
-    Home.init();
+    // Iniciamos objeto results
+    Results.init();
 });
 
-// Objeto home
-let Home = {
+// Objeto results
+let Results = {
     // Constructor
     init: function () {
         // LLamada a eventos
         this.events();
-        // LLamada a cargar lista
-        this.loadLists();
     },
     // Eventos
-    events: function () {},
-    loadLists: function () {
+    events: function () {
+        $(".fa-star").on("click", function () {
+            //Results.delete();
+            alert("hola");
+            //$(this).css("color","yellow");
+        });
+        $(".fa-trash-alt").on("click", function () {
+            alert("hola");
+            //$(this).css("color","yellow");
+        });
+    },
+    delete: function () {
         $.ajax({
             type: "GET",
-            url: "/home/results",
+            url: "/home/delete",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
