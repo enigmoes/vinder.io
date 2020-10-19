@@ -3,9 +3,15 @@ use Cake\Routing\Router;
 ?>
 <nav class="navbar navbar-default">
     <div class="navbar-header pl-5">
+        <button class="navbar-toggler d-block d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand" href="#">
             <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
         </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <?= $this->element('Common/sidebar') ?>
+        </div>
     </div>
     <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
     <div id="input-custom" class="d-none">
@@ -34,7 +40,7 @@ use Cake\Routing\Router;
                 <i class="fas fa-plus"></i>
             </a>
         </li>
-        <li>
+        <li class="dropdown dropdown-custom">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fas fa-user"></i>
             </a>
