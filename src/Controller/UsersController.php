@@ -1,8 +1,8 @@
 <?php
 namespace App\Controller;
 
-use Cake\Event\Event;
 use App\Model\Entity\Mail;
+use Cake\Event\Event;
 use Cake\I18n\I18n;
 
 class UsersController extends AppController
@@ -23,7 +23,7 @@ class UsersController extends AppController
             'register',
             'recover',
             'change',
-            'validate'
+            'validate',
         ]);
     }
 
@@ -44,7 +44,7 @@ class UsersController extends AppController
         if ($this->request->is(array('post', 'put'))) {
             $this->begin();
             $data = $this->request->getData();
-            if(empty($data['password'])) {
+            if (empty($data['password'])) {
                 unset($data['password']);
             }
             //Completar datos entidad con datos formulario
@@ -92,7 +92,7 @@ class UsersController extends AppController
 
         $this->set([
             'user' => $user,
-            'title' => __('Mi Cuenta')
+            'title' => __('Mi Cuenta'),
         ]);
     }
 
@@ -102,8 +102,8 @@ class UsersController extends AppController
         //Si esta logeado le enviamos al la home
         if ($this->isLogin()) {
             $this->redirect([
-               'controller' => 'home',
-               'action' => 'index'
+                'controller' => 'home',
+                'action' => 'index',
             ]);
         }
         //Si el request es post
@@ -141,7 +141,7 @@ class UsersController extends AppController
             }
         }
         $this->set([
-            'title' => __('Login')
+            'title' => __('Login'),
         ]);
     }
 
@@ -251,7 +251,7 @@ class UsersController extends AppController
             // Buscamos usuario por token
             $user = $this->Users->find('all', [
                 'contain' => ['Tokens'],
-                'conditions' => ['Tokens.token' => $token]
+                'conditions' => ['Tokens.token' => $token],
             ])->first();
             // Eliminamos password
             unset($user->password);
@@ -342,7 +342,7 @@ class UsersController extends AppController
                     $this->request->getSession()->delete('Auth');
                 } else {
                     $errors = 1;
-                    $message = __('Error al desactivar cuenta.'); 
+                    $message = __('Error al desactivar cuenta.');
                 }
             } else {
                 $errors = 1;
@@ -355,7 +355,7 @@ class UsersController extends AppController
         $this->set([
             'errors' => 0,
             'message' => $message,
-            '_serialize' => ['errors', 'message']
+            '_serialize' => ['errors', 'message'],
         ]);
         $this->RequestHandler->renderAs($this, 'json');
     }
@@ -368,12 +368,12 @@ class UsersController extends AppController
         }
         $data = [
             'email' => $this->request->getData('email'),
-            'password' => $this->request->getData('password')
+            'password' => $this->request->getData('password'),
         ];
         $this->Cookie->write('RememberMe', $data);
         $this->Cookie->configKey('RememberMe', [
             'expires' => '+1 week',
-            'httpOnly' => true
+            'httpOnly' => true,
         ]);
         return true;
     }

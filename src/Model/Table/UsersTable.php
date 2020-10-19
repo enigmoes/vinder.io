@@ -1,10 +1,9 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
-use Cake\Validation\Validator;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\ORM\Table;
+use Cake\Validation\Validator;
 
 class UsersTable extends Table
 {
@@ -19,18 +18,19 @@ class UsersTable extends Table
 
         $this->hasOne('Tokens', [
             'foreignKey' => 'id_user',
-            'bindingKey' => 'id'
+            'bindingKey' => 'id',
         ]);
     }
 
     //Conditions
-    public function conditions($data) {
+    public function conditions($data)
+    {
         $conditions = [];
         if (isset($data['username']) && !empty($data['username'])) {
-            $conditions['Users.username LIKE '] = '%'.$data['username'].'%';
+            $conditions['Users.username LIKE '] = '%' . $data['username'] . '%';
         }
         if (isset($data['email']) && !empty($data['email'])) {
-            $conditions['Users.email LIKE '] = '%'.$data['email'].'%';
+            $conditions['Users.email LIKE '] = '%' . $data['email'] . '%';
         }
         return $conditions;
     }
@@ -60,13 +60,17 @@ class UsersTable extends Table
         ]);
         return $validator;
     }
-    
+
     // Validacion custom (sin password obligatoria)
     public function validationCustom(Validator $validator)
     {
         $validator->notEmptyString('email', __('El email no puede estar vacío'));
         $validator->notEmptyString('password', __('Introduzca una nueva contraseña.'));
         $validator->allowEmpty('password_current');
+        $validator->add('email', 'no-misspelling', [
+            'rule' => ['compareWith', 'email_confirm'],
+            'message' => __('Los emails no coinciden.'),
+        ]);
         $validator->add('email', 'custom', [
             'rule' => function ($value, $context) {
                 $user = $this->get($context['data']['id']);
@@ -118,7 +122,7 @@ class UsersTable extends Table
         }
     }
 
-     /**
+    /**
      * CUSTOM FUNCTIONS
      */
 

@@ -48,4 +48,26 @@ class HomeController extends AppController
         ]);
     }
 
+    // Función para borrar items
+    public function delete($id)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+
+        $item = $this->Items->get($id);
+        if ($this->Items->delete($item)) {
+            //$this->Flash->success(__('El artículo con id: {0} ha sido eliminado.', h($id)));
+            //$this->viewBuilder()->setLayout('ajax');
+        }
+    }
+    // Acción para favoritos
+    public function favourites()
+    {
+
+    }
+    // Acción para etiquetas
+    public function tags()
+    {
+
+    }
+
 }
