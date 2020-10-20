@@ -68,6 +68,11 @@ let Custom = {
         $(".fa-search").on("click", function (event) {
             $("#input-custom").removeClass("d-none");
             $(".navbar-icons").addClass("d-none");
+            $(".input-custom").attr(
+                "placeholder",
+                "Buscar..."
+            );
+            $(".btn-input-custom1").text("Buscar");
         });
         // Evento desplegar input guardar
         $(".fa-plus").on("click", function (event) {

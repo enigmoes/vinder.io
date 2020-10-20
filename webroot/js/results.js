@@ -15,14 +15,16 @@ let Results = {
     },
     // Eventos
     events: function () {
-        $(".fa-star").on("click", function () {
-            //Results.delete();
-            alert("hola");
-            //$(this).css("color","yellow");
+        $(".results .fa-star").on("click", function () {
+            if($(this).css("color") == "gold"){
+                $(this).css("color","#213e03");
+            }else{
+                $(this).css("color","gold");
+            }
         });
         $(".fa-trash-alt").on("click", function () {
             alert("hola");
-            //$(this).css("color","yellow");
+            //Results.delete();
         });
     },
     delete: function () {
