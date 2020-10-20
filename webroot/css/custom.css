@@ -228,19 +228,18 @@ a:hover {
 .navbar-default {
     border-bottom: 2px solid var(--primary_hover);
 }
-.navbar-right a {
-    margin-right: 75px;
-    font-size: 20px;
+.navbar-right li {
+    margin-right: 35px;
 }
 /* END NAVBAR */
 /* ICONS */
 i {
     color: var(--secondary);
-    font-size: x-large;
+    font-size: large;
 }
 i:hover {
     color: var(--secondary_hover);
-    font-size: x-large;
+    font-size: large;
 }
 .input-icon {
     float: right;
@@ -283,8 +282,8 @@ i:hover {
     padding: 3px;
 }
 .bg-active i {
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: 5px;
+    margin-right: 10px;
 }
 /* END SIDEBAR*/
 
@@ -301,7 +300,6 @@ i:hover {
 /* TITLES  */
 .h4-default {
     color: var(--secondary);
-    margin-left: 200px;
 }
 .h4-custom {
     border-bottom: 2px solid var(--primary);
@@ -363,17 +361,28 @@ i:hover {
 }
 /* END FOOTER */
 /* DROPDOWN */
-.dropdown-custom .dropdown-toggle::after {
+.dropdown-toggle::after {
     content: none !important;
 }
 .dropdown-menu-custom {
     border: 0;
-    margin-right: 150px;
 }
 .dropdown-menu-custom a {
     color: var(--secondary);
     font-size: medium;
     margin-right: 20px;
+}
+.dropdown-menu-custom a:hover {
+    color: var(--secondary);
+    font-size: medium;
+    margin-right: 20px;
+    background: var(--primary);
+}
+.dropdown-menu-custom a:active {
+    color: var(--secondary);
+    font-size: medium;
+    margin-right: 20px;
+    background: var(--primary_hover);
 }
 .dropdown-menu-custom .h6 {
     color: var(--secondary);
@@ -430,9 +439,6 @@ i:hover {
 /* END INPUT SEARCH-SAVE */
 
 /* CARD ITEMS */
-.results {
-    margin-left: 200px;
-}
 .card-items {
     border: 0;
     border-bottom: 2px solid grey;
