@@ -15,7 +15,7 @@ use Cake\Routing\Router;
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fas fa-share-square"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-custom custom-shadow rounded-0">
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-custom custom-shadow rounded-0">
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-link"></i><?=__('Copiar enlace')?>
                                     </a>
