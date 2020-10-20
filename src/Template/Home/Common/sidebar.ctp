@@ -5,7 +5,9 @@ use Cake\Routing\Router;
 <nav class="sidebar sidebar-default">
     <ul class="list-unstyled components2">
         <li <?=($this->request->controller == 'Home') ? 'class="bg-active"' : ''?>>
-            <a href="#"><i class="fas fa-bookmark"></i><?=__('Mi lista')?></a>
+            <a href="<?=Router::url(['controller' => 'home', 'action' => 'index'])?>">
+                <i class="fas fa-bookmark"></i><?=__('Mi lista')?>
+            </a>
         </li>
     </ul>
     <div class="sidebar-header">
