@@ -30,42 +30,63 @@ class UsersController extends AppController
     /**
      * OTHER ACTIONS
      */
-    // User account data edit action
-    public function account()
+    //Profile action
+    public function profile()
     {
         //Recogemos identidad del formulario
         $user_id = $this->request->getSession()->read('Auth.User.id');
         //Buscamos datos en db
         $user = $this->Users->get($user_id);
-        //Eliminamos password
-        unset($user['password']);
-
-        //Si el request es post
         if ($this->request->is(array('post', 'put'))) {
             $this->begin();
-            $data = $this->request->getData();
-            if (empty($data['password'])) {
-                unset($data['password']);
-            }
             //Completar datos entidad con datos formulario
-            $this->Users->patchEntity($user, $data, ['validate' => 'custom']);
+            $this->Users->patchEntity($user, $this->request->getData());
+            // Get current user data
+            $currentUser = $this->Users->get($user->id);
+            //Guardamos datos en db
+            if ($this->Users->save($user)) {
+                $this->commit();
+                $this->Flash->success(__('Datos actualizados correctamente'));
+                $this->redirect([
+                    'controller' => 'users',
+                    'action' => 'profile',
+                ]);
+            } else {
+                $this->Flash->error(__('Error al guardar sus datos'));
+            }
+        }
+
+        $this->set([
+            'user' => $user,
+        ]);
+    }
+
+    //Email action
+    public function email()
+    {
+        //Recogemos identidad del formulario
+        $user_id = $this->request->getSession()->read('Auth.User.id');
+        //Buscamos datos en db
+        $user = $this->Users->get($user_id);
+        //Eliminamos email para dejar los campos vacíos
+        unset($user['email']);
+        if ($this->request->is(array('post', 'put'))) {
+            $this->begin();
+            //Completar datos entidad con datos formulario
+            $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'email']);
             // Ger current user data
             $currentUser = $this->Users->get($user->id);
             //Guardamos datos en db
             if ($this->Users->save($user)) {
-                // Si se cambia la contraseña enviamos notificación
-                if (isset($user->password)) {
-                    $this->Mail->sendEmail($user->email, __('Notificación cambio de contraseña | vinder.io'), 'notifications/password', $user);
-                }
-                $this->commit();
                 // Si se cambia el email enviamos notificación
                 if ($user->email != $currentUser->email) {
-                    // Desactivamos usuario
-                    $this->Users->deactivate($user->id);
                     // Creamos código para validar email
                     $user->token = $this->Tokens->createCode($user->id);
                     // Enviamos email
                     if ($this->Mail->sendEmail($user->email, __('Notificación cambio de email | vinder.io'), 'notifications/email', $user)) {
+                        // Desactivamos usuario
+                        $this->Users->deactivate($user->id);
+                        $this->commit();
                         // Sacamos alerta
                         $this->Flash->success(__('Hemos enviado un código para validar su nuevo email, por favor siga las instrucciones, sino la próxima vez no podrá acceder a su cuenta.'));
                         // Deslogueamos
@@ -78,12 +99,6 @@ class UsersController extends AppController
                             'action' => 'validate',
                         ]);
                     }
-                } else {
-                    $this->Flash->success(__('Datos actualizados correctamente'));
-                    $this->redirect([
-                        'controller' => 'users',
-                        'action' => 'account',
-                    ]);
                 }
             } else {
                 $this->Flash->error(__('Error al guardar sus datos'));
@@ -92,7 +107,39 @@ class UsersController extends AppController
 
         $this->set([
             'user' => $user,
-            'title' => __('Mi Cuenta'),
+        ]);
+    }
+
+    //Password action
+    public function password()
+    {
+        //Recogemos identidad del formulario
+        $user_id = $this->request->getSession()->read('Auth.User.id');
+        //Buscamos datos en db
+        $user = $this->Users->get($user_id);
+        //Eliminamos password para dejar los campos vacíos
+        unset($user['password']);
+        if ($this->request->is(array('post', 'put'))) {
+            $this->begin();
+            //Completar datos entidad con datos formulario
+            $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'password']);
+            // Ger current user data
+            $currentUser = $this->Users->get($user->id);
+            //Guardamos datos en db
+            if ($this->Users->save($user)) {
+                $this->commit();
+                $this->Flash->success(__('Datos actualizados correctamente'));
+                    $this->redirect([
+                        'controller' => 'users',
+                        'action' => 'password',
+                    ]);
+            } else {
+                $this->Flash->error(__('Error al guardar sus datos'));
+            }
+        }
+
+        $this->set([
+            'user' => $user,
         ]);
     }
 
