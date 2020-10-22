@@ -68,7 +68,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     // Root route is login if no are login
     $routes->connect('/', ['controller' => 'home', 'action' => 'index']);
     // Account routes
-    $routes->connect('/account', ['controller' => 'users', 'action' => 'account']);
+    $routes->connect('/account/profile', ['controller' => 'users', 'action' => 'profile']);
+    $routes->connect('/account/email', ['controller' => 'users', 'action' => 'email']);
+    $routes->connect('/account/password', ['controller' => 'users', 'action' => 'password']);
     
     //Login, Register, Recover... Routes
     $routes->connect('/logout', ['controller' => 'users', 'action' => 'logout']);
