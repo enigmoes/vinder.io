@@ -249,12 +249,6 @@ i:hover {
 }
 /* END ICONS */
 /* SIDEBAR */
-.sidebar-default {
-    height: 100%;
-    width: 160px;
-    position: fixed;
-    overflow-x: hidden;
-}
 .components li a {
     color: black;
 }
@@ -320,6 +314,9 @@ i:hover {
     color: black;
     text-align: left;
 }
+.h6-title {
+    color: var(--secondary);
+}
 /* END TITLES  */
 
 /* FORM LABELS */
@@ -348,12 +345,9 @@ i:hover {
     justify-content: center;
     background-color: var(--primary);
     color: var(--secondary);
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    left: 0;
     text-align: center;
     min-height: 40px;
+    margin-top: 3rem;
 }
 .img-footer {
     margin: 0 auto;
