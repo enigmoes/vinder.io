@@ -2,7 +2,7 @@
 use Cake\Routing\Router;
 ?>
 <!-- Sidebar -->
-<nav class="sidebar sidebar-default">
+<nav class="sidebar">
     <ul class="list-unstyled components2">
         <li <?=($this->request->controller == 'Home') ? 'class="bg-active"' : ''?>>
             <a href="<?=Router::url(['controller' => 'home', 'action' => 'index'])?>">
