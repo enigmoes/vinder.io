@@ -24,6 +24,10 @@ class HomeController extends AppController
         ]);
     }
 
+    /**
+     * AJAX
+     */
+
     // Función para buscar las listas
     public function results()
     {
@@ -47,23 +51,27 @@ class HomeController extends AppController
             'items' => $items,
         ]);
     }
-
+    
     // Función para borrar items
     public function delete($id)
     {
-        $this->request->allowMethod(['post', 'delete']);
-
         $item = $this->Items->get($id);
         if ($this->Items->delete($item)) {
-            //$this->Flash->success(__('El artículo con id: {0} ha sido eliminado.', h($id)));
-            //$this->viewBuilder()->setLayout('ajax');
+            $deleted = true;
+            $message = __('Item eliminado correctamente');
+        } else {
+            $deleted = false;
+            $message = __('Se produjo un error al elminar el item');
         }
+        $this->set([
+            'deleted' => $deleted,
+            'message' => $message,
+            '_serialize' => ['deleted', 'message']
+        ]);
+        $this->RequestHandler->renderAs($this, 'json');
     }
-    // Acción para favoritos
-    public function favourites()
-    {
 
-    }
+    
     // Acción para etiquetas
     public function tags()
     {

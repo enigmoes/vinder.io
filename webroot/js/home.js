@@ -12,24 +12,7 @@ let Home = {
     init: function () {
         // LLamada a eventos
         this.events();
-        // LLamada a cargar lista
-        this.loadLists();
     },
     // Eventos
     events: function () {},
-    loadLists: function () {
-        $.ajax({
-            type: "GET",
-            url: "/home/results",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    "X-CSRF-Token",
-                    $('[name="_csrfToken"]').val()
-                );
-            },
-            success: function (data) {
-                $(".results").html(data);
-            },
-        });
-    },
 };
