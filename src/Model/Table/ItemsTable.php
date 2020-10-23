@@ -38,11 +38,9 @@ class ItemsTable extends Table
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
-
         $this->belongsToMany('Tags', [
-            'foreignKey' => 'item_id',
-            'targetForeignKey' => 'tag_id',
+            'foreignKey' => 'id_item',
+            'targetForeignKey' => 'id_tag',
             'joinTable' => 'items_tags',
         ]);
     }
