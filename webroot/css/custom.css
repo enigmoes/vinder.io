@@ -449,3 +449,16 @@ i:hover {
     margin-right: 4px;
 }
 /* END CARD ITEMS */
+/* TAGS */
+.input-tags{
+    border: 1px solid;
+    border-color: var(--secondary);
+    border-radius: 30px;
+}
+.form-control-tags{
+    border: 0;
+}
+.search-icon{
+    margin-left: 5px;
+}
+/* END TAGS */
