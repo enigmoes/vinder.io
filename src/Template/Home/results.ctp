@@ -27,8 +27,14 @@ use Cake\Routing\Router;
                                     </a>
                                 </div>
                                 <a href="#"><i class="fas fa-tag"></i></a>
-                                <a href="#"><i class="fas fa-star"></i></a>
-                                <a href="#"><i class="fas fa-trash-alt"></i></a>
+                                <a href="#" class="favItem"><i class="fas fa-star"></i></a>
+                                <a href="#" class="deleteItem"
+                                data-url="<?= Router::url(['controller' => 'home', 'action' => 'delete', $item->id]) ?>"
+                                data-message="<?= __('¿Seguro que desea eliminar?') ?>"
+                                data-ok="<?= __('Aceptar') ?>"
+                                data-cancel="<?= __('Cancelar') ?>">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -37,4 +43,3 @@ use Cake\Routing\Router;
         </div>
     <?php endforeach?>
 <?php endif?>
-<?=$this->Html->script('results.js')?>

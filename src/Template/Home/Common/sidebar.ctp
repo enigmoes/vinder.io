@@ -15,7 +15,7 @@ use Cake\Routing\Router;
     </div>
     <ul class="list-unstyled components2">
         <li>
-            <a href="<?=Router::url(['controller' => 'home', 'action' => 'favourites'])?>">
+            <a href="<?=Router::url(['controller' => 'favourites', 'action' => 'index'])?>">
                 <i class="fas fa-star"></i><?=__('Favoritos')?>
             </a>
         </li>

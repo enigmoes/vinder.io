@@ -1,7 +1,7 @@
 <?php
 use Cake\Routing\Router;
 ?>
-<div class="container mt-5">
+<div class="container min-vh-100 mt-5">
     <div class="row">
         <div class="col-lg-2 d-lg-block d-none">
             <?=$this->element('../Home/Common/sidebar')?>
@@ -15,3 +15,4 @@ use Cake\Routing\Router;
     <?=$this->Form->end()?>
 </div>
 <?=$this->Html->script('home.js')?>
+<?=$this->Html->script('results.js')?>
