@@ -52,5 +52,6 @@ Login, Recover, change and validate CSS template
 .card-custom {
     border: 3px solid var(--primary);
     margin-bottom: 25px;
+    text-align: center !important;
 }
 /* END CARD */
