@@ -17,18 +17,18 @@ use Cake\Routing\Router;
     <div class="sidebar-header">
         <div id="nav2-h5" class="h6 h6-title"><?=__('Opciones')?></div>
     </div>
-    <ul id="lista" class="list-unstyled components">
-        <li id="perfil">
+    <ul class="list-unstyled components">
+        <li <?=($this->request->action == 'profile') ? 'class="active"' : ''?>>
             <a href="<?=Router::url(['controller' => 'users', 'action' => 'profile'])?>">
                 <?=__('Editar perfil')?>
             </a>
         </li>
-        <li id="correo">
+        <li <?=($this->request->action == 'email') ? 'class="active"' : ''?>>
             <a href="<?=Router::url(['controller' => 'users', 'action' => 'email'])?>">
                 <?=__('Editar correo')?>
             </a>
         </li>
-        <li id="pass">
+        <li <?=($this->request->action == 'password') ? 'class="active"' : ''?>>
             <a href="<?=Router::url(['controller' => 'users', 'action' => 'password'])?>">
                 <?=__('Editar contraseña')?>
             </a>
