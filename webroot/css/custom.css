@@ -288,9 +288,9 @@ i:hover {
 
 /* CARD */
 .custom-shadow {
-    border: 1px solid;
-    border-color: rgba(var(--primary_hover), 0.5);
-    box-shadow: 1px 1px 5px black;
+    border: none;
+    border-radius: 0;
+    box-shadow: 1px 1px 5px var(--secondary);
 }
 .card-custom {
     border-bottom: 3px solid grey;
