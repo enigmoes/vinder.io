@@ -37,7 +37,7 @@ class UsersController extends AppController
         $user_id = $this->request->getSession()->read('Auth.User.id');
         //Buscamos datos en db
         $user = $this->Users->get($user_id);
-        if ($this->request->is(array('post', 'put'))) {
+        if ($this->request->is(['post', 'put'])) {
             $this->begin();
             //Completar datos entidad con datos formulario
             $this->Users->patchEntity($user, $this->request->getData());
@@ -70,7 +70,7 @@ class UsersController extends AppController
         $user = $this->Users->get($user_id);
         //Eliminamos email para dejar los campos vacíos
         unset($user['email']);
-        if ($this->request->is(array('post', 'put'))) {
+        if ($this->request->is(['post', 'put'])) {
             $this->begin();
             //Completar datos entidad con datos formulario
             $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'email']);
@@ -119,7 +119,7 @@ class UsersController extends AppController
         $user = $this->Users->get($user_id);
         //Eliminamos password para dejar los campos vacíos
         unset($user['password']);
-        if ($this->request->is(array('post', 'put'))) {
+        if ($this->request->is(['post', 'put'])) {
             $this->begin();
             //Completar datos entidad con datos formulario
             $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'password']);
