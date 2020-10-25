@@ -46,4 +46,3 @@ use Cake\Routing\Router;
         </div>
     </div>
 </div>
-<?= $this->Html->script('account.js', ['defer' => 'defer']); ?>

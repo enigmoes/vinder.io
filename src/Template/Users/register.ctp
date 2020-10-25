@@ -26,13 +26,13 @@ use Cake\Routing\Router;
                                 'placeholder' => __('Email')
                             ]) ?>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group form-group-icon-right">
                             <?= $this->Form->control('password', [
                                 'label' => false,
                                 'class' => 'form-control form-control-custom',
                                 'placeholder' => __('Contraseña')
                             ]) ?>
-                            <i class='fas fa-eye input-icon'></i>
+                            <i class='fas fa-eye show-password'></i>
                         </div>
                         <div class="custom-control custom-checkbox mb-3">
                             <?php $this->Form->unlockField('privacidad') ?>
@@ -74,4 +74,3 @@ use Cake\Routing\Router;
         </div>
     </div>
 </div>
-<?=$this->Html->script('login.js')?>

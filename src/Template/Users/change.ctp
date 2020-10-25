@@ -27,7 +27,7 @@ use Cake\Routing\Router;
                                 'class' => 'form-control form-control-custom',
                                 'placeholder' => __('Nueva contraseña')
                             ]) ?>
-                            <i class='fas fa-eye input-icon'></i>
+                            <i class='fas fa-eye show-password'></i>
                         </div>
                         <div class="form-group">
                             <?= $this->Form->control('password_confirm', [
@@ -36,6 +36,7 @@ use Cake\Routing\Router;
                                 'class' => 'form-control form-control-custom',
                                 'placeholder' => __('Confirma nueva contraseña')
                             ]) ?>
+                            <i class='fas fa-eye show-password'></i>
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-default px-4">
@@ -55,4 +56,3 @@ use Cake\Routing\Router;
         </div>
     </div>
 </div>
-<?=$this->Html->script('login.js')?>

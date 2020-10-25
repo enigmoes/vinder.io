@@ -16,7 +16,7 @@ use Cake\Routing\Router;
                             <?=$this->Form->control('email', [
                                 'label' => false,
                                 'class' => 'form-control form-control-custom',
-                                'placeholder' => __('Correo o nombre de usuario'),
+                                'placeholder' => __('Correo electrónico'),
                             ])?>
                         </div>
                         <div class="form-group form-group-icon-right">
@@ -26,7 +26,7 @@ use Cake\Routing\Router;
                                 'class' => 'form-control form-control-custom',
                                 'placeholder' => __('Contraseña'),
                             ])?>
-                            <i class='fas fa-eye input-icon'></i>
+                            <i class='fas fa-eye show-password'></i>
                         </div>
                         <button type="submit" class="btn btn-default mb-3 px-4">
                             <?=__('Entrar')?>
@@ -58,5 +58,4 @@ use Cake\Routing\Router;
         </div>
     </div>
 </div>
-<?=$this->Html->script('login.js')?>
 

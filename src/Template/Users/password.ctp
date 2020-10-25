@@ -14,29 +14,36 @@ use Cake\Routing\Router;
             <div id="form-pass" class="card custom-shadow">
                 <?= $this->Form->create($user) ?>
                     <div class="card-body card-block">
-                        <div class="h4 h4-custom"><?= __('Cambiar contraseña') ?></div>
-                        <div class="h6 h6-custom"><?= __('Recuerda que si usas cualquier aplicación de Vinder,
-                        deberás volver a iniciar sesión en ella tras haber cambiado el usuario o contraseña.') ?></div>
-                        <div class="form-group form-group-custom">
+                        <div class="h4 h4-custom"><?= __('Editar contraseña') ?></div>
+                        <div class="h6 h6-custom mb-5">
+                            <small><?= __('Recuerda que si usas cualquier aplicación de Vinder, deberás volver a iniciar sesión en ella tras haber cambiado la contraseña.') ?></small>
+                        </div>
+                        <div class="form-group form-group-icon-right">
                             <?= $this->Form->control('password_current', [
+                                'div' => false,
                                 'label' => 'Contraseña actual',
                                 'type' => 'password',
                                 'class' => 'form-control form-control-custom m-0',
                             ]) ?>
+                            <i class='fas fa-eye show-password-label'></i>
                         </div>
-                        <div class="form-group form-group-custom">
+                        <div class="form-group form-group-icon-right">
                             <?= $this->Form->control('password', [
+                                'div' => false,
                                 'label' => 'Nueva contraseña',
                                 'type' => 'password',
                                 'class' => 'form-control form-control-custom m-0',
                             ]) ?>
+                            <i class='fas fa-eye show-password-label'></i>
                         </div>
-                        <div class="form-group form-group-custom">
+                        <div class="form-group form-group-icon-right">
                             <?= $this->Form->control('password_confirm', [
+                                'div' => false,
                                 'label' => 'Confirmar contraseña',
                                 'type' => 'password',
                                 'class' => 'form-control form-control-custom m-0',
                             ]) ?>
+                            <i class='fas fa-eye show-password-label'></i>
                         </div>
                     </div>
                     <div class="row">
@@ -51,4 +58,3 @@ use Cake\Routing\Router;
         </div>
     </div>
 </div>
-<?= $this->Html->script('account.js', ['defer' => 'defer']); ?>
