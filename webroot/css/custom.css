@@ -246,11 +246,20 @@ i:hover {
     color: var(--secondary_hover);
     font-size: large;
 }
-.input-icon {
-    float: right;
-    position: relative;
-    margin: -55px 15px 0 0;
+.show-password {
+    position: absolute;
+    right: 20px;
+    top: 0.5rem;
     cursor: pointer;
+}
+.show-password-label {
+    position: absolute;
+    right: 20px;
+    top: 2.5rem;
+    cursor: pointer;
+}
+.form-group-icon-right {
+    position: relative;
 }
 /* END ICONS */
 /* SIDEBAR */
