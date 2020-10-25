@@ -10,6 +10,10 @@ Overrides custom theme.css
     --secondary_hover: #0b1401;
 }
 
+html, body {
+    font-family: 'Comfortaa', cursive !important;
+}
+
 a {
     color: var(--secondary);
 }
@@ -46,11 +50,13 @@ a:hover {
 /* OTHERS */
 .btn-default {
     color: #ffffff;
+    border-radius: 20px;
     background: var(--secondary);
 }
 
 .btn-default:hover {
     color: #ffffff;
+    border-radius: 20px;
     background: var(--secondary_hover);
 }
 
@@ -132,6 +138,12 @@ a:hover {
 .form-control:focus {
     border-color: rgba(var(--secondary_rgb), 0.5);
     box-shadow: 0 0 0 0.2rem rgba(var(--secondary_rgb), 0.25);
+}
+
+.form-control-custom {
+    margin-bottom: 25px;
+    border-color: var(--secondary);
+    border-radius: 20px;
 }
 
 .btn.focus,
@@ -330,6 +342,9 @@ i:hover {
 }
 .h6-title {
     color: var(--secondary);
+}
+.border-bottom-custom {
+    border-bottom: 3px solid var(--primary);
 }
 /* END TITLES  */
 
