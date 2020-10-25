@@ -11,9 +11,6 @@ use Cake\Routing\Router;
         <div class="col-12 offset-md-3 col-md-6">
             <div class="card card-custom rounded-0">
                 <div class="card-body">
-                    <div class="mb-5 mt-3">
-                        <?= $this->Flash->render() ?>
-                    </div>
                     <div class="mb-3 pr-4 pl-4">
                         <div class="h5 mb-4 h5-custom"><?= __('RECUPERA TU CONTRASEÑA') ?></div>
                         <p>
@@ -32,8 +29,8 @@ use Cake\Routing\Router;
                         <button type="submit" class="btn btn-default mb-3 px-4">
                             <?= __('Enviar') ?>
                         </button>
-                        <div class="recover mb-2">
-                            <label style="font-size: 13px">
+                        <div class="recover">
+                            <label class="m-0" style="font-size: 13px">
                                 <a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
                                     <?= __('Volver al login') ?>
                                 </a>

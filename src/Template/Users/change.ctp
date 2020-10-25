@@ -10,9 +10,6 @@ use Cake\Routing\Router;
         <div class="col-12 offset-md-3 col-md-6">
             <div class="card card-custom rounded-0">
                 <div class="card-body">
-                    <div class="mb-5 mt-3">
-                        <?= $this->Flash->render() ?>
-                    </div>
                     <div class="mb-3 pr-4 pl-4">
                         <div class="h5 mb-4 h5-custom"><?= __('CAMBIA TU CONTRASEÑA') ?></div>
                         <p>
@@ -38,11 +35,9 @@ use Cake\Routing\Router;
                             ]) ?>
                             <i class='fas fa-eye show-password'></i>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-default px-4">
-                                <?= __('Cambiar') ?>
-                            </button>
-                        </div>
+                        <button type="submit" class="btn btn-default px-4">
+                            <?= __('Cambiar') ?>
+                        </button>
                     <?= $this->Form->end() ?>
                 </div>
             </div>

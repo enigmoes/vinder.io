@@ -54,8 +54,8 @@ use Cake\Routing\Router;
                         <button type="submit" class="btn btn-default mb-3 px-4">
                             <?= __('Crear cuenta') ?>
                         </button>
-                        <div class="recover mb-2">
-                            <label style="font-size: 13px">
+                        <div class="recover">
+                            <label class="m-0" style="font-size: 13px">
                                 <a href="<?= Router::url(['controller' => 'users', 'action' => 'login']) ?>">
                                     <?= __('Ya tengo una cuenta') ?>
                                 </a>

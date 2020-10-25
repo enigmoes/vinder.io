@@ -20,11 +20,9 @@ use Cake\Routing\Router;
                                 'placeholder' => __('Código')
                             ]) ?>
                         </div>
-                        <div class="form-group text-center">
-                            <button type="submit" class="btn btn-default px-4">
-                                <?= __('Validar') ?>
-                            </button>
-                        </div>
+                        <button type="submit" class="btn btn-default px-4">
+                            <?= __('Validar') ?>
+                        </button>
                     <?= $this->Form->end(); ?>
                 </div>
             </div>
