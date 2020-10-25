@@ -30,7 +30,6 @@ let Custom = {
                 title: msg,
                 icon: "warning",
                 showCancelButton: true,
-                //confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Aceptar",
                 cancelButtonText: "Cancelar",
@@ -62,33 +61,40 @@ let Custom = {
                 location.href = url;
             }
         });
+        // Evento mostrar contraseña
+        $(".show-password, .show-password-label").on("click", function () {
+            let $input = $(this).siblings().find("input");
+            if ($input.attr("type") === "password") {
+                $input.attr("type", "text");
+                $(this).removeClass("fas fa-eye");
+                $(this).addClass("fas fa-eye-slash");
+            } else {
+                $input.attr("type", "password");
+                $(this).removeClass("fas fa-eye-slash");
+                $(this).addClass("fas fa-eye");
+            }
+        });
     },
     navbarEvents: function () {
         // Evento desplegar input buscar
-        $(".fa-search").on("click", function (event) {
+        $(".fa-search").on("click", function () {
             $("#input-custom").removeClass("d-none");
             $(".navbar-icons").addClass("d-none");
-            $(".input-custom").attr(
-                "placeholder",
-                "Buscar..."
-            );
+            $(".input-custom").attr("placeholder","Buscar...");
             $(".btn-input-custom1").text("Buscar");
         });
         // Evento desplegar input guardar
-        $(".fa-plus").on("click", function (event) {
+        $(".fa-plus").on("click", function () {
             $("#input-custom").removeClass("d-none");
             $(".navbar-icons").addClass("d-none");
-            $(".input-custom").attr(
-                "placeholder",
-                "Guardar una URL https//..."
-            );
+            $(".input-custom").attr("placeholder", "Guardar una URL https//...");
             $(".btn-input-custom1").text("Guardar");
         });
-        $(".btn-input-custom1").on("click", function (event) {
+        $(".btn-input-custom1").on("click", function () {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
         });
-        $(".btn-input-custom2").on("click", function (event) {
+        $(".btn-input-custom2").on("click", function () {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
         });
