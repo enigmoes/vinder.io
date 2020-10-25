@@ -10,14 +10,14 @@ $(document).ready(function () {
 let Results = {
     // Constructor
     init: function () {
+        // LLamada a inicializacion atributos
+        this.attributes();
         // LLamada a eventos
         this.events();
         // LLamada a cargar lista
         this.loadLists();
         // LLamada a favoritos
         this.favourites();
-        // LLamada a inicializacion atributos
-        this.attributes();
     },
     attributes: function () {
         this.toast = Swal.mixin({
