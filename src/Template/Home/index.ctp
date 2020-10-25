@@ -14,5 +14,4 @@ use Cake\Routing\Router;
     <?=$this->Form->create()?>
     <?=$this->Form->end()?>
 </div>
-<?=$this->Html->script('home.js')?>
 <?=$this->Html->script('results.js')?>
