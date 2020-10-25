@@ -11,6 +11,7 @@
     <?= $this->fetch('meta') ?>
 
     <!-- FONTS CSS -->
+    <?= $this->Html->css('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap') ?>
     <?= $this->Html->css('../vendor/fontawesome/css/all.min.css') ?>
     <!-- VENDOR CSS  -->
     <?= $this->Html->css('../vendor/bootstrap/bootstrap.min.css') ?>
