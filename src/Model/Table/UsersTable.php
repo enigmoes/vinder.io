@@ -1,10 +1,9 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
-use Cake\Validation\Validator;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\ORM\Table;
+use Cake\Validation\Validator;
 
 class UsersTable extends Table
 {
@@ -19,18 +18,19 @@ class UsersTable extends Table
 
         $this->hasOne('Tokens', [
             'foreignKey' => 'id_user',
-            'bindingKey' => 'id'
+            'bindingKey' => 'id',
         ]);
     }
 
     //Conditions
-    public function conditions($data) {
+    public function conditions($data)
+    {
         $conditions = [];
         if (isset($data['username']) && !empty($data['username'])) {
-            $conditions['Users.username LIKE '] = '%'.$data['username'].'%';
+            $conditions['Users.username LIKE '] = '%' . $data['username'] . '%';
         }
         if (isset($data['email']) && !empty($data['email'])) {
-            $conditions['Users.email LIKE '] = '%'.$data['email'].'%';
+            $conditions['Users.email LIKE '] = '%' . $data['email'] . '%';
         }
         return $conditions;
     }
@@ -43,8 +43,57 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator->notEmptyString('name', __('El nombre no puede estar vacío'));
+        $validator->notEmptyString('surnames', __('Los apellidos no pueden estar vacíos'));
+        $validator->notEmptyString('username', __('El usuario no puede estar vacío'));
+        $validator->add('username', 'custom', [
+            'rule' => function ($value, $context) {
+                $user = $this->find();
+                $result = $user->select(['users' => $user->func()->count('Users.username')])
+                    ->where(['Users.username' => $value])
+                    ->toArray();
+                if ($result[0]['users'] > 0) {
+                    return false;
+                }
+                return true;
+            },
+            'message' => __('El usuario ya existe'),
+        ]);
+        return $validator;
+    }
+
+    // Validacion de contraseña
+    public function validationPassword(Validator $validator)
+    {
+        $validator->notEmptyString('password_current', __('Introduzca su contraseña.'));
+        $validator->notEmptyString('password', __('Introduzca una nueva contraseña.'));
+        $validator->notEmptyString('password_confirm', __('Confirme la nueva contraseña.'));
+        $validator->add('password', 'no-misspelling', [
+            'rule' => ['compareWith', 'password_confirm'],
+            'message' => __('Las contraseñas no coinciden'),
+        ]);
+        $validator->add('password_confirm', 'no-misspelling', [
+            'rule' => ['compareWith', 'password'],
+            'message' => __('Las contraseñas no coinciden'),
+        ]);
+        $validator->add('password_current', 'custom', [
+            'rule' => function ($value, $context) {
+                $user = $this->get($context['data']['id']);
+                return (new DefaultPasswordHasher)->check($value, $user['password']);
+            },
+            'message' => __('La contraseña actual no es válida'),
+        ]);
+        return $validator;
+    }
+
+    // Validacion de email
+    public function validationEmail(Validator $validator)
+    {
         $validator->notEmptyString('email', __('El email no puede estar vacío'));
-        $validator->notEmptyString('password', __('La contraseña no puede estar vacía'));
+        $validator->notEmptyString('email_confirm', __('El email no puede estar vacío'));
+        $validator->add('email_confirm', 'no-misspelling', [
+            'rule' => ['compareWith', 'email'],
+            'message' => __('Los emails no coinciden'),
+        ]);
         $validator->add('email', 'custom', [
             'rule' => function ($value, $context) {
                 $user = $this->find();
@@ -57,38 +106,6 @@ class UsersTable extends Table
                 return true;
             },
             'message' => __('El email ya existe'),
-        ]);
-        return $validator;
-    }
-    
-    // Validacion custom (sin password obligatoria)
-    public function validationCustom(Validator $validator)
-    {
-        $validator->notEmptyString('email', __('El email no puede estar vacío'));
-        $validator->notEmptyString('password', __('Introduzca una nueva contraseña.'));
-        $validator->allowEmpty('password_current');
-        $validator->add('email', 'custom', [
-            'rule' => function ($value, $context) {
-                $user = $this->get($context['data']['id']);
-                if ($user['email'] != $value) {
-                    $user = $this->find();
-                    $result = $user->select(['users' => $user->func()->count('Users.email')])
-                        ->where(['Users.email' => $value])
-                        ->toArray();
-                    if ($result[0]['users'] > 0) {
-                        return false;
-                    }
-                }
-                return true;
-            },
-            'message' => __('El email ya existe'),
-        ]);
-        $validator->add('password_current', 'custom', [
-            'rule' => function ($value, $context) {
-                $user = $this->get($context['data']['id']);
-                return (new DefaultPasswordHasher)->check($value, $user['password']);
-            },
-            'message' => __('La contraseña actual no es válida'),
         ]);
         return $validator;
     }
@@ -118,7 +135,7 @@ class UsersTable extends Table
         }
     }
 
-     /**
+    /**
      * CUSTOM FUNCTIONS
      */
 

@@ -1,9 +1,16 @@
 <?php
 namespace App\Controller;
 
-class HomeController extends AppController
-{
+use App\Controller\AppController;
 
+/**
+ * Favourites Controller
+ *
+ *
+ * @method \App\Model\Entity\Favourite[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ */
+class FavouritesController extends AppController
+{
     public function initialize()
     {
         parent::initialize();
@@ -11,6 +18,12 @@ class HomeController extends AppController
         $this->loadModel('Lists');
         $this->loadModel('Items');
     }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
 
     public function index()
     {
@@ -31,23 +44,20 @@ class HomeController extends AppController
     // Función para buscar las listas
     public function results()
     {
-        $lists = [];
         $items = [];
         // Recogemos identidad de la session
         $user_id = $this->request->getSession()->read('Auth.User.id');
         if ($user_id) {
             // Buscamos datos en db para las listas
-            $lists = $this->Lists->find('all', [
+            $items = $this->Items->find('all', [
                 'conditions' => [
-                    'Lists.id_user' => $user_id,
+                    'Items.id_fav' => 1,
+                    //'Lists.id_user' => $user_id,
                 ],
             ])->toArray();
-            // Buscamos datos en db para los items
-            $items = $this->Items->find('all')->toArray();
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
-            'lists' => $lists,
             'items' => $items,
         ]);
     }
@@ -70,12 +80,4 @@ class HomeController extends AppController
         ]);
         $this->RequestHandler->renderAs($this, 'json');
     }
-
-    
-    // Acción para etiquetas
-    public function tags()
-    {
-
-    }
-
 }
