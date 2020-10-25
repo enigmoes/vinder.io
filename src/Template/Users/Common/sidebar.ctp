@@ -4,7 +4,9 @@ use Cake\Routing\Router;
 <!-- Sidebar -->
 <nav class="sidebar">
     <div class="sidebar-header">
-        <div id="nav1-h5" class="h6 h6-title"><?= $this->request->getSession()->read('Auth.User.email') ?></div>
+        <div class="h6 h6-title font-weight-bold border-bottom-custom">
+            <?= $this->request->getSession()->read('Auth.User.email') ?>
+        </div>
     </div>
     <ul class="list-unstyled components">
         <li>
@@ -15,7 +17,7 @@ use Cake\Routing\Router;
         </li>
     </ul>
     <div class="sidebar-header">
-        <div id="nav2-h5" class="h6 h6-title"><?=__('Opciones')?></div>
+        <div class="h6 mt-5 font-weight-bold h6-title border-bottom-custom"><?=__('Opciones')?></div>
     </div>
     <ul class="list-unstyled components">
         <li <?=($this->request->action == 'profile') ? 'class="active"' : ''?>>
