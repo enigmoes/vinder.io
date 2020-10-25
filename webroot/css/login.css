@@ -19,12 +19,6 @@ Login, Recover, change and validate CSS template
 .h5-custom {
     color: var(--secondary);
 }
-#nav1-h5{
-    border-bottom: 3px solid var(--primary);
-}
-#nav2-h5{
-    margin-top: 50px;
-}
 /*END H5 */
 
 .recover a {
