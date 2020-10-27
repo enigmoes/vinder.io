@@ -478,7 +478,7 @@ i:hover {
     font-size: small;
     margin-right: 4px;
 }
-.isFav {
+.isFav i {
     color: gold;
 }
 /* END CARD ITEMS */
