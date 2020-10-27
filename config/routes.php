@@ -66,7 +66,10 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     // Root route is login if no are login
-    $routes->connect('/', ['controller' => 'home', 'action' => 'index']);
+    $routes->connect('/', ['controller' => 'items', 'action' => 'index']);
+    $routes->connect('/favourites', ['controller' => 'favourites', 'action' => 'index']);
+    $routes->connect('/tags', ['controller' => 'tags', 'action' => 'index']);
+
     // Account routes
     $routes->connect('/account/profile', ['controller' => 'users', 'action' => 'profile']);
     $routes->connect('/account/email', ['controller' => 'users', 'action' => 'email']);
