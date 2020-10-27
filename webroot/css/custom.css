@@ -427,7 +427,7 @@ i:hover {
     background: var(--primary);
     border: 0;
     color: var(--secondary);
-    width: 600px;
+    width: 30rem;
 }
 .input-custom::placeholder {
     color: var(--secondary);
@@ -466,6 +466,7 @@ i:hover {
     border: 0;
     border-bottom: 2px solid grey;
     width: 200px;
+    margin-bottom: 20px;
 }
 .card-items .card-block {
     padding: 0;
@@ -477,17 +478,47 @@ i:hover {
     font-size: small;
     margin-right: 4px;
 }
+.isFav {
+    color: gold;
+}
 /* END CARD ITEMS */
 /* TAGS */
 .input-tags{
     border: 1px solid;
     border-color: var(--secondary);
     border-radius: 30px;
+    height: 2rem;
+    margin-bottom: 20px;
 }
 .form-control-tags{
     border: 0;
+    height: 1rem;
+    width: 8rem;
+}
+.form-control-tags:focus{
+    box-shadow: none;
 }
 .search-icon{
     margin-left: 5px;
+}
+.resultsTags li{
+    list-style:none;
+}
+.resultsTags{
+    font-size: small;
+}
+.resultsTags i{
+    font-size: small;
+    float: right;
+}
+.resultsTags ul{
+    margin: 0;
+    padding: 0;
+}
+.resultsTags li:hover{
+    background-color: var(--primary);
+}
+.resultsTags a:hover{
+    color: var(--secondary_hover);
 }
 /* END TAGS */
