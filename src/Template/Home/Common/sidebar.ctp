@@ -20,7 +20,7 @@ use Cake\Routing\Router;
             </a>
         </li>
         <li>
-            <a href="<?=Router::url(['controller' => 'home', 'action' => 'tags'])?>">
+            <a href="<?=Router::url(['controller' => 'tags', 'action' => 'index'])?>">
                 <i class="fas fa-tags"></i><?=__('Etiquetas')?>
             </a>
         </li>
