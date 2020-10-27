@@ -43,6 +43,10 @@ class ItemsTable extends Table
             'targetForeignKey' => 'id_tag',
             'joinTable' => 'items_tags',
         ]);
+        $this->belongsTo('Lists', [
+            'foreignKey' => 'id',
+            'bindingKey' => 'id_list',
+        ]);
     }
 
     /**
