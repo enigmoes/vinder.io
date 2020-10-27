@@ -70,12 +70,4 @@ class HomeController extends AppController
         ]);
         $this->RequestHandler->renderAs($this, 'json');
     }
-
-    
-    // Acción para etiquetas
-    public function tags()
-    {
-
-    }
-
 }
