@@ -10,7 +10,7 @@ use Cake\Routing\Router;
                         <div class="card-body card-block">
                             <div class="h6 h6-default"><?=h($item->title)?></div>
                             <a href="#"><?=h($item->link)?></a>
-                            <p><?=h($item->description)?></p>
+                            <p class="small"><?=h($item->description)?></p>
                             <div class="items-icons dropup">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fas fa-share-square"></i>
@@ -27,7 +27,9 @@ use Cake\Routing\Router;
                                     </a>
                                 </div>
                                 <a href="#"><i class="fas fa-tag"></i></a>
-                                <a href="#" class="favItem"><i class="fas fa-star"></i></a>
+                                <a href="#" class="favItem <?= ($item->is_fav) ? 'isFav' : '' ?>">
+                                    <i class="fas fa-star"></i>
+                                </a>
                                 <a href="#" class="deleteItem"
                                 data-url="<?= Router::url(['controller' => 'home', 'action' => 'delete', $item->id]) ?>"
                                 data-message="<?= __('¿Seguro que desea eliminar?') ?>"
