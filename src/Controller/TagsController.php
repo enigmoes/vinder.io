@@ -19,25 +19,14 @@ class TagsController extends AppController
      */
     public function index()
     {
-        $tags = $this->paginate($this->Tags);
+        $login = false;
+        if ($this->isLogin()) {
+            $login = true;
+        }
 
-        $this->set(compact('tags'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Tag id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $tag = $this->Tags->get($id, [
-            'contain' => ['Items'],
+        $this->set([
+            'login' => $login,
         ]);
-
-        $this->set('tag', $tag);
     }
 
     /**
@@ -104,5 +93,33 @@ class TagsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * AJAX
+     */
+
+    // Función para buscar las etiquetas
+    public function resultsTags($search = null)
+    {
+        $tags = [];
+        // Buscamos datos en db para sacar las tags
+        $tags = $this->Tags->find('all')->toArray();
+        $this->viewBuilder()->setLayout('ajax');
+        $this->set([
+            'tags' => $tags,
+        ]);
+    }
+
+    // Función para buscar las listas
+    public function resultsItemsTags()
+    {
+        $tags = [];
+        // Buscamos datos en db para sacar las tags
+        $tags = $this->Tags->find('all')->toArray();
+        $this->viewBuilder()->setLayout('ajax');
+        $this->set([
+            'tags' => $tags,
+        ]);
     }
 }
