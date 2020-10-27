@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  * @property string|null $description
  * @property string|null $link
  * @property string|null $image
- * @property bool $id_fav
+ * @property bool $is_fav
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -35,7 +35,7 @@ class Item extends Entity
         'description' => true,
         'link' => true,
         'image' => true,
-        'id_fav' => true,
+        'is_fav' => true,
         'created' => true,
         'modified' => true,
         'tags' => true,

@@ -83,8 +83,8 @@ class ItemsTable extends Table
             ->allowEmptyFile('image');
 
         $validator
-            ->boolean('id_fav')
-            ->notEmptyString('id_fav');
+            ->boolean('is_fav')
+            ->notEmptyString('is_fav');
 
         return $validator;
     }
