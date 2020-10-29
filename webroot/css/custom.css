@@ -10,8 +10,9 @@ Overrides custom theme.css
     --secondary_hover: #0b1401;
 }
 
-html, body {
-    font-family: 'Comfortaa', cursive !important;
+html,
+body {
+    font-family: "Comfortaa", cursive !important;
 }
 
 a {
@@ -160,7 +161,7 @@ a:hover {
     box-shadow: 0 0 0 0.2rem rgba(var(--secondary_rgb), 0.25);
 }
 
-.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
     border-color: var(--secondary);
 }
 /* CUSTOM SELECT2 */
@@ -483,42 +484,42 @@ i:hover {
 }
 /* END CARD ITEMS */
 /* TAGS */
-.input-tags{
+.input-tags {
     border: 1px solid;
     border-color: var(--secondary);
     border-radius: 30px;
     height: 2rem;
     margin-bottom: 20px;
 }
-.form-control-tags{
+.form-control-tags {
     border: 0;
     height: 1rem;
     width: 8rem;
 }
-.form-control-tags:focus{
+.form-control-tags:focus {
     box-shadow: none;
 }
-.search-icon{
+.search-icon {
     margin-left: 5px;
 }
-.resultsTags li{
-    list-style:none;
+.results-tags li {
+    list-style: none;
 }
-.resultsTags{
+.results-tags {
     font-size: small;
 }
-.resultsTags i{
+.results-tags i {
     font-size: small;
     float: right;
 }
-.resultsTags ul{
+.results-tags ul {
     margin: 0;
     padding: 0;
 }
-.resultsTags li:hover{
-    background-color: var(--primary);
-}
-.resultsTags a:hover{
+.results-tags a:hover {
     color: var(--secondary_hover);
+}
+.tag-active{
+    background: var(--primary);
 }
 /* END TAGS */
