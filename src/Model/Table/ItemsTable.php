@@ -38,10 +38,9 @@ class ItemsTable extends Table
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
 
-        $this->belongsToMany('Tags', [
+        $this->hasMany('ItemsTags', [
             'foreignKey' => 'id_item',
-            'targetForeignKey' => 'id_tag',
-            'joinTable' => 'items_tags',
+            'bindingKey' => 'id',
         ]);
         $this->belongsTo('Lists', [
             'foreignKey' => 'id',
@@ -65,6 +64,11 @@ class ItemsTable extends Table
             ->integer('id_list')
             ->requirePresence('id_list', 'create')
             ->notEmptyString('id_list');
+
+        $validator
+            ->integer('id_user')
+            ->requirePresence('id_user', 'create')
+            ->notEmptyString('id_user');
 
         $validator
             ->scalar('title')

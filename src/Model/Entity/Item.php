@@ -8,6 +8,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $id_list
+ * @property int $id_user
  * @property string|null $title
  * @property string|null $description
  * @property string|null $link
@@ -31,6 +32,7 @@ class Item extends Entity
      */
     protected $_accessible = [
         'id_list' => true,
+        'id_user' => true,
         'title' => true,
         'description' => true,
         'link' => true,
