@@ -6,10 +6,10 @@ use Cake\Routing\Router;
     <ul>
         <?php foreach ($tags as $tag): ?>
             <li class="px-2">
-                <a href="#">
-                    <?=h($tag->name)?>
+                <a href="javascript:void(0)" class="tag" data-id="<?= $tag->id ?> " data-name="<?= $tag->name ?>">
+                    <?= $tag->name ?>
                 </a>
-                <a href="#" class="editItem">
+                <a href="javascript:void(0)" class="tag-edit">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
             </li>
