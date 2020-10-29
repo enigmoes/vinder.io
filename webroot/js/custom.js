@@ -77,7 +77,7 @@ let Custom = {
     },
     navbarEvents: function () {
         // Evento desplegar input buscar
-        $(".fa-search").on("click", function () {
+        $(".search-navbar").on("click", function () {
             $("#input-custom").removeClass("d-none");
             $(".navbar-icons").addClass("d-none");
             $(".input-custom").attr("placeholder","Buscar...");

@@ -31,17 +31,17 @@ use Cake\Routing\Router;
     </div>
     <ul class="nav navbar-right pr-5 navbar-icons">
         <li>
-            <a href="#">
+            <a href="javascript:void(0)" class="search-navbar">
                 <i class="fas fa-search"></i>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="javascript:void(0)">
                 <i class="fas fa-plus"></i>
             </a>
         </li>
         <li class="dropdown dropdown-custom">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fas fa-user"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-custom custom-shadow rounded-0">

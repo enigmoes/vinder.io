@@ -16,7 +16,7 @@ use Cake\Routing\Router;
                                     <i class="fas fa-share-square"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-custom custom-shadow rounded-0">
-                                    <a class="dropdown-item copyLink" href="javascript:void(0)"
+                                    <a class="dropdown-item copy-link" href="javascript:void(0)"
                                     data-url="<?= $item->link ?>">
                                         <i class="fas fa-link"></i><?=__('Copiar enlace')?>
                                     </a>

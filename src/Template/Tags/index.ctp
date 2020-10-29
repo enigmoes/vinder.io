@@ -21,11 +21,12 @@ use Cake\Routing\Router;
                         'class' => 'form-control form-control-tags',
                     ])?>
                 </div>
-                <div class="resultsTags"></div>
+                <div class="results-tags"></div>
             </nav>
         </div>
         <div class="col-lg-10 col-12">
-            <div class="resultsItemsTags mt-4"></div>
+            <div class="h4 h4-default"><?=__('MI LISTA')?></div>
+            <div class="results-items mt-4"></div>
         </div>
     </div>
 </div>
