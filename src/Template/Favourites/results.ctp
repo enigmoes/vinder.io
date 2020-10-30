@@ -20,10 +20,10 @@ use Cake\Routing\Router;
                                     data-url="<?= $item->link ?>">
                                         <i class="fas fa-link"></i><?=__('Copiar enlace')?>
                                     </a>
-                                    <a class="dropdown-item" href="facebook.com">
+                                    <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u=<?= $item->link ?>">
                                         <i class="fab fa-facebook-f"></i><?=__('Facebook')?>
                                     </a>
-                                    <a class="dropdown-item" href="twitter.com">
+                                    <a class="dropdown-item" href="https://twitter.com/intent/tweet?text=<?= $item->link ?>">
                                         <i class="fab fa-twitter"></i><?=__('Twitter')?>
                                     </a>
                                 </div>
