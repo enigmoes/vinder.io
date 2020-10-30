@@ -20,7 +20,7 @@ let Favourites = {
     attributes: function () {
         this.toast = Swal.mixin({
             toast: true,
-            position: 'top-end',
+            position: "top-end",
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
@@ -28,20 +28,19 @@ let Favourites = {
     },
     // Eventos
     events: function () {
-
         //Evento para favoritos
         $(document).on("click", ".favItem", function () {
-            let url = $(this).data('url');
+            let url = $(this).data("url");
             Favourites.isFav(url);
         });
 
         //Evento para eliminar favoritos
         $(document).on("click", ".deleteItem", function () {
-            let url = $(this).data('url');
-            let message = $(this).data('message');
-            let ok = $(this).data('ok');
-            let cancel = $(this).data('cancel');
-            let data = {url: url, message: message, ok: ok, cancel: cancel};
+            let url = $(this).data("url");
+            let message = $(this).data("message");
+            let ok = $(this).data("ok");
+            let cancel = $(this).data("cancel");
+            let data = { url: url, message: message, ok: ok, cancel: cancel };
             Favourites.delete(data);
         });
 
@@ -54,6 +53,10 @@ let Favourites = {
             $temp.select();
             document.execCommand("copy");
             $temp.remove();
+            Favourites.toast.fire({
+                icon: "success",
+                title: "Enlace copiado",
+            });
         });
     },
     // Cargar favoritos
@@ -62,7 +65,10 @@ let Favourites = {
             type: "GET",
             url: "/favourites/results",
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("X-CSRF-Token", $('[name="_csrfToken"]').val());
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
             },
             success: function (data) {
                 $(".results").html(data);
@@ -78,25 +84,28 @@ let Favourites = {
             cancelButtonColor: "#d33",
             confirmButtonText: data.ok,
             cancelButtonText: data.cancel,
-        }).then(result => {
+        }).then((result) => {
             if (result.value) {
                 $.ajax({
                     type: "GET",
                     url: data.url,
                     beforeSend: function (xhr) {
-                        xhr.setRequestHeader("X-CSRF-Token", $('[name="_csrfToken"]').val());
+                        xhr.setRequestHeader(
+                            "X-CSRF-Token",
+                            $('[name="_csrfToken"]').val()
+                        );
                     },
                     success: function (data) {
                         if (data.deleted) {
                             Favourites.loadFavourites();
                             Favourites.toast.fire({
                                 icon: "success",
-                                title: data.message
+                                title: data.message,
                             });
                         } else {
                             Favourites.toast.fire({
                                 icon: "error",
-                                title: data.message
+                                title: data.message,
                             });
                         }
                     },
@@ -110,19 +119,22 @@ let Favourites = {
             type: "GET",
             url: url,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader("X-CSRF-Token", $('[name="_csrfToken"]').val());
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
             },
             success: function (data) {
                 if (data.success) {
                     Favourites.loadFavourites();
                     Favourites.toast.fire({
                         icon: "success",
-                        title: data.message
+                        title: data.message,
                     });
                 } else {
                     Favourites.toast.fire({
                         icon: "error",
-                        title: data.message
+                        title: data.message,
                     });
                 }
             },

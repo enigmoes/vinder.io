@@ -53,6 +53,10 @@ let Items = {
             $temp.select();
             document.execCommand("copy");
             $temp.remove();
+            Items.toast.fire({
+                icon: "success",
+                title: "Enlace copiado",
+            });
         });
     },
     // Cargar items
