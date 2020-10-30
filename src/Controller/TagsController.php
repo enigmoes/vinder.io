@@ -101,14 +101,18 @@ class TagsController extends AppController
     {
         if (!is_null($id_tag)) {
             // Buscamos todos los items de una tag
-            $tags = $this->ItemsTags->find('list', [
+            $itemsTags = $this->ItemsTags->find('list', [
+                'contain' => [
+                    'fields' => ['ItemsTags.id_item'],
+                    'tags',
+                ],
                 'conditions' => [
                     'ItemsTags.id_tag' => $id_tag,
                 ],
             ])->toArray();
             $items = $this->Items->find('all', [
                 'conditions' => [
-                    'Items.id IN' => $tags,
+                    'Items.id IN' => $itemsTags,
                 ],
             ])->toArray();
         } else {

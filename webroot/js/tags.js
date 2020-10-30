@@ -55,12 +55,16 @@ let Tags = {
             $temp.select();
             document.execCommand("copy");
             $temp.remove();
+            Tags.toast.fire({
+                icon: "success",
+                title: "Enlace copiado",
+            });
         });
 
         // Evento click ver items etiqueta
-        $(document).on('click', '.tag', function () {
+        $(document).on("click", ".tag", function () {
             let id_tag = $(this).data("id");
-            $('.tag').parent().removeClass("tag-active");
+            $(".tag").parent().removeClass("tag-active");
             $(this).parent().addClass("tag-active");
             Tags.loadItems(id_tag);
         });
@@ -83,7 +87,9 @@ let Tags = {
     },
     // Cargar items
     loadItems: function (id_tag = null) {
-        (id_tag === null) ? url = "/tags/items/" : url = "/tags/items/"+id_tag;
+        id_tag === null
+            ? (url = "/tags/items/")
+            : (url = "/tags/items/" + id_tag);
         $.ajax({
             type: "GET",
             url: url,
