@@ -31,24 +31,19 @@ class FavouritesController extends AppController
     // Función para buscar las listas
     public function results()
     {
-        $lists = [];
-        // Recogemos identidad de la session
-        $user_id = $this->request->getSession()->read('Auth.User.id');
-        if ($user_id) {
-            // Buscamos datos en db para los items
-            $lists = $this->Lists->find('all', [
+        // Buscamos datos en db para los items
+        $lists = $this->Lists->find('all', [
+            'conditions' => [
+                'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+            ],
+        ])->toArray();
+        foreach ($lists as $list) {
+            $list['items'] = $this->Items->find('all', [
                 'conditions' => [
-                    'Lists.id_user' => $user_id,
+                    'Items.is_fav' => 1,
+                    'Items.id_list' => $list->id
                 ],
             ])->toArray();
-            foreach ($lists as $list) {
-                $list['items'] = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.is_fav' => 1,
-                        'Items.id_list' => $list->id
-                    ],
-                ])->toArray();
-            }
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([

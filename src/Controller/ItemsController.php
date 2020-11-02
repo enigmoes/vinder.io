@@ -30,18 +30,13 @@ class ItemsController extends AppController
     // Función para buscar las listas
     public function results()
     {
-        $lists = [];
-        // Recogemos identidad de la session
-        $user_id = $this->request->getSession()->read('Auth.User.id');
-        if ($user_id) {
-            // Buscamos datos en db para las listas
-            $lists = $this->Lists->find('all', [
-                'contain' => ['Items'],
-                'conditions' => [
-                    'Lists.id_user' => $user_id,
-                ],
-            ])->toArray();
-        }
+        // Buscamos datos en db para las listas
+        $lists = $this->Lists->find('all', [
+            'contain' => ['Items'],
+            'conditions' => [
+                'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+            ],
+        ])->toArray();
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'lists' => $lists,
