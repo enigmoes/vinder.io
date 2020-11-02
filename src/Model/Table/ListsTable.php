@@ -35,6 +35,11 @@ class ListsTable extends Table
         $this->setTable('lists');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('Items', [
+            'foreignKey' => 'id_list',
+            'bindingKey' => 'id',
+        ]);
     }
 
     /**

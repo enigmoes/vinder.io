@@ -10,7 +10,7 @@ use Cake\Routing\Router;
     </div>
     <ul class="list-unstyled components">
         <li>
-            <a href="<?=Router::url(['controller' => 'home', 'action' => 'index'])?>"><?=__('Ir a mi lista')?></a>
+            <a href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>"><?=__('Ir a mi lista')?></a>
         </li>
         <li>
             <a href="<?=Router::url(['controller' => 'users', 'action' => 'logout'])?>"><?=__('Cerrar sesión')?></a>

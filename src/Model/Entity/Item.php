@@ -8,11 +8,12 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $id_list
+ * @property int $id_user
  * @property string|null $title
  * @property string|null $description
  * @property string|null $link
  * @property string|null $image
- * @property bool $id_fav
+ * @property bool $is_fav
  * @property \Cake\I18n\FrozenTime|null $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -31,11 +32,12 @@ class Item extends Entity
      */
     protected $_accessible = [
         'id_list' => true,
+        'id_user' => true,
         'title' => true,
         'description' => true,
         'link' => true,
         'image' => true,
-        'id_fav' => true,
+        'is_fav' => true,
         'created' => true,
         'modified' => true,
         'tags' => true,

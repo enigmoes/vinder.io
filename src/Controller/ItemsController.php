@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-class HomeController extends AppController
+class ItemsController extends AppController
 {
 
     public function initialize()
@@ -9,7 +9,6 @@ class HomeController extends AppController
         parent::initialize();
 
         $this->loadModel('Lists');
-        $this->loadModel('Items');
     }
 
     public function index()
@@ -31,24 +30,16 @@ class HomeController extends AppController
     // Función para buscar las listas
     public function results()
     {
-        $lists = [];
-        $items = [];
-        // Recogemos identidad de la session
-        $user_id = $this->request->getSession()->read('Auth.User.id');
-        if ($user_id) {
-            // Buscamos datos en db para las listas
-            $lists = $this->Lists->find('all', [
-                'conditions' => [
-                    'Lists.id_user' => $user_id,
-                ],
-            ])->toArray();
-            // Buscamos datos en db para los items
-            $items = $this->Items->find('all')->toArray();
-        }
+        // Buscamos datos en db para las listas
+        $lists = $this->Lists->find('all', [
+            'contain' => ['Items'],
+            'conditions' => [
+                'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+            ],
+        ])->toArray();
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'lists' => $lists,
-            'items' => $items,
         ]);
     }
     
@@ -71,11 +62,28 @@ class HomeController extends AppController
         $this->RequestHandler->renderAs($this, 'json');
     }
 
-    
-    // Acción para etiquetas
-    public function tags()
+    // Función para cambiar el is_fav
+    public function isFav($id)
     {
-
+        $item = $this->Items->get($id);
+        ($item->is_fav) ? $item->is_fav = 0 : $item->is_fav = 1;
+        if ($this->Items->save($item)) {
+            if ($item->is_fav) {
+                $success = true;
+                $message = __('Item añadido a favoritos');
+            } else {
+                $success = true;
+                $message = __('Item eliminado de favoritos');
+            }
+        } else {
+            $success = false;
+            $message = __('Error al actualizar item');
+        }
+        $this->set([
+            'success' => $success,
+            'message' => $message,
+            '_serialize' => ['success', 'message']
+        ]);
+        $this->RequestHandler->renderAs($this, 'json');
     }
-
 }

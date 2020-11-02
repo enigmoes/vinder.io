@@ -8,7 +8,7 @@ use Cake\Routing\Router;
             <nav class="sidebar">
                 <ul class="list-unstyled components2">
                     <li class="bg-active">
-                        <a href="<?=Router::url(['controller' => 'home', 'action' => 'index'])?>">
+                        <a href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
                             <i class="fas fa-chevron-left"></i><?=__('Etiquetas')?>
                         </a>
                     </li>
@@ -21,7 +21,13 @@ use Cake\Routing\Router;
                         'class' => 'form-control form-control-tags',
                     ])?>
                 </div>
+                <div class="results-tags"></div>
             </nav>
+        </div>
+        <div class="col-lg-10 col-12">
+            <div class="h4 h4-default"><?=__('MI LISTA')?></div>
+            <div class="results-items mt-4"></div>
         </div>
     </div>
 </div>
+<?=$this->Html->script('tags.js')?>

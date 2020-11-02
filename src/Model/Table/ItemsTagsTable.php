@@ -35,6 +35,15 @@ class ItemsTagsTable extends Table
         $this->setTable('items_tags');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Items', [
+            'foreignKey' => 'id_item',
+            'bindingKey' => 'id',
+        ]);
+        $this->belongsTo('Tags', [
+            'foreignKey' => 'id_tag',
+            'bindingKey' => 'id',
+        ]);
     }
 
     /**

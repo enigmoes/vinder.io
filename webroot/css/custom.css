@@ -10,8 +10,9 @@ Overrides custom theme.css
     --secondary_hover: #0b1401;
 }
 
-html, body {
-    font-family: 'Comfortaa', cursive !important;
+html,
+body {
+    font-family: "Comfortaa", cursive !important;
 }
 
 a {
@@ -160,7 +161,7 @@ a:hover {
     box-shadow: 0 0 0 0.2rem rgba(var(--secondary_rgb), 0.25);
 }
 
-.custom-control-input:focus:not(:checked)~.custom-control-label::before {
+.custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
     border-color: var(--secondary);
 }
 /* CUSTOM SELECT2 */
@@ -427,7 +428,7 @@ i:hover {
     background: var(--primary);
     border: 0;
     color: var(--secondary);
-    width: 600px;
+    width: 30rem;
 }
 .input-custom::placeholder {
     color: var(--secondary);
@@ -466,6 +467,7 @@ i:hover {
     border: 0;
     border-bottom: 2px solid grey;
     width: 200px;
+    margin-bottom: 20px;
 }
 .card-items .card-block {
     padding: 0;
@@ -477,17 +479,47 @@ i:hover {
     font-size: small;
     margin-right: 4px;
 }
+.isFav i {
+    color: gold;
+}
 /* END CARD ITEMS */
 /* TAGS */
-.input-tags{
+.input-tags {
     border: 1px solid;
     border-color: var(--secondary);
     border-radius: 30px;
+    height: 2rem;
+    margin-bottom: 20px;
 }
-.form-control-tags{
+.form-control-tags {
     border: 0;
+    height: 1.5rem;
+    width: 8rem;
 }
-.search-icon{
+.form-control-tags:focus {
+    box-shadow: none;
+}
+.search-icon {
     margin-left: 5px;
+}
+.results-tags li {
+    list-style: none;
+}
+.results-tags {
+    font-size: small;
+}
+.results-tags i {
+    font-size: small;
+    float: right;
+}
+.results-tags ul {
+    margin: 0;
+    padding: 0;
+}
+.results-tags a:hover {
+    color: var(--secondary_hover);
+}
+.tag-active{
+    background: var(--primary);
 }
 /* END TAGS */

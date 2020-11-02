@@ -6,11 +6,11 @@ use Cake\Routing\Router;
         <button class="navbar-toggler d-block d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="<?=Router::url(['controller' => 'home', 'action' => 'index'])?>">
+        <a class="navbar-brand" href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
             <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <?= $this->element('../Home/Common/sidebar') ?>
+            <?= $this->element('Common/sidebar') ?>
         </div>
     </div>
     <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
@@ -31,17 +31,17 @@ use Cake\Routing\Router;
     </div>
     <ul class="nav navbar-right pr-5 navbar-icons">
         <li>
-            <a href="#">
+            <a href="javascript:void(0)" class="search-navbar">
                 <i class="fas fa-search"></i>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="javascript:void(0)">
                 <i class="fas fa-plus"></i>
             </a>
         </li>
         <li class="dropdown dropdown-custom">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fas fa-user"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-menu-custom custom-shadow rounded-0">

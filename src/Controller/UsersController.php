@@ -149,7 +149,7 @@ class UsersController extends AppController
         //Si esta logeado le enviamos al la home
         if ($this->isLogin()) {
             $this->redirect([
-                'controller' => 'home',
+                'controller' => 'items',
                 'action' => 'index',
             ]);
         }
@@ -363,7 +363,7 @@ class UsersController extends AppController
             }
         } else {
             $this->redirect([
-                'controller' => 'home',
+                'controller' => 'items',
                 'action' => 'index',
             ]);
         }

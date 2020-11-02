@@ -38,10 +38,9 @@ class TagsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->belongsToMany('Items', [
+        $this->hasMany('ItemsTags', [
             'foreignKey' => 'id_tag',
-            'targetForeignKey' => 'id_item',
-            'joinTable' => 'items_tags',
+            'bindingKey' => 'id',
         ]);
     }
 

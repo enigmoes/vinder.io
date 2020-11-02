@@ -4,7 +4,7 @@ use Cake\Routing\Router;
 <div class="container min-vh-100 mt-5">
     <div class="row">
         <div class="col-lg-2 d-lg-block d-none">
-            <?=$this->element('../Home/Common/sidebar')?>
+            <?=$this->element('Common/sidebar')?>
         </div>
         <div class="col-lg-10 col-12">
             <div class="h4 h4-default"><?=__('MI LISTA')?></div>
@@ -14,4 +14,4 @@ use Cake\Routing\Router;
     <?=$this->Form->create()?>
     <?=$this->Form->end()?>
 </div>
-<?=$this->Html->script('results.js')?>
+<?=$this->Html->script('items.js')?>
