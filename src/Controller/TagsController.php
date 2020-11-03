@@ -46,13 +46,12 @@ class TagsController extends AppController
         if (!is_null($id_tag)) {
             // Buscamos todos los items de una tag
             $itemsTags = $this->ItemsTags->find('list', [
-                'contain' => [
-                    'fields' => ['ItemsTags.id_item'],
-                    'tags',
-                ],
                 'conditions' => [
-                    'ItemsTags.id_tag' => $id_tag,
+                    'ItemsTags.id_tag' => $id_tag
                 ],
+                'keyField' => 'id', 'valueField' => function ($e) {
+                    return $e->id_item;
+                }
             ])->toArray();
             $items = $this->Items->find('all', [
                 'conditions' => [
