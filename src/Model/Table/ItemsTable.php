@@ -72,17 +72,17 @@ class ItemsTable extends Table
 
         $validator
             ->scalar('title')
-            ->maxLength('title', 45)
+            ->maxLength('title', 65535)
             ->allowEmptyString('title');
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 45)
+            ->maxLength('description', 65535)
             ->allowEmptyString('description');
 
         $validator
             ->scalar('link')
-            ->maxLength('link', 45)
+            ->maxLength('link', 65535)
             ->allowEmptyString('link');
 
         $validator
