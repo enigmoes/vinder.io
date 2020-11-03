@@ -11,12 +11,15 @@ use Cake\Routing\Router;
     </div>
     <div class="row">
         <?php foreach ($items as $item): ?>
-            <div class="col-lg-4 col-md-6 col-12">
+            <div class="col-lg-4 col-md-6 col-12 mb-5">
                 <div class="card card-items rounded-0">
                     <div class="card-body card-block">
-                        <div class="h6 h6-default"><?=$item->title?></div>
-                        <a href="<?=$item->link?>"><?=$item->link?></a>
-                        <p class="small"><?=$item->description?></p>
+                        <div class="mb-3">
+                                <img src="<?= $item->image ?>" alt="<?= $item->title ?>" class="mw-100">
+                        </div>
+                        <div class="h6 h6-default"><?= $item->title ?></div>
+                        <div class="mb-3"><a href="<?= $item->link ?>"><?= parse_url($item->link, PHP_URL_HOST) ?></a></div>
+                        <p class="small"><?= $item->description ?></p>
                         <div class="items-icons dropup">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fas fa-share-square"></i>
