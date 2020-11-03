@@ -44,21 +44,28 @@ class TagsController extends AppController
     public function items($id_tag = null)
     {
         if (!is_null($id_tag)) {
-            // Buscamos todos los items de una tag
-            $itemsTags = $this->ItemsTags->find('list', [
+            // Buscamos el nombre de la tag
+            $tagName = $this->Tags->find('all', [
                 'conditions' => [
-                    'ItemsTags.id_tag' => $id_tag
-                ],
-                'keyField' => 'id', 'valueField' => function ($e) {
-                    return $e->id_item;
-                }
-            ])->toArray();
+                    'Tags.id' => $id_tag
+                ]
+            ])->toArray()[0]->name;
+            // Buscamos todos los items de una tag
             $items = $this->Items->find('all', [
                 'conditions' => [
-                    'Items.id IN' => $itemsTags,
+                    'Items.id IN' => $this->ItemsTags->find('list', [
+                        'conditions' => [
+                            'ItemsTags.id_tag' => $id_tag
+                        ],
+                        'keyField' => 'id', 'valueField' => function ($e) {
+                            return $e->id_item;
+                        }
+                    ])->toArray(),
                 ],
             ])->toArray();
         } else {
+            // Inicializamos tag name son mi lista
+            $tagName = __('MI LISTA');
             // Buscamos todos los items del usuario
             $items = $this->Items->find('all', [
                 'conditions' => [
@@ -69,6 +76,7 @@ class TagsController extends AppController
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'items' => $items,
+            'tagName' => $tagName
         ]);
     }
 
