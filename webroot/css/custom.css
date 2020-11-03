@@ -414,6 +414,9 @@ i:hover {
     margin-left: 15px;
     margin-right: 15px;
 }
+.dropdown-menu-custom i {
+    min-width: 13px;
+}
 /* END DROPDOWN */
 /* INPUT SEARCH-SAVE */
 .container-input-custom {
