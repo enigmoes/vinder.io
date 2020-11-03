@@ -246,9 +246,6 @@ a:hover {
 .navbar-default {
     border-bottom: 2px solid var(--primary_hover);
 }
-.navbar-right li {
-    margin-right: 35px;
-}
 /* END NAVBAR */
 /* ICONS */
 i {
@@ -422,7 +419,6 @@ i:hover {
 .container-input-custom {
     background: var(--primary);
     border-radius: 30px;
-    margin-right: 150px;
 }
 .input-custom {
     background: var(--primary);
@@ -464,10 +460,8 @@ i:hover {
 
 /* CARD ITEMS */
 .card-items {
-    border: 0;
+    border: none;
     border-bottom: 2px solid grey;
-    width: 200px;
-    margin-bottom: 20px;
 }
 .card-items .card-block {
     padding: 0;
