@@ -48,7 +48,7 @@ use Cake\Routing\Router;
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-custom custom-shadow rounded-0">
                     <div class="dropdown-header d-flex justify-content-left align-items-center">
                         <?=$this->Html->image('user_52.png', array('alt' => 'imagen usuario', 'class' => 'user_img'))?>
-                        <div class="h6"><?= $this->request->getSession()->read('Auth.User.name') ?></div>
+                        <div class="h6"><?= $this->request->getSession()->read('Auth.User.username') ?></div>
                     </div>
                     <div class="dropdown-divider dropdown-divider-custom"></div>
                     <a class="dropdown-item" href="<?=Router::url(['controller' => 'users', 'action' => 'profile'])?>">

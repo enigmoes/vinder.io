@@ -25,7 +25,7 @@ use Cake\Routing\Router;
             </nav>
         </div>
         <div class="col-lg-10 col-12">
-            <div class="results-items mt-4"></div>
+            <div class="results-items"></div>
         </div>
     </div>
 </div>

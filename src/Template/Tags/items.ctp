@@ -3,8 +3,8 @@ use Cake\Routing\Router;
 ?>
 <?php if (isset($items) && count($items) > 0): ?>
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-12 mb-5">
-            <div class="h5 h5-custom text-uppercase"><?= $tagName ?></div>
+        <div class="col-lg-4 col-md-6 col-12 mb-4">
+            <div class="h4 h4-default text-uppercase"><?= $tagName ?></div>
         </div>
     </div>
     <div class="row">
