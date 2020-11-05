@@ -68,6 +68,12 @@ let Tags = {
             $(this).parent().addClass("tag-active");
             Tags.loadItems(id_tag);
         });
+
+        // Buscar tags con el buscador
+        $(document).on("keyup", ".form-control-tags", function () {
+            var valorBusqueda = $(this).val();
+            Tags.searchTags(valorBusqueda);
+        });
     },
     // Cargar etiquetas
     loadTags: function () {
@@ -166,6 +172,24 @@ let Tags = {
                         title: data.message,
                     });
                 }
+            },
+        });
+    },
+    searchTags: function(valor){
+        $.ajax({
+            url: "/tags/searchTags/" + valor,
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results-tags").html(response);
+            },
+            error: function () {
+                alert("error");
             },
         });
     },

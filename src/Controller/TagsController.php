@@ -39,7 +39,7 @@ class TagsController extends AppController
             'tags' => $tags,
         ]);
     }
-    
+
     // Función para buscar las listas por cada etiqueta
     public function items($id_tag = null)
     {
@@ -47,24 +47,24 @@ class TagsController extends AppController
             // Buscamos el nombre de la tag
             $tagName = $this->Tags->find('all', [
                 'conditions' => [
-                    'Tags.id' => $id_tag
-                ]
+                    'Tags.id' => $id_tag,
+                ],
             ])->toArray()[0]->name;
             // Buscamos todos los items de una tag
             $items = $this->Items->find('all', [
                 'conditions' => [
                     'Items.id IN' => $this->ItemsTags->find('list', [
                         'conditions' => [
-                            'ItemsTags.id_tag' => $id_tag
+                            'ItemsTags.id_tag' => $id_tag,
                         ],
                         'keyField' => 'id', 'valueField' => function ($e) {
                             return $e->id_item;
-                        }
+                        },
                     ])->toArray(),
                 ],
             ])->toArray();
         } else {
-            // Inicializamos tag name son mi lista
+            // Inicializamos tag name con mi lista
             $tagName = __('MI LISTA');
             // Buscamos todos los items del usuario
             $items = $this->Items->find('all', [
@@ -76,7 +76,7 @@ class TagsController extends AppController
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'items' => $items,
-            'tagName' => $tagName
+            'tagName' => $tagName,
         ]);
     }
 
@@ -122,5 +122,20 @@ class TagsController extends AppController
             '_serialize' => ['success', 'message'],
         ]);
         $this->RequestHandler->renderAs($this, 'json');
+    }
+
+    // Función para hacer la búsqueda de tags
+    public function searchTags($valor = null)
+    {
+        // Buscamos datos en db para las listas
+        $tags = $this->Tags->find('all', [
+            'conditions' => [
+                'Tags.name LIKE' => '%' . $valor . '%',
+            ],
+        ])->toArray();
+        $this->viewBuilder()->setLayout('ajax');
+        $this->set([
+            'tags' => $tags,
+        ]);
     }
 }
