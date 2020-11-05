@@ -86,17 +86,21 @@ let Custom = {
             $("#input-custom").removeClass("d-none");
             $(".navbar-icons").addClass("d-none");
             $(".input-custom").attr("placeholder", "Buscar...");
-            $(".btn-input-custom1").text("Buscar");
+            $("#button-input").text("Buscar");
+            $("#button-input").removeClass("btn-add");
+            $("#button-input").addClass("btn-search");
         });
         // Evento desplegar input guardar
-        $(".fa-plus").on("click", function () {
+        $(".add-navbar").on("click", function () {
             $("#input-custom").removeClass("d-none");
             $(".navbar-icons").addClass("d-none");
             $(".input-custom").attr(
                 "placeholder",
                 "Guardar una URL https//..."
             );
-            $(".btn-input-custom1").text("Guardar");
+            $("#button-input").text("Guardar");
+            $("#button-input").removeClass("btn-search");
+            $("#button-input").addClass("btn-add");
         });
         $(".btn-input-custom1").on("click", function () {
             $("#input-custom").addClass("d-none");

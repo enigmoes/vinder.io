@@ -22,7 +22,7 @@ use Cake\Routing\Router;
                     'class' => 'input-custom',
                     'placeholder' => __('Buscar...'),
                 ])?>
-                <button class="btn ml-3 btn-input-custom1 mr-3 px-3 py-0" type="submit">
+                <button id="button-input" class="btn ml-3 btn-input-custom1 btn-search mr-3 px-3 py-0" type="submit">
                     <?=__('Buscar')?>
                 </button>
                 <button class="btn btn-input-custom2 px-3 py-0" type="button">
@@ -37,7 +37,7 @@ use Cake\Routing\Router;
                 </a>
             </li>
             <li class="mr-5">
-                <a href="javascript:void(0)">
+                <a href="javascript:void(0)" class="add-navbar">
                     <i class="fas fa-plus"></i>
                 </a>
             </li>

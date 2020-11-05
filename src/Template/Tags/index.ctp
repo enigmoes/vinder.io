@@ -21,7 +21,8 @@ use Cake\Routing\Router;
                         'class' => 'form-control form-control-tags',
                     ])?>
                 </div>
-                <div class="results-tags"></div>
+                <div class="small h6-default"><?=__("Etiquetas")?></div>
+                <div class="small results-tags"></div>
             </nav>
         </div>
         <div class="col-lg-10 col-12">

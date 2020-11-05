@@ -502,9 +502,6 @@ i:hover {
 .results-tags li {
     list-style: none;
 }
-.results-tags {
-    font-size: small;
-}
 .results-tags i {
     font-size: small;
     float: right;

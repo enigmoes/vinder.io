@@ -2,7 +2,6 @@
 use Cake\Routing\Router;
 ?>
 <?php if (isset($tags) && count($tags) > 0): ?>
-    <div class="h6-default"><?=__("Todas las etiquetas")?></div>
     <ul>
         <?php foreach ($tags as $tag): ?>
             <li class="px-2">
