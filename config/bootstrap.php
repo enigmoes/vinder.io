@@ -248,3 +248,6 @@ require_once __DIR__ . '/constants.php';
 
 // utils file
 require_once __DIR__ . '/utils.php';
+
+// crawler
+require_once APP . '/Utility/crawler/autoload.php';
