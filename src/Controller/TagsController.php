@@ -33,7 +33,11 @@ class TagsController extends AppController
     public function tags($search = null)
     {
         // Buscamos datos en db para sacar las tags
-        $tags = $this->Tags->find('all')->toArray();
+        $tags = $this->Tags->find('all', [
+            'conditions' => [
+                'Tags.id_user' => $this->request->getSession()->read('Auth.User.id'),
+            ],
+        ])->toArray();
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'tags' => $tags,
