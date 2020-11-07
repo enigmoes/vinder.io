@@ -16,8 +16,8 @@ use Cake\Routing\Router;
                             <small><?= __('Escribe aquí tu nueva contraseña') ?></small>
                         </p>
                     </div>
-                    <?= $this->Form->create() ?>
-                        <div class="form-group">
+                    <?= $this->Form->create($user) ?>
+                        <div class="form-group position-relative">
                             <?= $this->Form->control('password', [
                                 'label' => false,
                                 'type' => 'password',
@@ -26,7 +26,7 @@ use Cake\Routing\Router;
                             ]) ?>
                             <i class='fas fa-eye show-password'></i>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group position-relative">
                             <?= $this->Form->control('password_confirm', [
                                 'label' => false,
                                 'type' => 'password',
