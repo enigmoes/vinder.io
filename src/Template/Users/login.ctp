@@ -12,14 +12,14 @@ use Cake\Routing\Router;
                 <div class="card-body">
                     <div class="h5 mb-4 h5-custom"><?= __('ACCEDE A VINDER') ?></div>
                     <?=$this->Form->create('Login')?>
-                        <div class="form-group">
+                        <div class="form-group mb-4 mt-5">
                             <?=$this->Form->control('email', [
                                 'label' => false,
                                 'class' => 'form-control form-control-custom',
                                 'placeholder' => __('Correo electrónico'),
                             ])?>
                         </div>
-                        <div class="form-group form-group-icon-right">
+                        <div class="form-group form-group-icon-right mb-4">
                             <?=$this->Form->control('password', [
                                 'div' => false,
                                 'label' => false,

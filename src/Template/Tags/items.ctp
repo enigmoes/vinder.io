@@ -3,8 +3,8 @@ use Cake\Routing\Router;
 ?>
 <?php if (isset($items) && count($items) > 0): ?>
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-12 mb-5">
-            <div class="h5 h5-custom text-uppercase"><?= $tagName ?></div>
+        <div class="col-lg-4 col-md-6 col-12 mb-4">
+            <div class="h4 h4-default text-uppercase"><?= $tagName ?></div>
         </div>
     </div>
     <div class="row">
@@ -16,8 +16,9 @@ use Cake\Routing\Router;
                                 <img src="<?= $item->image ?>" alt="<?= $item->title ?>" class="mw-100">
                         </div>
                         <div class="h6 h6-default"><?= $item->title ?></div>
-                        <div class="mb-3"><a href="<?= $item->link ?>"><?= parse_url($item->link, PHP_URL_HOST) ?></a></div>
-                        <p class="small"><?= $item->description ?></p>
+                        <div class="mb-3"><a class="share-link" href="javascript:void(0)"
+                        data-url="<?= $item->link ?>"><?= parse_url($item->link, PHP_URL_HOST) ?></a></div>
+                        <p class="small"><?= substr($item->description, 0, 100) ?></p>
                         <div class="items-icons dropup">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fas fa-share-square"></i>
@@ -27,10 +28,12 @@ use Cake\Routing\Router;
                                 data-url="<?=$item->link?>">
                                     <i class="fas fa-link"></i><?=__('Copiar enlace')?>
                                 </a>
-                                <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u=<?= $item->link ?>">
+                                <a class="dropdown-item share-link" href="javascript:void(0)"
+                                data-url="https://www.facebook.com/sharer/sharer.php?u=<?=$item->link?>">
                                     <i class="fab fa-facebook-f"></i><?=__('Facebook')?>
                                 </a>
-                                <a class="dropdown-item" href="https://twitter.com/intent/tweet?text=<?= $item->link ?>">
+                                <a class="dropdown-item share-link" href="javascript:void(0)"
+                                data-url="https://twitter.com/intent/tweet?text=<?= $item->link ?>">
                                     <i class="fab fa-twitter"></i><?=__('Twitter')?>
                                 </a>
                             </div>

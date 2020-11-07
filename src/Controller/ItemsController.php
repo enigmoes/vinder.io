@@ -42,7 +42,7 @@ class ItemsController extends AppController
             'lists' => $lists,
         ]);
     }
-    
+
     // Función para borrar items
     public function delete($id)
     {
@@ -57,7 +57,7 @@ class ItemsController extends AppController
         $this->set([
             'deleted' => $deleted,
             'message' => $message,
-            '_serialize' => ['deleted', 'message']
+            '_serialize' => ['deleted', 'message'],
         ]);
         $this->RequestHandler->renderAs($this, 'json');
     }
@@ -82,8 +82,26 @@ class ItemsController extends AppController
         $this->set([
             'success' => $success,
             'message' => $message,
-            '_serialize' => ['success', 'message']
+            '_serialize' => ['success', 'message'],
         ]);
         $this->RequestHandler->renderAs($this, 'json');
+    }
+
+    // Función para hacer la búsqueda de items
+    public function searchItems($id)
+    {
+        $value = $this->request->data('key');
+        /*if (isset($_POST['txtbusca'])) {
+            include "conexion.php";
+            $user = new ApptivaDB();
+            $u = $user->buscar("usuarios", " nombre like '%" . $_POST['txtbusca'] . "%'");
+            $html = "";
+            foreach ($u as $v) {
+                $html .= "<p>" . $v['nombre'] . "</p>";
+            }
+            echo $html;
+        } else {
+            echo "Error";
+        };*/
     }
 }

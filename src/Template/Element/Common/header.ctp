@@ -22,7 +22,7 @@ use Cake\Routing\Router;
                     'class' => 'input-custom',
                     'placeholder' => __('Buscar...'),
                 ])?>
-                <button class="btn ml-3 btn-input-custom1 mr-3 px-3 py-0" type="submit">
+                <button id="button-input" class="btn ml-3 btn-input-custom1 btn-search mr-3 px-3 py-0" type="submit">
                     <?=__('Buscar')?>
                 </button>
                 <button class="btn btn-input-custom2 px-3 py-0" type="button">
@@ -37,7 +37,7 @@ use Cake\Routing\Router;
                 </a>
             </li>
             <li class="mr-5">
-                <a href="javascript:void(0)">
+                <a href="javascript:void(0)" class="add-navbar">
                     <i class="fas fa-plus"></i>
                 </a>
             </li>
@@ -48,7 +48,7 @@ use Cake\Routing\Router;
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-custom custom-shadow rounded-0">
                     <div class="dropdown-header d-flex justify-content-left align-items-center">
                         <?=$this->Html->image('user_52.png', array('alt' => 'imagen usuario', 'class' => 'user_img'))?>
-                        <div class="h6"><?= $this->request->getSession()->read('Auth.User.name') ?></div>
+                        <div class="h6 mb-0"><?= $this->request->getSession()->read('Auth.User.username') ?></div>
                     </div>
                     <div class="dropdown-divider dropdown-divider-custom"></div>
                     <a class="dropdown-item" href="<?=Router::url(['controller' => 'users', 'action' => 'profile'])?>">

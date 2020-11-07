@@ -58,6 +58,23 @@ let Items = {
                 title: "Enlace copiado",
             });
         });
+
+        // Buscar items con el buscador
+        $(document).on("keyup", ".input-custom", function () {
+            var parametros = "txtbusca=" + $(this).val();
+            $.ajax({
+                data: parametros,
+                url: "/items/busqueda",
+                type: "POST",
+                beforeSend: function () {},
+                success: function (response) {
+                    $(".salida").html(response);
+                },
+                error: function () {
+                    alert("error");
+                },
+            });
+        });
     },
     // Cargar items
     loadItems: function () {

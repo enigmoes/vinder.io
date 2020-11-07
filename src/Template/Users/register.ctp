@@ -12,21 +12,21 @@ use Cake\Routing\Router;
                 <div class="card-body">
                     <div class="h5 mb-4 h5-custom"><?= __('CREA TU CUENTA') ?></div>
                     <?= $this->Form->create($user) ?>
-                        <div class="form-group">
+                        <div class="form-group mb-4 mt-5">
                             <?= $this->Form->control('username', [
                                 'label' => false,
                                 'class' => 'form-control form-control-custom',
                                 'placeholder' => __('Usuario')
                             ]) ?>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-4">
                             <?= $this->Form->control('email', [
                                 'label' => false,
                                 'class' => 'form-control form-control-custom',
                                 'placeholder' => __('Email')
                             ]) ?>
                         </div>
-                        <div class="form-group form-group-icon-right">
+                        <div class="form-group form-group-icon-right mb-4">
                             <?= $this->Form->control('password', [
                                 'label' => false,
                                 'class' => 'form-control form-control-custom',

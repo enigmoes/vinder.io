@@ -92,6 +92,8 @@ a:hover {
 .error-message {
     color: #ff0000;
     font-size: 13px;
+    text-align: left;
+    margin-top: 10px;
 }
 
 .status {
@@ -142,7 +144,6 @@ a:hover {
 }
 
 .form-control-custom {
-    margin-bottom: 25px;
     border-color: var(--secondary);
     border-radius: 20px;
 }
@@ -414,6 +415,9 @@ i:hover {
     margin-left: 15px;
     margin-right: 15px;
 }
+.dropdown-menu-custom i {
+    min-width: 13px;
+}
 /* END DROPDOWN */
 /* INPUT SEARCH-SAVE */
 .container-input-custom {
@@ -498,9 +502,6 @@ i:hover {
 }
 .results-tags li {
     list-style: none;
-}
-.results-tags {
-    font-size: small;
 }
 .results-tags i {
     font-size: small;

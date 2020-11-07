@@ -69,7 +69,7 @@ class Functions {
     /**
      * Funcion que extrae una columna de un array convertida en string
      */
-    public function addFieldAsString(&$datas, $field_name, $rule, $glue = ',')
+    public static function addFieldAsString(&$datas, $field_name, $rule, $glue = ',')
     {
         // Recorremos datos
         foreach ($datas as $data) {
@@ -80,7 +80,7 @@ class Functions {
     /**
      * Funcion convierte subitems de un array en variable simple
      */
-    public function arrayToObject($array, $pos = 0)
+    public static function arrayToObject($array, $pos = 0)
     {
         foreach ($array as $key => $item) {
             // Comprobamos que el item sea array
@@ -102,7 +102,8 @@ class Functions {
     /**
      * Returns a html string truncated
      */
-    static function truncateHtml($html, $maxLength, $isUtf8=true) {
+    public static function truncateHtml($html, $maxLength, $isUtf8 = true)
+    {
         $printedLength = 0;
         $position = 0;
         $tags = array();

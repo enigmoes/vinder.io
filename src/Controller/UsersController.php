@@ -14,6 +14,7 @@ class UsersController extends AppController
 
         $this->Mail = new Mail();
         $this->loadModel('Tokens');
+        $this->loadModel('Lists');
     }
 
     public function beforeFilter(Event $event)
@@ -40,7 +41,7 @@ class UsersController extends AppController
         if ($this->request->is(['post', 'put'])) {
             $this->begin();
             //Completar datos entidad con datos formulario
-            $this->Users->patchEntity($user, $this->request->getData());
+            $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'profile']);
             // Get current user data
             $currentUser = $this->Users->get($user->id);
             //Guardamos datos en db
@@ -83,7 +84,7 @@ class UsersController extends AppController
                     // Creamos código para validar email
                     $user->token = $this->Tokens->createCode($user->id);
                     // Enviamos email
-                    if ($this->Mail->sendEmail($user->email, __('Notificación cambio de email | vinder.io'), 'notifications/email', $user)) {
+                    if ($this->Mail->sendEmail($user['email'], __('Notificación cambio de email | vinder.io'), 'notifications/email', $user)) {
                         // Desactivamos usuario
                         $this->Users->deactivate($user->id);
                         $this->commit();
@@ -101,7 +102,7 @@ class UsersController extends AppController
                     }
                 }
             } else {
-                $this->Flash->error(__('Error al guardar sus datos'));
+                $this->Flash->error(__('Error al modificar su email'));
             }
         }
 
@@ -123,18 +124,18 @@ class UsersController extends AppController
             $this->begin();
             //Completar datos entidad con datos formulario
             $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'password']);
-            // Ger current user data
-            $currentUser = $this->Users->get($user->id);
             //Guardamos datos en db
             if ($this->Users->save($user)) {
-                $this->commit();
-                $this->Flash->success(__('Datos actualizados correctamente'));
+                if ($this->Mail->sendEmail($user['email'], __('Notificación cambio de email | vinder.io'), 'notifications/password', $user)) {
+                    $this->commit();
+                    $this->Flash->success(__('Contraseña modificada correctamente'));
                     $this->redirect([
                         'controller' => 'users',
                         'action' => 'password',
                     ]);
+                }
             } else {
-                $this->Flash->error(__('Error al guardar sus datos'));
+                $this->Flash->error(__('Error al modificar su contraseña'));
             }
         }
 
@@ -207,21 +208,27 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         //Si el request es post
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'default']);
+            $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'register']);
             if ($this->request->getData('privacidad') == \Boolean::YES) {
                 if ($this->Users->save($user)) {
-                    // Generamos token de validación de email
-                    $token = $this->Tokens->createCode($user['id']);
-                    if ($token) {
-                        // Assignamos token a usuario
-                        $user['token'] = $this->Tokens->findByIdUser($user['id'])->first();
-                        // Enviamos email de bienvenida y validación
-                        if ($this->Mail->sendEmail($user['email'], __('Bienvenido | vinder.io'), 'welcome', $user)) {
-                            if ($this->Mail->sendEmail($user['email'], __('Validación email | vinder.io'), 'validate', $user)) {
-                                $this->commit();
-                                $this->Flash->success(__('Hemos enviado un codigo de validación a su email, por favor introduzcalo en el siguiente campo.'));
-                                $this->request->getSession()->write('Validate.User.id', $user['id']);
-                                $this->redirect(['action' => 'validate']);
+                    $list = $this->Lists->newEntity();
+                    $list['id_user'] = $user['id'];
+                    if ($this->Lists->save($list)) {
+                        // Generamos token de validación de email
+                        $token = $this->Tokens->createCode($user['id']);
+                        if ($token) {
+                            // Assignamos token a usuario
+                            $user['token'] = $token;
+                            // Enviamos email de bienvenida y validación
+                            if ($this->Mail->sendEmail($user['email'], __('Bienvenido | vinder.io'), 'welcome', $user)) {
+                                if ($this->Mail->sendEmail($user['email'], __('Validación email | vinder.io'), 'validate', $user)) {
+                                    $this->commit();
+                                    $this->Flash->success(__('Hemos enviado un codigo de validación a su email, por favor introduzcalo en el siguiente campo.'));
+                                    $this->request->getSession()->write('Validate.User.id', $user['id']);
+                                    $this->redirect(['action' => 'validate']);
+                                } else {
+                                    $this->Flash->error(__('Se ha producido un error en el registro'));
+                                }
                             } else {
                                 $this->Flash->error(__('Se ha producido un error en el registro'));
                             }
@@ -264,7 +271,7 @@ class UsersController extends AppController
                 $token = $this->Tokens->createToken($user['id']);
                 if ($token) {
                     // Assignamos token a usuario
-                    $user['token'] = $this->Tokens->findByIdUser($user['id'])->first();
+                    $user['token'] = $token;
                     // Si se envia el email
                     if ($this->Mail->sendEmail($user['email'], __('Recuperar contraseña | vinder.io'), 'recover', $user)) {
                         $this->commit();
@@ -293,6 +300,7 @@ class UsersController extends AppController
         if ($this->isLogin()) {
             $this->redirect($this->referer());
         }
+        $user = $this->Users->newEntity();
         // Comprobamos si es valido el token
         if ($this->Tokens->checkToken($token)) {
             // Buscamos usuario por token
@@ -303,7 +311,7 @@ class UsersController extends AppController
             // Eliminamos password
             unset($user->password);
             // Si se recibe post
-            if ($this->request->is('post')) {
+            if ($this->request->is(['post', 'put'])) {
                 $this->begin();
                 $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'recover']);
                 // Guardamos datos
@@ -385,7 +393,7 @@ class UsersController extends AppController
             $user->is_active = 0;
             $user->deactivated = date('Y-m-d', strtotime('+1 day'));
             if ($this->Users->save($user)) {
-                if ($this->Mail->sendEmail($user->email, __('Notificacion desactivación de cuenta | vinder.io'), 'notifications/deactivate', $user)) {
+                if ($this->Mail->sendEmail($user['email'], __('Notificacion desactivación de cuenta | vinder.io'), 'notifications/deactivate', $user)) {
                     $this->request->getSession()->delete('Auth');
                 } else {
                     $errors = 1;
