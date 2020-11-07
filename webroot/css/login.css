@@ -37,7 +37,6 @@ Login, Recover, change and validate CSS template
     background-color: var(--secondary_hover);
 }
 .form-control-custom {
-    margin-bottom: 25px;
     border-color: var(--secondary);
     border-radius: 20px;
 }

@@ -92,6 +92,8 @@ a:hover {
 .error-message {
     color: #ff0000;
     font-size: 13px;
+    text-align: left;
+    margin-top: 10px;
 }
 
 .status {
@@ -142,7 +144,6 @@ a:hover {
 }
 
 .form-control-custom {
-    margin-bottom: 25px;
     border-color: var(--secondary);
     border-radius: 20px;
 }
