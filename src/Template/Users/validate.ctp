@@ -10,7 +10,7 @@ use Cake\Routing\Router;
                 <div class="card-body mt-3 mt-md-0 p-xl-5">
                     <h3><?= __('Validación email') ?></h3>
                     <div class="h5 mb-4 h5-custom"><?= __('VALIDA TU EMAIL') ?></div>
-                    <?= $this->Form->create(false, ['url' => ['controller' => 'users', 'action' => 'validate']]); ?>
+                    <?= $this->Form->create('Validate'); ?>
                         <div class="form-group">
                             <label for="token" class="sr-only"><?= __('Código') ?></label>
                             <?= $this->Form->control('token', [
