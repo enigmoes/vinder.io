@@ -457,7 +457,7 @@ i:hover {
 .btn-input-custom2:hover {
     background: var(--secondary_hover);
     color: white;
-    border: 1px solid white;
+    border: 1px solid  #69bb12;
     border-radius: 20px;
 }
 /* END INPUT SEARCH-SAVE */
@@ -507,14 +507,14 @@ i:hover {
     font-size: small;
     float: right;
 }
+.tag-edit,.tag-delete{
+    display: none;
+}
 .results-tags ul {
     margin: 0;
     padding: 0;
 }
 .results-tags a:hover {
     color: var(--secondary_hover);
-}
-.tag-active{
-    background: var(--primary);
 }
 /* END TAGS */
