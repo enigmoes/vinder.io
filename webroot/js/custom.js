@@ -77,7 +77,19 @@ let Custom = {
         // Evento compartir enlaces
         $(document).on("click", ".share-link", function () {
             let url = $(this).data("url");
-            window.open(url);
+            window.open(url, "ventanaEnlaces", "top=500,left=500,width=500,height=400");
+        });
+        // Evento para ocultar y mostrar los iconos de editar y eliminar de las tags
+        $(document).on("mouseenter", ".results-tags li", function () {
+            $(".tag-edit,.tag-delete").css("display","none");
+            $(".results-tags li").css("background","white");
+            $(this).css("background","#ebf0c7");
+            let icons = $(this).find("a");
+            icons.css("display","inline");
+        });
+        $(document).on("mouseleave", ".results-tags li", function () {
+            $(".tag-edit,.tag-delete").css("display","none");
+            $(".results-tags li").css("background","white");
         });
     },
     navbarEvents: function () {

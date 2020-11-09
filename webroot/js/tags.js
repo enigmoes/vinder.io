@@ -36,13 +36,13 @@ let Tags = {
             Tags.isFav(url, $(this));
         });
 
-        //Evento para eliminar favoritos
+        //Evento para eliminar items
         $(document).on("click", ".deleteItem", function () {
             let url = $(this).data("url");
             let message = $(this).data("message");
             let ok = $(this).data("ok");
             let cancel = $(this).data("cancel");
-            let data = { url: url, message: message, ok: ok, cancel: cancel };
+            let data = { url: url, message: message, ok: ok, cancel: cancel, id: id};
             Tags.delete(data);
         });
 
@@ -61,11 +61,11 @@ let Tags = {
             });
         });
 
-        // Evento click ver items etiqueta
+        // Evento click ver items por etiqueta
         $(document).on("click", ".tag", function () {
             let id_tag = $(this).data("id");
-            $(".tag").parent().removeClass("tag-active");
-            $(this).parent().addClass("tag-active");
+            $(".tag").parent().removeClass("active");
+            $(this).parent().addClass("active");
             Tags.loadItems(id_tag);
         });
 
@@ -73,6 +73,22 @@ let Tags = {
         $(document).on("keyup", ".form-control-tags", function () {
             var valorBusqueda = $(this).val();
             Tags.searchTags(valorBusqueda);
+        });
+
+        //Evento para eliminar tags
+        $(document).on("click", ".tag-delete", function () {
+            let url = $(this).data("url");
+            let message = $(this).data("message");
+            let ok = $(this).data("ok");
+            let cancel = $(this).data("cancel");
+            let data = { url: url, message: message, ok: ok, cancel: cancel };
+            Tags.deleteTags(data);
+        });
+
+        //Evento para editar tags
+        $(document).on("click", ".tag-edit", function () {
+            let url = $(this).data("url");
+            Tags.edit(url);
         });
     },
     // Cargar etiquetas
@@ -132,7 +148,7 @@ let Tags = {
                     },
                     success: function (data) {
                         if (data.deleted) {
-                            Tags.loadItems();
+                            Tags.loadItems(data.id);
                             Tags.toast.fire({
                                 icon: "success",
                                 title: data.message,
@@ -175,10 +191,12 @@ let Tags = {
             },
         });
     },
-    searchTags: function(valor){
+    // Buscar tags
+    searchTags: function (tag) {
         $.ajax({
-            url: "/tags/searchTags/" + valor,
+            url: "/tags/tags/",
             type: "GET",
+            data: { tag: tag },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -190,6 +208,72 @@ let Tags = {
             },
             error: function () {
                 alert("error");
+            },
+        });
+    },
+    // Eliminar tags
+    deleteTags: function (data) {
+        Swal.fire({
+            title: data.message,
+            icon: "question",
+            showCancelButton: true,
+            cancelButtonColor: "#d33",
+            confirmButtonText: data.ok,
+            cancelButtonText: data.cancel,
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "GET",
+                    url: data.url,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(
+                            "X-CSRF-Token",
+                            $('[name="_csrfToken"]').val()
+                        );
+                    },
+                    success: function (data) {
+                        if (data.deleted) {
+                            Tags.loadTags();
+                            Tags.toast.fire({
+                                icon: "success",
+                                title: data.message,
+                            });
+                        } else {
+                            Tags.toast.fire({
+                                icon: "error",
+                                title: data.message,
+                            });
+                        }
+                    },
+                });
+            }
+        });
+    },
+    // Editar tags
+    edit: function (data) {
+        $.ajax({
+            type: "GET",
+            url: data.url,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (data) {
+                if (data.saved) {
+                    Tags.loadTags();
+                    Tags.loadItems
+                    Tags.toast.fire({
+                        icon: "success",
+                        title: data.message,
+                    });
+                } else {
+                    Tags.toast.fire({
+                        icon: "error",
+                        title: data.message,
+                    });
+                }
             },
         });
     },
