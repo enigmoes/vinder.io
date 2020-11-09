@@ -1,6 +1,9 @@
 <?php
 namespace App\Controller;
 
+use Goutte\Client;
+use GuzzleHttp\Client as GuzzleClient;
+
 class ItemsController extends AppController
 {
 
@@ -41,6 +44,52 @@ class ItemsController extends AppController
         $this->set([
             'lists' => $lists,
         ]);
+    }
+
+    // Función para añadir items
+    public function add()
+    {
+        $url = $this->request->getQuery('url');
+        if (!empty($url)) {
+            // Eliminamos comillas de la url
+            $url = str_replace('"', '', $url);
+            // Crear DOM de la URL
+            $client = new Client();
+            $crawler = $client->request('GET', $url);
+            $title = $crawler->filter('title')->text();
+            $description = $crawler->filter('meta[name="description"]')->attr('content');
+            $image = '';
+            $crawler->filter('img')->each(function ($node, $i) use (&$image) {
+                $src = $node->attr('src');
+                if (empty($image) && preg_match('/.jpg+$|.png+$|.svg+$|.gif+$/', $src)) {
+                    $image = \Functions::imageToBase64($src);
+                }
+            });
+            // Buscar título, descripción e imagen de la url
+            $item = $this->Items->newEntity();
+            $item->id_list = 1;
+            $item->id_user = $this->request->getSession()->read('Auth.User.id');
+            $item->title = $title;
+            $item->description = $description;
+            $item->link = $url;
+            $item->image = $image;
+            if ($this->Items->save($item)) {
+                $saved = true;
+                $message = __('Item guardado correctamente');
+            } else {
+                $saved = false;
+                $message = __('Error al guardar el item');
+            }
+        } else {
+            $saved = false;
+            $message = __('Error al guardar el item');
+        }
+        $this->set([
+            'saved' => $saved,
+            'message' => $message,
+            '_serialize' => ['saved', 'message'],
+        ]);
+        $this->RequestHandler->renderAs($this, 'json');
     }
 
     // Función para borrar items
@@ -88,20 +137,19 @@ class ItemsController extends AppController
     }
 
     // Función para hacer la búsqueda de items
-    public function searchItems($id)
+    public function searchItems($valor = null)
     {
-        $value = $this->request->data('key');
-        /*if (isset($_POST['txtbusca'])) {
-            include "conexion.php";
-            $user = new ApptivaDB();
-            $u = $user->buscar("usuarios", " nombre like '%" . $_POST['txtbusca'] . "%'");
-            $html = "";
-            foreach ($u as $v) {
-                $html .= "<p>" . $v['nombre'] . "</p>";
-            }
-            echo $html;
-        } else {
-            echo "Error";
-        };*/
+        // Buscamos datos en db para las listas
+        $lists = $this->Lists->find('all', [
+            'contain' => ['Items'],
+            'conditions' => [
+                'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+                'Items.title LIKE' => '%' . $valor . '%',
+            ],
+        ])->toArray();
+        $this->viewBuilder()->setLayout('ajax');
+        $this->set([
+            'lists' => $lists,
+        ]);
     }
 }

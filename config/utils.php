@@ -178,5 +178,15 @@ class Functions {
 
         return $string;
     }
-    
+
+    /**
+     * Funcion para convertir una imagen a un base64
+     */
+    public static function imageToBase64($urlImage)
+    {
+        $file_info = new \finfo(FILEINFO_MIME_TYPE);
+        $mime_type = $file_info->buffer(file_get_contents($urlImage));
+        $image = 'data:' . $mime_type . ';base64,' . base64_encode(file_get_contents($urlImage));
+        return $image;
+    }
 }

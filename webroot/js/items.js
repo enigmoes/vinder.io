@@ -34,7 +34,7 @@ let Items = {
             Items.isFav(url, $(this));
         });
 
-        //Evento para eliminar favoritos
+        //Evento para eliminar items
         $(document).on("click", ".deleteItem", function () {
             let url = $(this).data("url");
             let message = $(this).data("message");
@@ -59,21 +59,18 @@ let Items = {
             });
         });
 
-        // Buscar items con el buscador
-        $(document).on("keyup", ".input-custom", function () {
-            var parametros = "txtbusca=" + $(this).val();
-            $.ajax({
-                data: parametros,
-                url: "/items/busqueda",
-                type: "POST",
-                beforeSend: function () {},
-                success: function (response) {
-                    $(".salida").html(response);
-                },
-                error: function () {
-                    alert("error");
-                },
-            });
+        // Buscar items con el buscador desplegable
+        $(document).on("click", ".btn-search", function () {
+            var valorBusqueda = $(".input-custom").val();
+            Items.searchItems(valorBusqueda);
+            $(".input-custom").val("");
+        });
+
+        // Añadir items con el input desplegable
+        $(document).on("click", ".btn-add", function () {
+            var url = $(".input-custom").val();
+            Items.add(url);
+            $(".input-custom").val("");
         });
     },
     // Cargar items
@@ -89,6 +86,34 @@ let Items = {
             },
             success: function (data) {
                 $(".results").html(data);
+            },
+        });
+    },
+    // Añadir items
+    add: function (url) {
+        $.ajax({
+            type: "GET",
+            url: "/items/add/",
+            data: {url: url},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (data) {
+                if (data.saved) {
+                    Items.loadItems();
+                    Items.toast.fire({
+                        icon: "success",
+                        title: data.message,
+                    });
+                } else {
+                    Items.toast.fire({
+                        icon: "error",
+                        title: data.message,
+                    });
+                }
             },
         });
     },
@@ -154,6 +179,25 @@ let Items = {
                         title: data.message,
                     });
                 }
+            },
+        });
+    },
+    // Buscar items por título
+    searchItems: function (valor) {
+        $.ajax({
+            url: "/items/searchItems/" + valor,
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results").html(response);
+            },
+            error: function () {
+                alert("error");
             },
         });
     },
