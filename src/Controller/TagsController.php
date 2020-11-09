@@ -30,14 +30,25 @@ class TagsController extends AppController
      */
 
     // Función para buscar las etiquetas
-    public function tags($search = null)
+    public function tags()
     {
-        // Buscamos datos en db para sacar las tags
-        $tags = $this->Tags->find('all', [
-            'conditions' => [
-                'Tags.id_user' => $this->request->getSession()->read('Auth.User.id'),
-            ],
-        ])->toArray();
+        $tag = $this->request->getQuery('tag');
+        if (!empty($tag)) {
+            // Buscamos datos en db para sacar las tags del usuario y filtradas
+            $tags = $this->Tags->find('all', [
+                'conditions' => [
+                    'Tags.name LIKE' => '%' . $tag . '%',
+                    'Tags.id_user' => $this->request->getSession()->read('Auth.User.id')
+                ],
+            ])->toArray();
+        } else {
+            // Buscamos datos en db para sacar las tags del usuario
+            $tags = $this->Tags->find('all', [
+                'conditions' => [
+                    'Tags.id_user' => $this->request->getSession()->read('Auth.User.id'),
+                ],
+            ])->toArray();
+        }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'tags' => $tags,
@@ -128,18 +139,53 @@ class TagsController extends AppController
         $this->RequestHandler->renderAs($this, 'json');
     }
 
-    // Función para hacer la búsqueda de tags
-    public function searchTags($valor = null)
+    // Función para borrar tags
+    public function deleteTags($id)
     {
-        // Buscamos datos en db para las listas
-        $tags = $this->Tags->find('all', [
+        // Buscamos si la tag está asignada a un item
+        $tags = $this->ItemsTags->find('list', [
             'conditions' => [
-                'Tags.name LIKE' => '%' . $valor . '%',
-            ],
+                'ItemsTags.id_tag' => $id,
+            ]
         ])->toArray();
-        $this->viewBuilder()->setLayout('ajax');
+        // Si la tag no está asignada, la eliminamos
+        if(count($tags) == 0) {
+            $tag = $this->Tags->get($id);
+            if ($this->Tags->delete($tag)) {
+                $deleted = true;
+                $message = __('Etiqueta eliminada correctamente');
+            } else {
+                $deleted = false;
+                $message = __('Se produjo un error al elminar la etiqueta');
+            }
+        } else {
+            $deleted = false;
+            $message = __('Error al eliminar: Esta etiqueta esta asociada a un item.');
+        }
         $this->set([
-            'tags' => $tags,
+            'deleted' => $deleted,
+            'message' => $message,
+            '_serialize' => ['deleted', 'message'],
         ]);
+        $this->RequestHandler->renderAs($this, 'json');
+    }
+
+    // Función para editar tags
+    public function edit($id)
+    {
+        $tag = $this->Tags->get($id);
+        if ($this->Items->delete($item)) {
+            $saved = true;
+            $message = __('Item editado correctamente');
+        } else {
+            $saved = false;
+            $message = __('Se produjo un error al editar el item');
+        }
+        $this->set([
+            'saved' => $saved,
+            'message' => $message,
+            '_serialize' => ['saved', 'message'],
+        ]);
+        $this->RequestHandler->renderAs($this, 'json');
     }
 }
