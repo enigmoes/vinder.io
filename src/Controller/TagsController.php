@@ -174,12 +174,21 @@ class TagsController extends AppController
     public function edit($id)
     {
         $tag = $this->Tags->get($id);
-        if ($this->Items->delete($item)) {
-            $saved = true;
-            $message = __('Item editado correctamente');
+        if ($this->request->is(['post', 'put'])) {
+            $this->begin();
+            debug($this->request->getData());exit;
+            $tag = $this->Tags->patchEntity($tag, $this->request->getData());
+            if ($this->Tags->save($tag)) {
+                $this->commit();
+                $saved = true;
+                $message = __('Etiqueta editada correctamente');
+            } else {
+                $saved = false;
+                $message = __('Se produjo un error al editar la etiqueta');
+            }
         } else {
             $saved = false;
-            $message = __('Se produjo un error al editar el item');
+            $message = '';
         }
         $this->set([
             'saved' => $saved,
