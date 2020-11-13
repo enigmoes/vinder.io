@@ -42,7 +42,7 @@ let Tags = {
             let message = $(this).data("message");
             let ok = $(this).data("ok");
             let cancel = $(this).data("cancel");
-            let data = { url: url, message: message, ok: ok, cancel: cancel, id: id};
+            let data = { url: url, message: message, ok: ok, cancel: cancel };
             Tags.delete(data);
         });
 
@@ -85,10 +85,21 @@ let Tags = {
             Tags.deleteTags(data);
         });
 
+        //Evento para desplegar el modal
+        $(document).on('click', '.tag-edit', function () {
+            // Recoger id tag
+            let tagId = $(this).data('id');
+            // Insertar formulario en modal.
+            $('#modal-tag-edit .modal-body').html($('#tag-'+tagId).html());
+            // Mostrar modal
+            $('#modal-tag-edit').modal('show');
+        });
+
         //Evento para editar tags
-        $(document).on("click", ".tag-edit", function () {
-            let url = $(this).data("url");
-            Tags.edit(url);
+        $(document).on("click", ".btn-modal-edit", function () {
+            // Recoger id tag
+            let tagId = $(this).data('id');
+            Tags.edit(tagId);
         });
     },
     // Cargar etiquetas
@@ -148,7 +159,7 @@ let Tags = {
                     },
                     success: function (data) {
                         if (data.deleted) {
-                            Tags.loadItems(data.id);
+                            Tags.loadItems();
                             Tags.toast.fire({
                                 icon: "success",
                                 title: data.message,
@@ -250,10 +261,15 @@ let Tags = {
         });
     },
     // Editar tags
-    edit: function (data) {
+    edit: function (id) {
+        let form = new FormData(document.querySelector('#form-tag-'+id));
+        console.log(document.querySelector('#form-tag-'+id));
         $.ajax({
-            type: "GET",
-            url: data.url,
+            type: "POST",
+            url: "/tags/edit/" + id,
+            data: form,
+            processData: false,
+            contentType: false,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -261,19 +277,19 @@ let Tags = {
                 );
             },
             success: function (data) {
-                if (data.saved) {
-                    Tags.loadTags();
-                    Tags.loadItems
-                    Tags.toast.fire({
-                        icon: "success",
-                        title: data.message,
-                    });
-                } else {
-                    Tags.toast.fire({
-                        icon: "error",
-                        title: data.message,
-                    });
-                }
+                console.log(data);
+                // if (data.saved) {
+                //     Tags.loadTags();
+                //     Tags.toast.fire({
+                //         icon: "success",
+                //         title: data.message,
+                //     });
+                // } else {
+                //     Tags.toast.fire({
+                //         icon: "error",
+                //         title: data.message,
+                //     });
+                // }
             },
         });
     },
