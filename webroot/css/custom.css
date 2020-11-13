@@ -518,3 +518,31 @@ i:hover {
     color: var(--secondary_hover);
 }
 /* END TAGS */
+/* MODAL */
+.btn-modal{
+    color: var(--secondary);
+    background: var(--primary);
+    border-radius: 30px;
+}
+.btn-modal:hover{
+    color: var(--primary);
+    background: var(--secondary);
+    border-radius: 30px;
+}
+.modal-header-custom{
+    border-bottom: 2px solid var(--primary);
+}
+.h5-modal{
+    text-align: center;
+}
+.input-modal{
+    width: 125%;
+}
+.select-custom{
+    border-color: var(--secondary);
+    border-radius: 30px;
+}
+.select-custom:focus {
+    outline: none;
+}
+/* END MODAL */
