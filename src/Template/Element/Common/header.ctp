@@ -25,7 +25,7 @@ use Cake\Routing\Router;
                 <button id="button-input" class="btn ml-3 btn-input-custom1 btn-search mr-3 px-3 py-0" type="submit">
                     <?=__('Buscar')?>
                 </button>
-                <button class="btn btn-input-custom2 px-3 py-0" type="button">
+                <button class="btn btn-input-custom2 btn-cancel px-3 py-0" type="button">
                     <?=__('Cancelar')?>
                 </button>         
             </div>

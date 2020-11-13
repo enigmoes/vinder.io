@@ -12,7 +12,7 @@ use Cake\Routing\Router;
                                 <img src="<?= $item->image ?>" alt="<?= $item->title ?>" class="mw-100">
                             </div>
                             <div class="h6 h6-default"><?= $item->title ?></div>
-                            <div class="mb-3"><a class="share-link" href="javascript:void(0)"
+                            <div class="mb-3"><a class="window-link" href="javascript:void(0)"
                             data-url="<?= $item->link ?>"><?= parse_url($item->link, PHP_URL_HOST) ?></a></div>
                             <p class="small"><?= substr($item->description, 0, 100) ?></p>
                             <div class="items-icons dropup">
