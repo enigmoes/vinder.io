@@ -79,6 +79,11 @@ let Custom = {
             let url = $(this).data("url");
             window.open(url, "ventanaEnlaces", "top=500,left=500,width=500,height=400");
         });
+        // Abrir enlace de los items en una pestaña nueva
+        $(document).on("click", ".window-link", function () {
+            let url = $(this).data("url");
+            window.open(url);
+        });
         // Evento para ocultar y mostrar los iconos de editar y eliminar de las tags
         $(document).on("mouseenter", ".results-tags li", function () {
             $(".tag-edit,.tag-delete").css("display","none");
