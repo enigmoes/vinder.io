@@ -104,7 +104,7 @@ class TagsController extends AppController
             $message = __('Item eliminado correctamente');
         } else {
             $deleted = false;
-            $message = __('Se produjo un error al elminar el item');
+            $message = __('Se produjo un error al eliminar el item');
         }
         $this->set([
             'deleted' => $deleted,
@@ -176,25 +176,17 @@ class TagsController extends AppController
         $tag = $this->Tags->get($id);
         if ($this->request->is(['post', 'put'])) {
             $this->begin();
-            debug($this->request->getData());exit;
             $tag = $this->Tags->patchEntity($tag, $this->request->getData());
             if ($this->Tags->save($tag)) {
                 $this->commit();
-                $saved = true;
-                $message = __('Etiqueta editada correctamente');
+                $this->Flash->success(__('Etiqueta editada correctamente'));
             } else {
-                $saved = false;
-                $message = __('Se produjo un error al editar la etiqueta');
+                $this->Flash->error(__('Se produjo un error al editar la etiqueta'));
             }
-        } else {
-            $saved = false;
-            $message = '';
         }
+        $this->viewBuilder()->setLayout('ajax');
         $this->set([
-            'saved' => $saved,
-            'message' => $message,
-            '_serialize' => ['saved', 'message'],
+           'tag' => $tag,
         ]);
-        $this->RequestHandler->renderAs($this, 'json');
     }
 }

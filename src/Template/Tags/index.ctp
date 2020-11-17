@@ -40,7 +40,7 @@ use Cake\Routing\Router;
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body d-flex justify-content-around my-3"></div>
+            <div class="modal-body-edit d-flex justify-content-around my-3"></div>
         </div>
     </div>
 </div>

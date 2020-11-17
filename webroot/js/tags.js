@@ -64,6 +64,7 @@ let Tags = {
         // Evento click ver items por etiqueta
         $(document).on("click", ".tag", function () {
             let id_tag = $(this).data("id");
+            sessionStorage.setItem('idTag', id_tag);
             $(".tag").parent().removeClass("active");
             $(this).parent().addClass("active");
             Tags.loadItems(id_tag);
@@ -85,14 +86,11 @@ let Tags = {
             Tags.deleteTags(data);
         });
 
-        //Evento para desplegar el modal
+        //Evento para introducir el formulario y desplegar el modal edit
         $(document).on('click', '.tag-edit', function () {
             // Recoger id tag
             let tagId = $(this).data('id');
-            // Insertar formulario en modal.
-            $('#modal-tag-edit .modal-body').html($('#tag-'+tagId).html());
-            // Mostrar modal
-            $('#modal-tag-edit').modal('show');
+            Tags.openEditTag(tagId);
         });
 
         //Evento para editar tags
@@ -100,6 +98,11 @@ let Tags = {
             // Recoger id tag
             let tagId = $(this).data('id');
             Tags.edit(tagId);
+        });
+
+        //Evento para cargar etiquetas al cerrar el modal edit
+        $(document).on('hide.bs.modal', '#modal-tag-edit' , function () {
+            Tags.loadTags();
         });
     },
     // Cargar etiquetas
@@ -159,7 +162,7 @@ let Tags = {
                     },
                     success: function (data) {
                         if (data.deleted) {
-                            Tags.loadItems();
+                            Tags.loadItems(sessionStorage.getItem('idTag'));
                             Tags.toast.fire({
                                 icon: "success",
                                 title: data.message,
@@ -260,10 +263,29 @@ let Tags = {
             }
         });
     },
+    // Abrir modal edit
+    openEditTag: function (id) {
+        $.ajax({
+            url: "/tags/edit/" + id,
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-edit").html(response);
+                $('#modal-tag-edit').modal('show');
+            },
+            error: function () {
+                alert("error");
+            },
+        });
+    },
     // Editar tags
     edit: function (id) {
         let form = new FormData(document.querySelector('#form-tag-'+id));
-        console.log(document.querySelector('#form-tag-'+id));
         $.ajax({
             type: "POST",
             url: "/tags/edit/" + id,
@@ -277,19 +299,7 @@ let Tags = {
                 );
             },
             success: function (data) {
-                console.log(data);
-                // if (data.saved) {
-                //     Tags.loadTags();
-                //     Tags.toast.fire({
-                //         icon: "success",
-                //         title: data.message,
-                //     });
-                // } else {
-                //     Tags.toast.fire({
-                //         icon: "error",
-                //         title: data.message,
-                //     });
-                // }
+                $(".modal-body-edit").html(data);
             },
         });
     },
