@@ -94,7 +94,7 @@ let Tags = {
         });
 
         //Evento para editar tags
-        $(document).on("click", ".btn-modal-edit", function () {
+        $(document).on('click', '.btn-modal-edit', function () {
             // Recoger id tag
             let tagId = $(this).data('id');
             Tags.edit(tagId);
@@ -103,6 +103,29 @@ let Tags = {
         //Evento para cargar etiquetas al cerrar el modal edit
         $(document).on('hide.bs.modal', '#modal-tag-edit' , function () {
             Tags.loadTags();
+        });
+
+        //Evento para introducir el formulario y desplegar el modal add
+        $(document).on('click', '.add-tag', function () {
+            // Recoger id item
+            let idItem = $(this).data('id');
+            Tags.openAddTag(idItem);
+        });
+
+        // Añadir etiqueta a un item
+        $(document).on('click', '.btn-modal-add', function () {
+            Tags.openCreateTag();
+        });
+
+        //Evento para desplegar el modal create
+        $(document).on('click', '.create-tag', function () {
+            $('#modal-tag-create').modal('show')
+            Tags.openCreateTag();
+        });
+
+        // Crear etiqueta
+        $(document).on('click', '.btn-modal-create', function () {
+            Tags.create();
         });
     },
     // Cargar etiquetas
@@ -300,6 +323,96 @@ let Tags = {
             },
             success: function (data) {
                 $(".modal-body-edit").html(data);
+                setTimeout(function () {
+                    $("#modal-tag-edit").modal("hide");
+                }, 1000);
+            },
+        });
+    },
+    // Abrir modal add
+    openAddTag: function (id) {
+        $.ajax({
+            url: "/items/addTag/" + id,
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-add").html(response);
+                $("#modal-tag-add").modal("show");
+            },
+            error: function () {
+                alert("error");
+            },
+        });
+    },
+    // Añadir etiqueta a un item
+    addTag: function (idItem) {
+        let form = new FormData(document.querySelector('#form-item-'+idItem));
+        $.ajax({
+            type: "POST",
+            url: "/items/add-tag/" + idItem,
+            data: form,
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-add").html(response);
+                setTimeout(function () {
+                    $("#modal-tag-add").modal("hide");
+                    Tags.loadItems(sessionStorage.getItem('idTag'));
+                }, 1000);
+            },
+        });
+    },
+    // Abrir modal create
+    openCreateTag: function () {
+        $.ajax({
+            url: "/tags/create/",
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-create").html(response);
+                $("#modal-tag-create").modal("show");
+            },
+            error: function () {
+                alert("error");
+            },
+        });
+    },
+    // Añadir etiqueta a un item
+    create: function () {
+        let form = new FormData(document.querySelector('#form-create'));
+        $.ajax({
+            type: "POST",
+            url: "/tags/create/",
+            data: form,
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-create").html(response);
+                // setTimeout(function () {
+                //     $("#modal-tag-create").modal("hide");
+                // }, 1000);
             },
         });
     },

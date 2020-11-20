@@ -40,14 +40,14 @@ class TagsController extends AppController
                     'Tags.name LIKE' => '%' . $tag . '%',
                     'Tags.id_user' => $this->request->getSession()->read('Auth.User.id')
                 ],
-            ])->toArray();
+            ])->order(['Tags.name' => 'ASC'])->toArray();
         } else {
             // Buscamos datos en db para sacar las tags del usuario
             $tags = $this->Tags->find('all', [
                 'conditions' => [
                     'Tags.id_user' => $this->request->getSession()->read('Auth.User.id'),
                 ],
-            ])->toArray();
+            ])->order(['Tags.name' => 'ASC'])->toArray();
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
@@ -182,6 +182,26 @@ class TagsController extends AppController
                 $this->Flash->success(__('Etiqueta editada correctamente'));
             } else {
                 $this->Flash->error(__('Se produjo un error al editar la etiqueta'));
+            }
+        }
+        $this->viewBuilder()->setLayout('ajax');
+        $this->set([
+           'tag' => $tag,
+        ]);
+    }
+
+    // Función para editar tags
+    public function create()
+    {
+        $tag = $this->Tags->newEntity();
+        if ($this->request->is(['post', 'put'])) {
+            $this->begin();
+            $tag = $this->Tags->patchEntity($tag, $this->request->getData());
+            if ($this->Tags->save($tag)) {
+                $this->commit();
+                $this->Flash->success(__('Etiqueta añadida correctamente'));
+            } else {
+                $this->Flash->error(__('Se produjo un error al añadir la etiqueta'));
             }
         }
         $this->viewBuilder()->setLayout('ajax');
