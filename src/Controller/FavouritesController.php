@@ -31,23 +31,44 @@ class FavouritesController extends AppController
     // Función para buscar las listas
     public function results()
     {
-        // Buscamos datos en db para los items
-        $lists = $this->Lists->find('all', [
-            'conditions' => [
-                'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
-            ],
-        ])->toArray();
-        foreach ($lists as $list) {
-            $list['items'] = $this->Items->find('all', [
+        $search = $this->request->getQuery('search');
+        if (!empty($search)) {
+            $title = __('BÚSQUEDA');
+            // Buscamos datos en db para los items
+            $lists = $this->Lists->find('all', [
                 'conditions' => [
-                    'Items.is_fav' => 1,
-                    'Items.id_list' => $list->id
+                    'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
                 ],
             ])->toArray();
+            foreach ($lists as $list) {
+                $list['items'] = $this->Items->find('all', [
+                    'conditions' => [
+                        'Items.id_list' => $list->id,
+                        'Items.title LIKE' => '%' . $search . '%',
+                    ],
+                ])->toArray();
+            }
+        } else {
+            $title = __('MI LISTA');
+            // Buscamos datos en db para los items
+            $lists = $this->Lists->find('all', [
+                'conditions' => [
+                    'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+                ],
+            ])->toArray();
+            foreach ($lists as $list) {
+                $list['items'] = $this->Items->find('all', [
+                    'conditions' => [
+                        'Items.is_fav' => 1,
+                        'Items.id_list' => $list->id,
+                    ],
+                ])->toArray();
+            }
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'lists' => $lists,
+            'title' => $title,
         ]);
     }
 }

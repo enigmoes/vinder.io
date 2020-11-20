@@ -7,7 +7,6 @@ use Cake\Routing\Router;
             <?=$this->element('Common/sidebar')?>
         </div>
         <div class="col-lg-10 col-12">
-            <div class="h4 h4-default"><?=__('MI LISTA')?></div>
             <div class="results mt-4"></div>
         </div>
     </div>

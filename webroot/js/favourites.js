@@ -58,6 +58,12 @@ let Favourites = {
                 title: "Enlace copiado",
             });
         });
+
+        // Eliminar texto del input desplegable al pulsar cancelar
+        $(document).on("click", ".btn-cancel", function () {
+            $(".input-custom").val("");
+            Favourites.loadFavourites();
+        });
     },
     // Cargar favoritos
     loadFavourites: function () {

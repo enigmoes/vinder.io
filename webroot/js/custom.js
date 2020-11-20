@@ -19,6 +19,26 @@ let Custom = {
         this.generalEvents();
         // Llamada a eventos de navbar
         this.navbarEvents();
+
+        //Evento para introducir el formulario y desplegar el modal add
+        $(document).on("click", ".add-tag", function () {
+            // Recoger id item
+            let idItem = $(this).data("id");
+            Custom.openAddTag(idItem);
+        });
+
+        // Añadir etiqueta a un item
+        $(document).on("click", ".btn-modal-add", function () {
+            // Recoger id item
+            let idItem = $(this).data("id");
+            Custom.addTag(idItem);
+        });
+
+        // Buscar items con el buscador desplegable
+        $(document).on("click", ".btn-search", function () {
+            let valorBusqueda = $(".input-custom").val();
+            Custom.searchItems(valorBusqueda);
+        });
     },
     generalEvents: function () {
         // Acción eliminar
@@ -126,6 +146,69 @@ let Custom = {
         $(".btn-input-custom2").on("click", function () {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
+        });
+    },
+    // Abrir modal add
+    openAddTag: function (id) {
+        $.ajax({
+            url: "/items/addTag/" + id,
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-add").html(response);
+                $("#modal-tag-add").modal("show");
+            },
+            error: function () {
+                alert("error");
+            },
+        });
+    },
+    // Añadir etiqueta a un item
+    addTag: function (idItem) {
+        let form = new FormData(document.querySelector('#form-item-'+idItem));
+        $.ajax({
+            type: "POST",
+            url: "/items/add-tag/" + idItem,
+            data: form,
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-add").html(response);
+                setTimeout(function () {
+                    $("#modal-tag-add").modal("hide");
+                }, 1000);
+            },
+        });
+    },
+    // Buscar items por título
+    searchItems: function (search) {
+        $.ajax({
+            url: "/items/results/",
+            type: "GET",
+            data: { search: search },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results").html(response);
+            },
+            error: function () {
+                alert("error");
+            },
         });
     },
 };

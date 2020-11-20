@@ -18,7 +18,7 @@ use Cake\Routing\Router;
                         <div class="h6 h6-default"><?=$item->title?></div>
                         <div class="mb-3"><a class="window-link" href="javascript:void(0)"
                         data-url="<?=$item->link?>"><?=parse_url($item->link, PHP_URL_HOST)?></a></div>
-                        <p class="small"><?=substr($item->description, 0, 100)?></p>
+                        <p class="small"><?=substr($item->description, 0, (strpos($item->description, '.') + 1))?></p>
                         <div class="items-icons dropup">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fas fa-share-square"></i>
@@ -37,7 +37,10 @@ use Cake\Routing\Router;
                                     <i class="fab fa-twitter"></i><?=__('Twitter')?>
                                 </a>
                             </div>
-                            <a href="javascript:void(0)"><i class="fas fa-tag"></i></a>
+                            <a class="add-tag" href="javascript:void(0)"
+                            data-id="<?=$item->id?>">
+                                <i class="fas fa-tag"></i>
+                            </a>
                             <a href="javascript:void(0)" class="favItem <?=($item->is_fav) ? 'isFav' : ''?>"
                             data-url="<?=Router::url(['controller' => 'items', 'action' => 'is_fav', $item->id])?>">
                                 <i class="fas fa-star"></i>
