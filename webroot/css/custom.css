@@ -285,6 +285,7 @@ i:hover {
     margin-bottom: 15px;
 }
 .components2 li a {
+    display: block;
     color: var(--secondary);
 }
 .components2 li a:hover {
@@ -482,6 +483,9 @@ i:hover {
 }
 /* END CARD ITEMS */
 /* TAGS */
+.results-tags{
+    height: 10rem;
+}
 .input-tags {
     border: 1px solid;
     border-color: var(--secondary);
@@ -503,9 +507,16 @@ i:hover {
 .results-tags li {
     list-style: none;
 }
+.results-tags p {
+    color: var(--secondary);
+}
 .results-tags i {
     font-size: small;
     float: right;
+}
+.results-tags .create-tag i{
+    font-size: small;
+    float: none;
 }
 .tag-edit,.tag-delete{
     display: none;
@@ -537,12 +548,5 @@ i:hover {
 }
 .input-modal{
     width: 125%;
-}
-.select-custom{
-    border-color: var(--secondary);
-    border-radius: 30px;
-}
-.select-custom:focus {
-    outline: none;
 }
 /* END MODAL */
