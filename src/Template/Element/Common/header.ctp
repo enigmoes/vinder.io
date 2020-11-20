@@ -14,7 +14,7 @@ use Cake\Routing\Router;
                 <?= $this->element('Common/sidebar') ?>
             </div>
         </div>
-        <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
+        <?php if ($this->request->controller != 'Users'): ?>
         <div id="input-custom" class="d-none">
             <div class="container-input-custom d-flex align-items-center px-4 py-1">
                 <?=$this->Form->control('input', [
