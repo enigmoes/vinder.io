@@ -23,7 +23,7 @@ use Cake\Routing\Router;
                     ])?>
                 </div>
                 <?= $this->Form->end() ?>
-                <div class="results-tags"></div>
+                <div class="results-tags overflow-auto"></div>
             </nav>
         </div>
         <div class="col-lg-10 col-12">
