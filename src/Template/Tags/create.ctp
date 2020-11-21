@@ -9,6 +9,7 @@ use Cake\Routing\Router;
         'id' => 'form-create',
         'class' =>'form-inline'
     ]) ?>
+        <?= $this->Form->hidden('id_user', ['value' => $this->request->getSession()->read('Auth.User.id')]) ?>
         <?=$this->Form->control('name', [
             'div' => false,
             'id' => false,
