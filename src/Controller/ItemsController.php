@@ -78,8 +78,8 @@ class ItemsController extends AppController
             // Crear DOM de la URL
             $client = new Client();
             $crawler = $client->request('GET', $url);
-            $title = $crawler->filter('title')->text();
-            $description = $crawler->filter('meta[name="description"]')->attr('content');
+            $title = trim($crawler->filter('title')->text());
+            $description = trim($crawler->filter('meta[name="description"]')->attr('content'));
             // Buscamos ultimos caracter y añadimos '.' en caso de no tener
             $lastChar = ord(substr($description, -1));
             if ($lastChar != 46) {
@@ -88,8 +88,14 @@ class ItemsController extends AppController
             $image = '';
             $crawler->filter('img')->each(function ($node, $i) use (&$image) {
                 $src = $node->attr('src');
-                if (empty($image) && preg_match('/.jpg+$|.png+$|.svg+$|.gif+$/', $src)) {
-                    $image = \Functions::imageToBase64($src);
+                // Limpiar query de URL
+                $src = preg_replace('/\?.*/', '', $src);
+                // Comprobamos vacio y e imagen valida
+                if (empty($image) && preg_match('/.jpg+$|.jpeg+$|.png+$|.gif+$/', $src)) {
+                    $tmp = \Functions::imageToBase64($src);
+                    if (!is_null($tmp)) {
+                        $image = $tmp;
+                    }
                 }
             });
             // Buscar título, descripción e imagen de la url
