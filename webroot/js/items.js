@@ -29,13 +29,13 @@ let Items = {
     // Eventos
     events: function () {
         //Evento para favoritos
-        $(document).on("click", ".favItem", function () {
+        $(document).on("click", ".fav-item", function () {
             let url = $(this).data("url");
             Items.isFav(url, $(this));
         });
 
         //Evento para eliminar items
-        $(document).on("click", ".deleteItem", function () {
+        $(document).on("click", ".delete-item", function () {
             let url = $(this).data("url");
             let message = $(this).data("message");
             let ok = $(this).data("ok");
@@ -99,6 +99,12 @@ let Items = {
                     "X-CSRF-Token",
                     $('[name="_csrfToken"]').val()
                 );
+                Items.toast.fire({
+					icon: "info",
+					title: " Cargando...",
+					timer: false
+				});
+				Swal.showLoading();
             },
             success: function (data) {
                 if (data.saved) {
