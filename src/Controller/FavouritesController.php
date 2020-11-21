@@ -34,15 +34,17 @@ class FavouritesController extends AppController
         $search = $this->request->getQuery('search');
         if (!empty($search)) {
             $title = __('BÚSQUEDA');
-            // Buscamos datos en db para los items
+            // Buscamos listas del usuario
             $lists = $this->Lists->find('all', [
                 'conditions' => [
                     'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
                 ],
             ])->toArray();
+            // Buscamos items favoritos por lista
             foreach ($lists as $list) {
                 $list['items'] = $this->Items->find('all', [
                     'conditions' => [
+                        'Items.is_fav' => 1,
                         'Items.id_list' => $list->id,
                         'Items.title LIKE' => '%' . $search . '%',
                     ],
@@ -50,12 +52,13 @@ class FavouritesController extends AppController
             }
         } else {
             $title = __('MI LISTA');
-            // Buscamos datos en db para los items
+            // Buscamos listas del usuario
             $lists = $this->Lists->find('all', [
                 'conditions' => [
                     'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
                 ],
             ])->toArray();
+            // Buscamos items favoritos por lista
             foreach ($lists as $list) {
                 $list['items'] = $this->Items->find('all', [
                     'conditions' => [
