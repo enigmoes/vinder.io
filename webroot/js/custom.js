@@ -19,26 +19,8 @@ let Custom = {
         this.generalEvents();
         // Llamada a eventos de navbar
         this.navbarEvents();
-
-        //Evento para introducir el formulario y desplegar el modal add
-        $(document).on("click", ".add-tag", function () {
-            // Recoger id item
-            let idItem = $(this).data("id");
-            Custom.openAddTag(idItem);
-        });
-
-        // Añadir etiqueta a un item
-        $(document).on("click", ".btn-modal-add", function () {
-            // Recoger id item
-            let idItem = $(this).data("id");
-            Custom.addTag(idItem);
-        });
-
-        // Buscar items con el buscador desplegable
-        $(document).on("click", ".btn-search", function () {
-            let valorBusqueda = $(".input-custom").val();
-            Custom.searchItems(valorBusqueda);
-        });
+        // Llamada a eventos de acción comunes
+        this.actionEvents();
     },
     generalEvents: function () {
         // Acción eliminar
@@ -148,6 +130,27 @@ let Custom = {
             $(".navbar-icons").removeClass("d-none");
         });
     },
+    actionEvents: function () {
+        //Evento para introducir el formulario y desplegar el modal add
+        $(document).on("click", ".add-tag", function () {
+            // Recoger id item
+            let idItem = $(this).data("id");
+            Custom.openAddTag(idItem);
+        });
+
+        // Añadir etiqueta a un item
+        $(document).on("click", ".btn-modal-add", function () {
+            // Recoger id item
+            let idItem = $(this).data("id");
+            Custom.addTag(idItem);
+        });
+
+        // Buscar items con el buscador desplegable
+        $(document).on("click", ".btn-search", function () {
+            let valorBusqueda = $(".input-custom").val();
+            Custom.searchItems(valorBusqueda);
+        });
+    },
     // Abrir modal add
     openAddTag: function (id) {
         $.ajax({
@@ -162,10 +165,7 @@ let Custom = {
             success: function (response) {
                 $(".modal-body-add").html(response);
                 $("#modal-tag-add").modal("show");
-            },
-            error: function () {
-                alert("error");
-            },
+            }
         });
     },
     // Añadir etiqueta a un item
@@ -205,10 +205,7 @@ let Custom = {
             },
             success: function (response) {
                 $(".results").html(response);
-            },
-            error: function () {
-                alert("error");
-            },
+            }
         });
     },
 };
