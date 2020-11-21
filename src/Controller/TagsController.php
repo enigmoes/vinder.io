@@ -58,26 +58,27 @@ class TagsController extends AppController
     // Función para buscar las listas por cada etiqueta
     public function items($id_tag = null)
     {
+        // Declaramos items
+        $items = [];
         if (!is_null($id_tag)) {
             // Buscamos el nombre de la tag
-            $tagName = $this->Tags->find('all', [
-                'conditions' => [
-                    'Tags.id' => $id_tag,
-                ],
-            ])->toArray()[0]->name;
+            $tagName = $this->Tags->find('all', ['conditions' => ['Tags.id' => $id_tag]])->toArray()[0]->name;
             // Buscamos todos los items de una tag
-            $items = $this->Items->find('all', [
+            $itemsTags = $this->ItemsTags->find('list', [
                 'conditions' => [
-                    'Items.id IN' => $this->ItemsTags->find('list', [
-                        'conditions' => [
-                            'ItemsTags.id_tag' => $id_tag,
-                        ],
-                        'keyField' => 'id', 'valueField' => function ($e) {
-                            return $e->id_item;
-                        },
-                    ])->toArray(),
+                    'ItemsTags.id_tag' => $id_tag,
                 ],
+                'keyField' => 'id', 'valueField' => function ($e) {
+                    return $e->id_item;
+                },
             ])->toArray();
+            if (!empty($itemsTags)) {
+                $items = $this->Items->find('all', [
+                    'conditions' => [
+                        'Items.id IN' => $itemsTags,
+                    ],
+                ])->toArray();
+            }
         } else {
             // Inicializamos tag name con mi lista
             $tagName = __('MI LISTA');
@@ -93,25 +94,6 @@ class TagsController extends AppController
             'items' => $items,
             'tagName' => $tagName,
         ]);
-    }
-
-    // Función para borrar items
-    public function delete($id)
-    {
-        $item = $this->Items->get($id);
-        if ($this->Items->delete($item)) {
-            $deleted = true;
-            $message = __('Item eliminado correctamente');
-        } else {
-            $deleted = false;
-            $message = __('Se produjo un error al eliminar el item');
-        }
-        $this->set([
-            'deleted' => $deleted,
-            'message' => $message,
-            '_serialize' => ['deleted', 'message'],
-        ]);
-        $this->RequestHandler->renderAs($this, 'json');
     }
 
     // Función para cambiar el is_fav
@@ -140,7 +122,7 @@ class TagsController extends AppController
     }
 
     // Función para borrar tags
-    public function deleteTags($id)
+    public function delete($id)
     {
         // Buscamos si la tag está asignada a un item
         $tags = $this->ItemsTags->find('list', [
