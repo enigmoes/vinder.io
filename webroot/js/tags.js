@@ -31,13 +31,13 @@ let Tags = {
     // Eventos
     events: function () {
         //Evento para favoritos
-        $(document).on("click", ".favItem", function () {
+        $(document).on("click", ".fav-item", function () {
             let url = $(this).data("url");
             Tags.isFav(url, $(this));
         });
 
         //Evento para eliminar items
-        $(document).on("click", ".deleteItem", function () {
+        $(document).on("click", ".delete-item", function () {
             let url = $(this).data("url");
             let message = $(this).data("message");
             let ok = $(this).data("ok");
@@ -83,7 +83,7 @@ let Tags = {
             let ok = $(this).data("ok");
             let cancel = $(this).data("cancel");
             let data = { url: url, message: message, ok: ok, cancel: cancel };
-            Tags.deleteTags(data);
+            Tags.deleteTag(data);
         });
 
         //Evento para introducir el formulario y desplegar el modal edit
@@ -97,7 +97,7 @@ let Tags = {
         $(document).on('click', '.btn-modal-edit', function () {
             // Recoger id tag
             let tagId = $(this).data('id');
-            Tags.edit(tagId);
+            Tags.editTag(tagId);
         });
 
         //Evento para cargar etiquetas al cerrar el modal edit
@@ -146,9 +146,7 @@ let Tags = {
     },
     // Cargar items
     loadItems: function (id_tag = null) {
-        id_tag === null
-            ? (url = "/tags/items/")
-            : (url = "/tags/items/" + id_tag);
+        (id_tag === null) ? url = "/tags/items" : url = "/tags/items/" + id_tag;
         $.ajax({
             type: "GET",
             url: url,
@@ -242,14 +240,11 @@ let Tags = {
             },
             success: function (response) {
                 $(".results-tags").html(response);
-            },
-            error: function () {
-                alert("error");
-            },
+            }
         });
     },
-    // Eliminar tags
-    deleteTags: function (data) {
+    // Eliminar tag
+    deleteTag: function (data) {
         Swal.fire({
             title: data.message,
             icon: "question",
@@ -300,14 +295,11 @@ let Tags = {
             success: function (response) {
                 $(".modal-body-edit").html(response);
                 $('#modal-tag-edit').modal('show');
-            },
-            error: function () {
-                alert("error");
-            },
+            }
         });
     },
     // Editar tags
-    edit: function (id) {
+    editTag: function (id) {
         let form = new FormData(document.querySelector('#form-tag-'+id));
         $.ajax({
             type: "POST",
@@ -343,10 +335,7 @@ let Tags = {
             success: function (response) {
                 $(".modal-body-add").html(response);
                 $("#modal-tag-add").modal("show");
-            },
-            error: function () {
-                alert("error");
-            },
+            }
         });
     },
     // Añadir etiqueta a un item
@@ -387,10 +376,7 @@ let Tags = {
             success: function (response) {
                 $(".modal-body-create").html(response);
                 $("#modal-tag-create").modal("show");
-            },
-            error: function () {
-                alert("error");
-            },
+            }
         });
     },
     // Añadir etiqueta a un item
@@ -410,9 +396,10 @@ let Tags = {
             },
             success: function (response) {
                 $(".modal-body-create").html(response);
-                // setTimeout(function () {
-                //     $("#modal-tag-create").modal("hide");
-                // }, 1000);
+                setTimeout(function () {
+                    $("#modal-tag-create").modal("hide");
+                    Tags.loadTags();
+                }, 1000);
             },
         });
     },
