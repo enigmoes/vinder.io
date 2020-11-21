@@ -19,6 +19,8 @@ let Custom = {
         this.generalEvents();
         // Llamada a eventos de navbar
         this.navbarEvents();
+        // Llamada a eventos de acción comunes
+        this.actionEvents();
     },
     generalEvents: function () {
         // Acción eliminar
@@ -77,7 +79,24 @@ let Custom = {
         // Evento compartir enlaces
         $(document).on("click", ".share-link", function () {
             let url = $(this).data("url");
+            window.open(url, "ventanaEnlaces", "top=500,left=500,width=500,height=400");
+        });
+        // Abrir enlace de los items en una pestaña nueva
+        $(document).on("click", ".window-link", function () {
+            let url = $(this).data("url");
             window.open(url);
+        });
+        // Evento para ocultar y mostrar los iconos de editar y eliminar de las tags
+        $(document).on("mouseenter", ".results-tags li", function () {
+            $(".tag-edit,.tag-delete").css("display","none");
+            $(".results-tags li").css("background","white");
+            $(this).css("background","#ebf0c7");
+            let icons = $(this).find("a");
+            icons.css("display","inline");
+        });
+        $(document).on("mouseleave", ".results-tags li", function () {
+            $(".tag-edit,.tag-delete").css("display","none");
+            $(".results-tags li").css("background","white");
         });
     },
     navbarEvents: function () {
@@ -109,6 +128,84 @@ let Custom = {
         $(".btn-input-custom2").on("click", function () {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
+        });
+    },
+    actionEvents: function () {
+        //Evento para introducir el formulario y desplegar el modal add
+        $(document).on("click", ".add-tag", function () {
+            // Recoger id item
+            let idItem = $(this).data("id");
+            Custom.openAddTag(idItem);
+        });
+
+        // Añadir etiqueta a un item
+        $(document).on("click", ".btn-modal-add", function () {
+            // Recoger id item
+            let idItem = $(this).data("id");
+            Custom.addTag(idItem);
+        });
+
+        // Buscar items con el buscador desplegable
+        $(document).on("click", ".btn-search", function () {
+            let valorBusqueda = $(".input-custom").val();
+            Custom.searchItems(valorBusqueda);
+        });
+    },
+    // Abrir modal add
+    openAddTag: function (id) {
+        $.ajax({
+            url: "/items/addTag/" + id,
+            type: "GET",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-add").html(response);
+                $("#modal-tag-add").modal("show");
+            }
+        });
+    },
+    // Añadir etiqueta a un item
+    addTag: function (idItem) {
+        let form = new FormData(document.querySelector('#form-item-'+idItem));
+        $.ajax({
+            type: "POST",
+            url: "/items/add-tag/" + idItem,
+            data: form,
+            processData: false,
+            contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-add").html(response);
+                setTimeout(function () {
+                    $("#modal-tag-add").modal("hide");
+                }, 1000);
+            },
+        });
+    },
+    // Buscar items por título
+    searchItems: function (search) {
+        $.ajax({
+            url: "/items/results/",
+            type: "GET",
+            data: { search: search },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results").html(response);
+            }
         });
     },
 };

@@ -285,6 +285,7 @@ i:hover {
     margin-bottom: 15px;
 }
 .components2 li a {
+    display: block;
     color: var(--secondary);
 }
 .components2 li a:hover {
@@ -457,7 +458,7 @@ i:hover {
 .btn-input-custom2:hover {
     background: var(--secondary_hover);
     color: white;
-    border: 1px solid white;
+    border: 1px solid  #69bb12;
     border-radius: 20px;
 }
 /* END INPUT SEARCH-SAVE */
@@ -482,6 +483,9 @@ i:hover {
 }
 /* END CARD ITEMS */
 /* TAGS */
+.results-tags{
+    height: 10rem;
+}
 .input-tags {
     border: 1px solid;
     border-color: var(--secondary);
@@ -503,9 +507,19 @@ i:hover {
 .results-tags li {
     list-style: none;
 }
+.results-tags p {
+    color: var(--secondary);
+}
 .results-tags i {
     font-size: small;
     float: right;
+}
+.results-tags .create-tag i{
+    font-size: small;
+    float: none;
+}
+.tag-edit,.tag-delete{
+    display: none;
 }
 .results-tags ul {
     margin: 0;
@@ -514,7 +528,25 @@ i:hover {
 .results-tags a:hover {
     color: var(--secondary_hover);
 }
-.tag-active{
-    background: var(--primary);
-}
 /* END TAGS */
+/* MODAL */
+.btn-modal{
+    color: var(--secondary);
+    background: var(--primary);
+    border-radius: 30px;
+}
+.btn-modal:hover{
+    color: var(--primary);
+    background: var(--secondary);
+    border-radius: 30px;
+}
+.modal-header-custom{
+    border-bottom: 2px solid var(--primary);
+}
+.h5-modal{
+    text-align: center;
+}
+.input-modal{
+    width: 125%;
+}
+/* END MODAL */

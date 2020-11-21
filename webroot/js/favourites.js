@@ -29,13 +29,13 @@ let Favourites = {
     // Eventos
     events: function () {
         //Evento para favoritos
-        $(document).on("click", ".favItem", function () {
+        $(document).on("click", ".fav-item", function () {
             let url = $(this).data("url");
             Favourites.isFav(url);
         });
 
         //Evento para eliminar favoritos
-        $(document).on("click", ".deleteItem", function () {
+        $(document).on("click", ".delete-item", function () {
             let url = $(this).data("url");
             let message = $(this).data("message");
             let ok = $(this).data("ok");
@@ -57,6 +57,12 @@ let Favourites = {
                 icon: "success",
                 title: "Enlace copiado",
             });
+        });
+
+        // Eliminar texto del input desplegable al pulsar cancelar
+        $(document).on("click", ".btn-cancel", function () {
+            $(".input-custom").val("");
+            Favourites.loadFavourites();
         });
     },
     // Cargar favoritos

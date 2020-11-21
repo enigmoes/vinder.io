@@ -38,7 +38,7 @@ use Cake\Routing\Router;
                                 </a>
                             </label>
                         </div>
-                        <div class="recover">
+                        <div class="register">
                             <label style="font-size: 13px">
                                 <a href="<?=Router::url(['controller' => 'users', 'action' => 'register'])?>">
                                     <?=__('¿Eres nuevo? crea tu cuenta aquí')?>

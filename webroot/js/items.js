@@ -29,13 +29,13 @@ let Items = {
     // Eventos
     events: function () {
         //Evento para favoritos
-        $(document).on("click", ".favItem", function () {
+        $(document).on("click", ".fav-item", function () {
             let url = $(this).data("url");
             Items.isFav(url, $(this));
         });
 
-        //Evento para eliminar favoritos
-        $(document).on("click", ".deleteItem", function () {
+        //Evento para eliminar items
+        $(document).on("click", ".delete-item", function () {
             let url = $(this).data("url");
             let message = $(this).data("message");
             let ok = $(this).data("ok");
@@ -59,21 +59,17 @@ let Items = {
             });
         });
 
-        // Buscar items con el buscador
-        $(document).on("keyup", ".input-custom", function () {
-            var parametros = "txtbusca=" + $(this).val();
-            $.ajax({
-                data: parametros,
-                url: "/items/busqueda",
-                type: "POST",
-                beforeSend: function () {},
-                success: function (response) {
-                    $(".salida").html(response);
-                },
-                error: function () {
-                    alert("error");
-                },
-            });
+        // Añadir items con el input desplegable
+        $(document).on("click", ".btn-add", function () {
+            let url = $(".input-custom").val();
+            Items.add(url);
+            $(".input-custom").val("");
+        });
+
+        // Eliminar texto del input desplegable al pulsar cancelar
+        $(document).on("click", ".btn-cancel", function () {
+            $(".input-custom").val("");
+            Items.loadItems();
         });
     },
     // Cargar items
@@ -89,6 +85,40 @@ let Items = {
             },
             success: function (data) {
                 $(".results").html(data);
+            },
+        });
+    },
+    // Añadir items
+    add: function (url) {
+        $.ajax({
+            type: "GET",
+            url: "/items/add/",
+            data: { url: url },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+                Items.toast.fire({
+					icon: "info",
+					title: " Cargando...",
+					timer: false
+				});
+				Swal.showLoading();
+            },
+            success: function (data) {
+                if (data.saved) {
+                    Items.loadItems();
+                    Items.toast.fire({
+                        icon: "success",
+                        title: data.message,
+                    });
+                } else {
+                    Items.toast.fire({
+                        icon: "error",
+                        title: data.message,
+                    });
+                }
             },
         });
     },

@@ -14,7 +14,7 @@ use Cake\Routing\Router;
                 <?= $this->element('Common/sidebar') ?>
             </div>
         </div>
-        <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
+        <?php if ($this->request->controller != 'Users'): ?>
         <div id="input-custom" class="d-none">
             <div class="container-input-custom d-flex align-items-center px-4 py-1">
                 <?=$this->Form->control('input', [
@@ -25,7 +25,7 @@ use Cake\Routing\Router;
                 <button id="button-input" class="btn ml-3 btn-input-custom1 btn-search mr-3 px-3 py-0" type="submit">
                     <?=__('Buscar')?>
                 </button>
-                <button class="btn btn-input-custom2 px-3 py-0" type="button">
+                <button class="btn btn-input-custom2 btn-cancel px-3 py-0" type="button">
                     <?=__('Cancelar')?>
                 </button>         
             </div>
