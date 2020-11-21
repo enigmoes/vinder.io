@@ -1,12 +1,12 @@
 <?php
 use Cake\Routing\Router;
 ?>
-<?php if (isset($lists) && count($lists) > 0): ?>
-    <div class="row">
-        <div class="col-lg-4 col-md-6 col-12 mb-4">
-            <div class="h4 h4-default text-uppercase"><?=$title?></div>
-        </div>
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-12 mb-4">
+        <div class="h4 h4-default text-uppercase"><?=$title?></div>
     </div>
+</div>
+<?php if (isset($lists) && count($lists) > 0): ?>
     <?php foreach ($lists as $list): ?>
         <div class="row">
             <?php foreach ($list->items as $item): ?>
@@ -42,11 +42,11 @@ use Cake\Routing\Router;
                                 data-id="<?=$item->id?>">
                                     <i class="fas fa-tag"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="favItem <?= ($item->is_fav) ? 'isFav' : '' ?>"
+                                <a href="javascript:void(0)" class="fav-item <?= ($item->is_fav) ? 'isFav' : '' ?>"
                                 data-url="<?= Router::url(['controller' => 'items', 'action' => 'is_fav', $item->id]) ?>">
                                     <i class="fas fa-star"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="deleteItem"
+                                <a href="javascript:void(0)" class="delete-item"
                                 data-url="<?= Router::url(['controller' => 'items', 'action' => 'delete', $item->id]) ?>"
                                 data-message="<?= __('¿Seguro que desea eliminar?') ?>"
                                 data-ok="<?= __('Aceptar') ?>"
