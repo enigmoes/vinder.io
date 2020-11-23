@@ -2,7 +2,7 @@
 use Cake\Routing\Router;
 ?>
 <div class="row">
-    <div class="col-lg-4 col-md-6 col-12 mb-4">
+    <div class="col-md-6 col-12 mb-4">
         <div class="h4 h4-default text-uppercase"><?=$tagName?></div>
     </div>
 </div>
@@ -59,4 +59,6 @@ use Cake\Routing\Router;
         <?php endforeach?>
     </div>
 </div>
+<?php else: ?>
+    <div class="h6"><?=__('No se encontraron items')?></div>
 <?php endif?>

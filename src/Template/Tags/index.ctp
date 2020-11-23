@@ -12,6 +12,11 @@ use Cake\Routing\Router;
                             <i class="fas fa-chevron-left"></i><?=__('Etiquetas')?>
                         </a>
                     </li>
+                    <li class="mt-3">
+                        <a href="javascript:void(0)" class="create-tag">
+                            <i class="fas fa-plus mr-2"></i><?=__('Añadir')?>
+                        </a>
+                    </li>
                 </ul>
                 <?= $this->Form->create('search_tag') ?>
                 <div class="input-tags d-flex align-items-center">
