@@ -285,7 +285,6 @@ i:hover {
     margin-bottom: 15px;
 }
 .components2 li a {
-    display: block;
     color: var(--secondary);
 }
 .components2 li a:hover {
