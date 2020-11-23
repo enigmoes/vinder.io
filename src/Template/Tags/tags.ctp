@@ -18,11 +18,6 @@ use Cake\Routing\Router;
                 </a>
             </li>
         <?php endforeach?>
-        <li class="px-2">
-            <a href="javascript:void(0)" class="create-tag d-block">
-                <i class="fas fa-plus mr-1"></i><?=__('Añadir')?>
-            </a>
-        </li>
     </ul>
     <div id="modal-tag-create" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalTag" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
