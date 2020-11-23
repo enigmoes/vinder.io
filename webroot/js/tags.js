@@ -18,6 +18,7 @@ let Tags = {
         this.loadTags();
         // LLamada a cargar items
         this.loadItems();
+        sessionStorage.setItem("idTag", null);
     },
     attributes: function () {
         this.toast = Swal.mixin({
@@ -64,7 +65,7 @@ let Tags = {
         // Evento click ver items por etiqueta
         $(document).on("click", ".tag", function () {
             let id_tag = $(this).data("id");
-            sessionStorage.setItem('idTag', id_tag);
+            sessionStorage.setItem("idTag", id_tag);
             $(".tag").parent().removeClass("active");
             $(this).parent().addClass("active");
             Tags.loadItems(id_tag);
@@ -87,45 +88,63 @@ let Tags = {
         });
 
         //Evento para introducir el formulario y desplegar el modal edit
-        $(document).on('click', '.tag-edit', function () {
+        $(document).on("click", ".tag-edit", function () {
             // Recoger id tag
-            let tagId = $(this).data('id');
+            let tagId = $(this).data("id");
             Tags.openEditTag(tagId);
         });
 
         //Evento para editar tags
-        $(document).on('click', '.btn-modal-edit', function () {
+        $(document).on("click", ".btn-modal-edit", function () {
             // Recoger id tag
-            let tagId = $(this).data('id');
+            let tagId = $(this).data("id");
             Tags.editTag(tagId);
         });
 
         //Evento para cargar etiquetas al cerrar el modal edit
-        $(document).on('hide.bs.modal', '#modal-tag-edit' , function () {
+        $(document).on("hide.bs.modal", "#modal-tag-edit", function () {
             Tags.loadTags();
         });
 
         //Evento para introducir el formulario y desplegar el modal add
-        $(document).on('click', '.add-tag', function () {
+        $(document).on("click", ".add-tag", function () {
             // Recoger id item
-            let idItem = $(this).data('id');
+            let idItem = $(this).data("id");
             Tags.openAddTag(idItem);
         });
 
         // Añadir etiqueta a un item
-        $(document).on('click', '.btn-modal-add', function () {
+        $(document).on("click", ".btn-modal-add", function () {
             Tags.openCreateTag();
         });
 
         //Evento para desplegar el modal create
-        $(document).on('click', '.create-tag', function () {
-            $('#modal-tag-create').modal('show')
+        $(document).on("click", ".create-tag", function () {
+            $("#modal-tag-create").modal("show");
             Tags.openCreateTag();
         });
 
         // Crear etiqueta
-        $(document).on('click', '.btn-modal-create', function () {
+        $(document).on("click", ".btn-modal-create", function () {
             Tags.create();
+        });
+
+        // Buscar items con el buscador desplegable
+        $(document).on("click", ".btn-search", function () {
+            let valorBusqueda = $(".input-custom").val();
+            Tags.searchItems(valorBusqueda);
+        });
+
+        // Eliminar texto del input desplegable al pulsar cancelar
+        $(document).on("click", ".btn-cancel", function () {
+            $(".input-custom").val("");
+            Tags.loadItems(sessionStorage.getItem("idTag"));
+        });
+
+        // Evento para ocultar botón guardar al añadir un item
+        $(document).on("click", ".btn-add", function () {
+            $("#input-custom").addClass("d-none");
+            $(".navbar-icons").removeClass("d-none");
         });
     },
     // Cargar etiquetas
@@ -146,7 +165,9 @@ let Tags = {
     },
     // Cargar items
     loadItems: function (id_tag = null) {
-        (id_tag === null) ? url = "/tags/items" : url = "/tags/items/" + id_tag;
+        id_tag === null
+            ? (url = "/tags/items")
+            : (url = "/tags/items/" + id_tag);
         $.ajax({
             type: "GET",
             url: url,
@@ -183,7 +204,7 @@ let Tags = {
                     },
                     success: function (data) {
                         if (data.deleted) {
-                            Tags.loadItems(sessionStorage.getItem('idTag'));
+                            Tags.loadItems(sessionStorage.getItem("idTag"));
                             Tags.toast.fire({
                                 icon: "success",
                                 title: data.message,
@@ -240,7 +261,7 @@ let Tags = {
             },
             success: function (response) {
                 $(".results-tags").html(response);
-            }
+            },
         });
     },
     // Eliminar tag
@@ -266,6 +287,7 @@ let Tags = {
                     success: function (data) {
                         if (data.deleted) {
                             Tags.loadTags();
+                            Tags.loadItems(sessionStorage.getItem("idTag"));
                             Tags.toast.fire({
                                 icon: "success",
                                 title: data.message,
@@ -294,13 +316,13 @@ let Tags = {
             },
             success: function (response) {
                 $(".modal-body-edit").html(response);
-                $('#modal-tag-edit').modal('show');
-            }
+                $("#modal-tag-edit").modal("show");
+            },
         });
     },
     // Editar tags
     editTag: function (id) {
-        let form = new FormData(document.querySelector('#form-tag-'+id));
+        let form = new FormData(document.querySelector("#form-tag-" + id));
         $.ajax({
             type: "POST",
             url: "/tags/edit/" + id,
@@ -335,12 +357,12 @@ let Tags = {
             success: function (response) {
                 $(".modal-body-add").html(response);
                 $("#modal-tag-add").modal("show");
-            }
+            },
         });
     },
     // Añadir etiqueta a un item
     addTag: function (idItem) {
-        let form = new FormData(document.querySelector('#form-item-'+idItem));
+        let form = new FormData(document.querySelector("#form-item-" + idItem));
         $.ajax({
             type: "POST",
             url: "/items/add-tag/" + idItem,
@@ -357,7 +379,7 @@ let Tags = {
                 $(".modal-body-add").html(response);
                 setTimeout(function () {
                     $("#modal-tag-add").modal("hide");
-                    Tags.loadItems(sessionStorage.getItem('idTag'));
+                    Tags.loadItems(sessionStorage.getItem("idTag"));
                 }, 1000);
             },
         });
@@ -376,12 +398,12 @@ let Tags = {
             success: function (response) {
                 $(".modal-body-create").html(response);
                 $("#modal-tag-create").modal("show");
-            }
+            },
         });
     },
     // Añadir etiqueta a un item
     create: function () {
-        let form = new FormData(document.querySelector('#form-create'));
+        let form = new FormData(document.querySelector("#form-create"));
         $.ajax({
             type: "POST",
             url: "/tags/create/",
@@ -399,7 +421,27 @@ let Tags = {
                 setTimeout(function () {
                     $("#modal-tag-create").modal("hide");
                     Tags.loadTags();
+                    Tags.loadItems(sessionStorage.getItem("idTag"));
                 }, 1000);
+            },
+        });
+    },
+    // Buscar items por título
+    searchItems: function (search) {
+        let session = sessionStorage.getItem("idTag");
+        session === null ? (url = "/tags/items/") : (url = "/tags/items/" + parseInt(session));
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: { search: search },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results-items").html(response);
             },
         });
     },

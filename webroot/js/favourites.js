@@ -64,6 +64,18 @@ let Favourites = {
             $(".input-custom").val("");
             Favourites.loadFavourites();
         });
+
+        // Buscar items con el buscador desplegable
+        $(document).on("click", ".btn-search", function () {
+            let valorBusqueda = $(".input-custom").val();
+            Favourites.searchItems(valorBusqueda);
+        });
+
+        // Evento para ocultar botón guardar al añadir un item
+        $(document).on("click", ".btn-add", function () {
+            $("#input-custom").addClass("d-none");
+            $(".navbar-icons").removeClass("d-none");
+        });
     },
     // Cargar favoritos
     loadFavourites: function () {
@@ -144,6 +156,23 @@ let Favourites = {
                     });
                 }
             },
+        });
+    },
+    // Buscar items por título
+    searchItems: function (search) {
+        $.ajax({
+            url: "/favourites/results/",
+            type: "GET",
+            data: { search: search },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results").html(response);
+            }
         });
     },
 };

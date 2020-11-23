@@ -58,36 +58,76 @@ class TagsController extends AppController
     // Función para buscar las listas por cada etiqueta
     public function items($id_tag = null)
     {
+        $search = $this->request->getQuery('search');
         // Declaramos items
         $items = [];
+        //Si se ha recogido una etiqueta
         if (!is_null($id_tag)) {
             // Buscamos el nombre de la tag
             $tagName = $this->Tags->find('all', ['conditions' => ['Tags.id' => $id_tag]])->toArray()[0]->name;
-            // Buscamos todos los items de una tag
-            $itemsTags = $this->ItemsTags->find('list', [
-                'conditions' => [
-                    'ItemsTags.id_tag' => $id_tag,
-                ],
-                'keyField' => 'id', 'valueField' => function ($e) {
-                    return $e->id_item;
-                },
-            ])->toArray();
-            if (!empty($itemsTags)) {
+            //Si lo búsqueda no está vacía
+            if (!empty($search)) {
+                // Inicializamos tag name con el nombre de la etiqueta más "búsqueda"
+                $tagName = __('BÚSQUEDA') . "-" . $tagName;
+                // Buscamos todos los items de una etiqueta
+                $itemsTags = $this->ItemsTags->find('list', [
+                    'conditions' => [
+                        'ItemsTags.id_tag' => $id_tag,
+                    ],
+                    'keyField' => 'id', 'valueField' => function ($e) {
+                        return $e->id_item;
+                    },
+                ])->toArray();
+                // Si hay items asignados a una etiqueta
+                if (!empty($itemsTags)) {
+                    $items = $this->Items->find('all', [
+                        'conditions' => [
+                            'Items.id IN' => $itemsTags,
+                            'Items.title LIKE' => '%' . $search . '%',
+                        ],
+                    ])->toArray();
+                }
+            } else {
+                // Buscamos todos los items de una etiqueta
+                $itemsTags = $this->ItemsTags->find('list', [
+                    'conditions' => [
+                        'ItemsTags.id_tag' => $id_tag,
+                    ],
+                    'keyField' => 'id', 'valueField' => function ($e) {
+                        return $e->id_item;
+                    },
+                ])->toArray();
+                // Si hay items asignados a una etiqueta
+                if (!empty($itemsTags)) {
+                    $items = $this->Items->find('all', [
+                        'conditions' => [
+                            'Items.id IN' => $itemsTags,
+                        ],
+                    ])->toArray();
+                }
+            }
+        } else {
+            //Si lo búsqueda no está vacía
+            if (!empty($search)) {
+                // Inicializamos tag name con "búsqueda"
+                $tagName = __('BÚSQUEDA');
+                // Realizamos la búsqueda de items
                 $items = $this->Items->find('all', [
                     'conditions' => [
-                        'Items.id IN' => $itemsTags,
+                        'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
+                        'Items.title LIKE' => '%' . $search . '%',
+                    ],
+                ])->toArray();
+            } else {
+                // Inicializamos tag name con "mi lista"
+                $tagName = __('MI LISTA');
+                // Buscamos todos los items del usuario
+                $items = $this->Items->find('all', [
+                    'conditions' => [
+                        'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
                     ],
                 ])->toArray();
             }
-        } else {
-            // Inicializamos tag name con mi lista
-            $tagName = __('MI LISTA');
-            // Buscamos todos los items del usuario
-            $items = $this->Items->find('all', [
-                'conditions' => [
-                    'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                ],
-            ])->toArray();
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
