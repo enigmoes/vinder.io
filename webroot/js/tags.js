@@ -18,7 +18,7 @@ let Tags = {
         this.loadTags();
         // LLamada a cargar items
         this.loadItems();
-        sessionStorage.setItem("idTag", null);
+        sessionStorage.removeItem("idTag");
     },
     attributes: function () {
         this.toast = Swal.mixin({
@@ -339,6 +339,7 @@ let Tags = {
                 $(".modal-body-edit").html(data);
                 setTimeout(function () {
                     $("#modal-tag-edit").modal("hide");
+                    Tags.loadItems(sessionStorage.getItem("idTag"));
                 }, 1000);
             },
         });
