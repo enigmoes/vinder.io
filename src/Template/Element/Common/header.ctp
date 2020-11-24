@@ -4,15 +4,14 @@ use Cake\Routing\Router;
 <nav class="navbar navbar-default px-5">
     <div class="container">
         <div class="navbar-header">
-            <button class="navbar-toggler d-block d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <?php if ($this->request->controller != 'Users'): ?>
+            <button class="navbar-toggler d-inline-block d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+        <?php endif?>
             <a class="navbar-brand" href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
                 <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
             </a>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <?= $this->element('Common/sidebar') ?>
-            </div>
         </div>
         <?php if ($this->request->controller != 'Users'): ?>
         <div id="input-custom" class="d-none">
@@ -60,6 +59,9 @@ use Cake\Routing\Router;
                 </div>
             </li>
         </ul>
+        <div class="collapse navbar-collapse d-lg-none mt-3" id="navbarSupportedContent">
+            <?= $this->element('Common/sidebar') ?>
+        </div>
         <?php endif?>
     </div>
 </nav>

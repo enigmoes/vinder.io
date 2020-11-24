@@ -247,6 +247,12 @@ a:hover {
 .navbar-default {
     border-bottom: 2px solid var(--primary_hover);
 }
+.navbar-toggler:focus{
+   outline: none;
+}
+.navbar-toggler-icon{
+    background-color: #eec614;
+}
 /* END NAVBAR */
 /* ICONS */
 i {
@@ -493,9 +499,10 @@ i:hover {
     margin-bottom: 20px;
 }
 .form-control-tags {
-    border: 0;
+    border: none;
     height: 1.5rem;
     width: 8rem;
+    border-radius: 30px;
 }
 .form-control-tags:focus {
     box-shadow: none;
