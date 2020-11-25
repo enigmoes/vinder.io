@@ -83,6 +83,14 @@ let Items = {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
         });
+
+        // Scroll infinito
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+                console.log("has llegado al final de la pagina");
+                //Items.infiniteScroll();
+            }
+        });
     },
     // Cargar items
     loadItems: function () {
@@ -214,6 +222,25 @@ let Items = {
             success: function (response) {
                 $(".results").html(response);
             }
+        });
+    },
+    // Scroll infinito
+    infiniteScroll: function (){
+        let maxItems = 12;
+        $.ajax({
+            url: "/items/results/",
+            type: "GET",
+            data: {maxItems : maxItems},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-create").html(response);
+                $("#modal-tag-create").modal("show");
+            },
         });
     },
 };
