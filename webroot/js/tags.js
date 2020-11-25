@@ -113,11 +113,6 @@ let Tags = {
             Tags.openAddTag(idItem);
         });
 
-        // Añadir etiqueta a un item
-        $(document).on("click", ".btn-modal-add", function () {
-            Tags.openCreateTag();
-        });
-
         //Evento para desplegar el modal create
         $(document).on("click", ".create-tag", function () {
             $("#modal-tag-create").modal("show");
@@ -315,8 +310,8 @@ let Tags = {
                 );
             },
             success: function (response) {
-                $(".modal-body-edit").html(response);
-                $("#modal-tag-edit").modal("show");
+                $("#modal-tag .modal-body").html(response);
+                $("#modal-tag").modal("show");
             },
         });
     },
@@ -336,50 +331,9 @@ let Tags = {
                 );
             },
             success: function (data) {
-                $(".modal-body-edit").html(data);
+                $("#modal-tag .modal-body").html(data);
                 setTimeout(function () {
-                    $("#modal-tag-edit").modal("hide");
-                    Tags.loadItems(sessionStorage.getItem("idTag"));
-                }, 1000);
-            },
-        });
-    },
-    // Abrir modal add
-    openAddTag: function (id) {
-        $.ajax({
-            url: "/items/addTag/" + id,
-            type: "GET",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    "X-CSRF-Token",
-                    $('[name="_csrfToken"]').val()
-                );
-            },
-            success: function (response) {
-                $(".modal-body-add").html(response);
-                $("#modal-tag-add").modal("show");
-            },
-        });
-    },
-    // Añadir etiqueta a un item
-    addTag: function (idItem) {
-        let form = new FormData(document.querySelector("#form-item-" + idItem));
-        $.ajax({
-            type: "POST",
-            url: "/items/add-tag/" + idItem,
-            data: form,
-            processData: false,
-            contentType: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    "X-CSRF-Token",
-                    $('[name="_csrfToken"]').val()
-                );
-            },
-            success: function (response) {
-                $(".modal-body-add").html(response);
-                setTimeout(function () {
-                    $("#modal-tag-add").modal("hide");
+                    $("#modal-tag").modal("hide");
                     Tags.loadItems(sessionStorage.getItem("idTag"));
                 }, 1000);
             },
@@ -397,8 +351,8 @@ let Tags = {
                 );
             },
             success: function (response) {
-                $(".modal-body-create").html(response);
-                $("#modal-tag-create").modal("show");
+                $("#modal-tag .modal-body").html(response);
+                $("#modal-tag").modal("show");
             },
         });
     },
@@ -418,9 +372,9 @@ let Tags = {
                 );
             },
             success: function (response) {
-                $(".modal-body-create").html(response);
+                $("#modal-tag .modal-body").html(response);
                 setTimeout(function () {
-                    $("#modal-tag-create").modal("hide");
+                    $("#modal-tag").modal("hide");
                     Tags.loadTags();
                     Tags.loadItems(sessionStorage.getItem("idTag"));
                 }, 1000);

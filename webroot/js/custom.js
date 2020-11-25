@@ -121,6 +121,7 @@ let Custom = {
             $("#button-input").removeClass("btn-search");
             $("#button-input").addClass("btn-add");
         });
+        // Evento mostrar iconos navbar
         $(".btn-input-custom2").on("click", function () {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
@@ -153,7 +154,7 @@ let Custom = {
                 );
             },
             success: function (response) {
-                $(".modal-body-add").html(response);
+                $("#modal-tag-add .modal-body").html(response);
                 $("#modal-tag-add").modal("show");
             }
         });
@@ -174,7 +175,7 @@ let Custom = {
                 );
             },
             success: function (response) {
-                $(".modal-body-add").html(response);
+                $("#modal-tag-add .modal-body").html(response);
                 setTimeout(function () {
                     $("#modal-tag-add").modal("hide");
                 }, 1000);
