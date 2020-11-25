@@ -85,7 +85,7 @@ class TagsController extends AppController
                             'Items.id IN' => $itemsTags,
                             'Items.title LIKE' => '%' . $search . '%',
                         ],
-                    ])->toArray();
+                    ])->order(['Items.created' => 'DESC'])->toArray();
                 }
             } else {
                 // Buscamos todos los items de una etiqueta
@@ -103,7 +103,7 @@ class TagsController extends AppController
                         'conditions' => [
                             'Items.id IN' => $itemsTags,
                         ],
-                    ])->toArray();
+                    ])->order(['Items.created' => 'DESC'])->toArray();
                 }
             }
         } else {
@@ -117,7 +117,7 @@ class TagsController extends AppController
                         'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
                         'Items.title LIKE' => '%' . $search . '%',
                     ],
-                ])->toArray();
+                ])->order(['Items.created' => 'DESC'])->toArray();
             } else {
                 // Inicializamos tag name con "mi lista"
                 $tagName = __('MI LISTA');
@@ -126,7 +126,7 @@ class TagsController extends AppController
                     'conditions' => [
                         'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
                     ],
-                ])->toArray();
+                ])->order(['Items.created' => 'DESC'])->toArray();
             }
         }
         $this->viewBuilder()->setLayout('ajax');

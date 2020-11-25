@@ -48,7 +48,7 @@ class FavouritesController extends AppController
                         'Items.id_list' => $list->id,
                         'Items.title LIKE' => '%' . $search . '%',
                     ],
-                ])->toArray();
+                ])->order(['Items.created' => 'DESC'])->toArray();
             }
         } else {
             $title = __('MI LISTA');
@@ -65,7 +65,7 @@ class FavouritesController extends AppController
                         'Items.is_fav' => 1,
                         'Items.id_list' => $list->id,
                     ],
-                ])->toArray();
+                ])->order(['Items.created' => 'DESC'])->toArray();
             }
         }
         $this->viewBuilder()->setLayout('ajax');

@@ -49,7 +49,7 @@ class ItemsController extends AppController
                         'Items.id_list' => $list->id,
                         'Items.title LIKE' => '%' . $search . '%',
                     ],
-                ])->toArray();
+                ])->order(['Items.created' => 'DESC'])->toArray();
             }
         } else {
             $title = __('MI LISTA');
@@ -60,6 +60,13 @@ class ItemsController extends AppController
                     'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
                 ],
             ])->toArray();
+            foreach ($lists as $list) {
+                $list['items'] = $this->Items->find('all', [
+                    'conditions' => [
+                        'Items.id_list' => $list->id,
+                    ],
+                ])->order(['Items.created' => 'DESC'])->toArray();
+            }
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
