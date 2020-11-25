@@ -4,14 +4,14 @@ use Cake\Routing\Router;
 <nav class="navbar navbar-default px-5">
     <div class="container">
         <div class="navbar-header">
-        <?php if ($this->request->controller != 'Users'): ?>
-            <button class="navbar-toggler d-inline-block d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        <?php endif?>
-            <a class="navbar-brand" href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
-                <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
-            </a>
+            <?php if ($this->request->controller != 'Users'): ?>
+                <button class="navbar-toggler d-inline-block d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <?php endif?>
+                <a class="navbar-brand" href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
+                    <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
+                </a>
         </div>
         <?php if ($this->request->controller != 'Users'): ?>
         <div id="input-custom" class="d-none">

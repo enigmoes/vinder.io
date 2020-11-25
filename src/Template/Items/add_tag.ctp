@@ -20,7 +20,7 @@ use Cake\Routing\Router;
             ])?>
         </div>
         <button type="button" class="btn btn-modal btn-modal-add px-4" data-id="<?= $id_item ?>">
-            <?=__('Añadir')?>
+            <?=__('Guardar')?>
         </button>
     <?=$this->Form->end()?>
 </div>
