@@ -203,6 +203,7 @@ a:hover {
 .select2-container--default
     .select2-results__option--highlighted[aria-selected] {
     background: var(--primary);
+    color: var(--secondary);
 }
 .select2-container--default .select2-selection--multiple {
     border: 1px solid #ced4da;
@@ -250,8 +251,10 @@ a:hover {
 .navbar-toggler:focus{
    outline: none;
 }
-.navbar-toggler-icon{
-    background-color: gray;
+.navbar-toggler-icon svg{
+    color:var(--secondary);
+    width: 100%;
+    height: 100%;
 }
 /* END NAVBAR */
 /* ICONS */
@@ -558,9 +561,13 @@ i:hover {
 /* END MODAL */
 /* MEDIA QUERIES */
 @media (max-width: 768px) {
+    /* NAVBAR */
     .input-custom {
         width: 10rem;
     }
+    /* END NAVBAR */
+
+    /* SIDEBAR */
     .navbar-collapse .form-control-tags {
         height: 1.5rem;
         width: 19rem;
@@ -573,8 +580,16 @@ i:hover {
     .navbar-collapse .results-tags i {
         font-size: small;
     }
+    /* END SIDEBAR */
 }
 @media (max-width: 1200px) {
+    /* NAVBAR */
+    .input-custom {
+        width: 17rem;
+    }
+    /* END NAVBAR */
+
+    /* SIDEBAR */
     .form-control-tags {
         height: 1.5rem;
         width: 6.5rem;
@@ -587,5 +602,6 @@ i:hover {
     .results-tags i {
         font-size: x-small;
     }
+    /* END SIDEBAR */
 }
 /* END MEDIA QUERIES */
