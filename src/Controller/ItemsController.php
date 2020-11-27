@@ -34,39 +34,23 @@ class ItemsController extends AppController
     // Función para buscar las listas
     public function results()
     {
-        $search = $this->request->getQuery('search');
-        if (!empty($search)) {
+        $title = __('MI LISTA');
+        // Si hay query
+        if (!empty($this->request->getQuery())) {
             $title = __('BÚSQUEDA');
-            // Buscamos datos en db para los items
-            $lists = $this->Lists->find('all', [
-                'conditions' => [
-                    'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                ],
+        }
+        // Buscamos datos en db para los items
+        $lists = $this->Lists->find('all', [
+            'conditions' => [
+                'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+            ],
+        ])->toArray();
+        foreach ($lists as $list) {
+            $this->request->query['id_list'] = $list->id;
+            $list['items'] = $this->Items->find('all', [
+                'conditions' => $this->Items->conditions($this->request->getQuery()),
+                'order' => $this->Items->order($this->request->getQuery())
             ])->toArray();
-            foreach ($lists as $list) {
-                $list['items'] = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.id_list' => $list->id,
-                        'Items.title LIKE' => '%' . $search . '%',
-                    ],
-                ])->order(['Items.created' => 'DESC'])->toArray();
-            }
-        } else {
-            $title = __('MI LISTA');
-            // Buscamos datos en db para las listas
-            $lists = $this->Lists->find('all', [
-                'contain' => ['Items'],
-                'conditions' => [
-                    'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                ],
-            ])->toArray();
-            foreach ($lists as $list) {
-                $list['items'] = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.id_list' => $list->id,
-                    ],
-                ])->order(['Items.created' => 'DESC'])->toArray();
-            }
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
@@ -86,6 +70,8 @@ class ItemsController extends AppController
             $client = new Client();
             $crawler = $client->request('GET', $url);
             $title = trim($crawler->filter('title')->text());
+            // Eliminamos todas las comillas
+            $title = preg_replace('/[\'"]/', '', $title);
             $description = trim($crawler->filter('meta[name="description"]')->attr('content'));
             // Buscamos ultimos caracter y añadimos '.' en caso de no tener
             $lastChar = ord(substr($description, -1));
