@@ -2,23 +2,26 @@
 use Cake\Routing\Router;
 ?>
 <div class="row">
-    <div class="col-md-6 col-12 mb-4">
+    <div class="col-6 mb-4">
         <div class="h4 h4-default text-uppercase"><?=$tagName?></div>
     </div>
 </div>
 <?php if (isset($items) && count($items) > 0): ?>
-    <div class="row">
+    <div class="row row row-cols-1 row-cols-md-2 row-cols-lg-3">
         <?php foreach ($items as $item): ?>
-            <div class="col-lg-4 col-md-6 col-12 mb-5">
-                <div class="card card-items rounded-0">
-                    <div class="card-body card-block">
-                        <div class="mb-3">
+            <div class="col mb-5">
+                <div class="card card-items h-100 rounded-0">
+                    <div class="card-body card-block position-relative">
+                        <a class="window-link" href="javascript:void(0)" data-url="<?=$item->link?>">
+                            <div class="mb-3">
                                 <img src="<?=$item->image?>" alt="<?=$item->title?>" class="mw-100">
+                            </div>
+                            <div class="h6 h6-default"><?=$item->title?></div>
+                        </a>
+                        <div class="mb-2">
+                                <a class="window-link" href="javascript:void(0)" data-url="<?=$item->link?>"><?=parse_url($item->link, PHP_URL_HOST)?></a>
                         </div>
-                        <div class="h6 h6-default"><?=$item->title?></div>
-                        <div class="mb-3"><a class="window-link" href="javascript:void(0)"
-                        data-url="<?=$item->link?>"><?=parse_url($item->link, PHP_URL_HOST)?></a></div>
-                        <p class="small"><?=substr($item->description, 0, (strpos($item->description, '.') + 1))?></p>
+                        <p class="small mb-5"><?=substr($item->description, 0, (strpos($item->description, '.') + 1))?></p>
                         <div class="items-icons dropup">
                             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fas fa-share-square"></i>
@@ -62,3 +65,4 @@ use Cake\Routing\Router;
 <?php else: ?>
     <div class="h6"><?=__('No se encontraron items')?></div>
 <?php endif?>
+<script>$(".select2").select2()</script>

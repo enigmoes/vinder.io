@@ -480,7 +480,9 @@ i:hover {
     padding: 0;
 }
 .card-items .items-icons {
-    text-align: right;
+    position: absolute;
+    right: 0;
+    bottom: 5px;
 }
 .card-items i {
     font-size: small;
@@ -563,7 +565,11 @@ i:hover {
 @media (max-width: 768px) {
     /* NAVBAR */
     .input-custom {
-        width: 10rem;
+        width: 5rem;
+        font-size: small;
+    }
+    .btn-input-custom1, .btn-input-custom2{
+        font-size: small;
     }
     /* END NAVBAR */
 
