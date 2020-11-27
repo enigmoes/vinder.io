@@ -1,7 +1,7 @@
 <?php
 use Cake\Routing\Router;
 ?>
-<nav class="navbar navbar-default px-5">
+<nav class="navbar navbar-default px-lg-5 px-2">
     <div class="container">
         <div class="navbar-header">
             <?php if ($this->request->controller != 'Users'): ?>
@@ -25,25 +25,27 @@ use Cake\Routing\Router;
                     'class' => 'input-custom',
                     'placeholder' => __('Buscar...'),
                 ])?>
-                <button id="button-input" class="btn ml-3 btn-input-custom1 btn-search mr-3 px-3 py-0" type="submit">
+                <button id="button-input" class="btn btn-input-custom1 btn-search ml-3 mr-lg-3 mr-1 px-3 py-0" type="submit">
                     <?=__('Buscar')?>
                 </button>
-                <button class="btn btn-input-custom2 btn-cancel px-3 py-0" type="button">
+                <button class="btn btn-input-custom2 btn-cancel px-lg-3 px-1 py-0" type="button">
                     <?=__('Cancelar')?>
                 </button>         
             </div>
         </div>
         <ul class="nav navbar-right navbar-icons">
-            <li class="mr-5">
+            <li class="mr-md-5 mr-4">
                 <a href="javascript:void(0)" class="search-navbar">
                     <i class="fas fa-search"></i>
                 </a>
             </li>
-            <li class="mr-5">
-                <a href="javascript:void(0)" class="add-navbar">
-                    <i class="fas fa-plus"></i>
-                </a>
-            </li>
+            <?php if ($this->request->controller != 'Tags'): ?>
+                <li class="mr-md-5 mr-4">
+                    <a href="javascript:void(0)" class="add-navbar">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                </li>
+            <?php endif?>
             <li class="dropdown dropdown-custom">
                 <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fas fa-user"></i>
