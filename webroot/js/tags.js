@@ -91,6 +91,8 @@ let Tags = {
         $(document).on("click", ".tag-edit", function () {
             // Recoger id tag
             let tagId = $(this).data("id");
+            let title = $(this).data("title");
+            $("#modal-tag .h5-modal").text(title);
             Tags.openEditTag(tagId);
         });
 
@@ -115,7 +117,8 @@ let Tags = {
 
         //Evento para desplegar el modal create
         $(document).on("click", ".create-tag", function () {
-            $("#modal-tag-create").modal("show");
+            let title = $(this).data("title");
+            $("#modal-tag .h5-modal").text(title);
             Tags.openCreateTag();
         });
 
@@ -155,6 +158,7 @@ let Tags = {
             },
             success: function (data) {
                 $(".results-tags").html(data);
+                Tags.activeTag();
             },
         });
     },
@@ -282,7 +286,7 @@ let Tags = {
                     success: function (data) {
                         if (data.deleted) {
                             Tags.loadTags();
-                            Tags.loadItems(sessionStorage.getItem("idTag"));
+                            Tags.activeTag();
                             Tags.toast.fire({
                                 icon: "success",
                                 title: data.message,
@@ -334,7 +338,7 @@ let Tags = {
                 $("#modal-tag .modal-body").html(data);
                 setTimeout(function () {
                     $("#modal-tag").modal("hide");
-                    Tags.loadItems(sessionStorage.getItem("idTag"));
+                    Tags.loadTags();
                 }, 1000);
             },
         });
@@ -376,7 +380,6 @@ let Tags = {
                 setTimeout(function () {
                     $("#modal-tag").modal("hide");
                     Tags.loadTags();
-                    Tags.loadItems(sessionStorage.getItem("idTag"));
                 }, 1000);
             },
         });
@@ -384,7 +387,9 @@ let Tags = {
     // Buscar items por título
     searchItems: function (search) {
         let session = sessionStorage.getItem("idTag");
-        session === null ? (url = "/tags/items/") : (url = "/tags/items/" + parseInt(session));
+        session === null
+            ? (url = "/tags/items/")
+            : (url = "/tags/items/" + parseInt(session));
         $.ajax({
             url: url,
             type: "GET",
@@ -398,6 +403,16 @@ let Tags = {
             success: function (response) {
                 $(".results-items").html(response);
             },
+        });
+    },
+    // Añadir clase active a tags
+    activeTag: function () {
+        let tags = $("#tags .tag");
+        let tagActive = sessionStorage.getItem("idTag");
+        tags.each(function() {
+            if($(this).data("id") == tagActive) {
+                $(this).parent().addClass("active");
+            }
         });
     },
 };
