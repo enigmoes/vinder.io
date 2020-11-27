@@ -76,6 +76,12 @@ let Favourites = {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
         });
+
+        // Evento para ordenar items
+        $(document).on("change", ".order-items .select2", function () {
+            let valor = $(this).val();
+            Favourites.orderItems(valor);
+        });
     },
     // Cargar favoritos
     loadFavourites: function () {
@@ -164,6 +170,23 @@ let Favourites = {
             url: "/favourites/results/",
             type: "GET",
             data: { search: search },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results").html(response);
+            }
+        });
+    },
+    // Ordenar items
+    orderItems: function (order) {
+        $.ajax({
+            url: "/favourites/results/",
+            type: "GET",
+            data: { order: order },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",

@@ -31,41 +31,16 @@ use Cake\Routing\Router;
             </nav>
         </div>
         <div class="col-lg-10 col-12">
-            <button class="navbar-toggler d-inline-block d-lg-none mb-2" type="button" data-toggle="collapse" data-target="#sidebarTags" aria-controls="navbarSupportedContent" 
-            aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                    <svg viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                </span>
-            </button>
-            <div class="collapse navbar-collapse d-lg-none" id="sidebarTags">
-                <nav class="sidebar">
-                    <div class="h5 h5-default text-uppercase"><?=__('Etiquetas')?></div>
-                    <div class="row">
-                        <div class="col-6">
-                            <ul class="list-unstyled components2">
-                                <li>
-                                    <a href="javascript:void(0)" class="create-tag">
-                                        <i class="fas fa-plus mr-2"></i><?=__('Añadir')?>
-                                    </a>
-                                </li>
-                            </ul>
-                            <?= $this->Form->create('search_tag') ?>
-                            <div class="input-tags d-flex align-items-center">
-                            <i class='fas fa-search search-icon'></i>
-                            <?=$this->Form->control('text', [
-                                'id' => false,
-                                'div' => false,
-                                'label' => false,
-                                'class' => 'form-control form-control-tags',
-                            ])?>
-                            </div>
-                            <?= $this->Form->end() ?>
-                        </div>
-                        <div class="results-tags overflow-auto mb-3 col-6"></div>
-                    </div>
-                </nav>
+            <div class="row">
+                <div class="offset-lg-8 col-lg-4 offset-6 col-6 mb-4 order-items">
+                    <div class="h6 h6-default text-uppercase"><?=__('Ordenar por:')?></div>
+                    <select class="select2">
+                        <option value="new"><?=__('Más nuevos')?></option>
+                        <option value="old"><?=__('Más antiguos')?></option>
+                        <option value="asc"><?=__('A-Z')?></option>
+                        <option value="desc"><?=__('Z-A')?></option>
+                    </select>
+                </div>
             </div>
             <div class="results-items"></div>
         </div>

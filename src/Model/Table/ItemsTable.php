@@ -96,4 +96,45 @@ class ItemsTable extends Table
 
         return $validator;
     }
+    
+    // Conditions
+    public function conditions($data)
+    {
+        $conditions = [];
+        if (isset($data['id_list']) && !empty($data['id_list'])) {
+            $conditions['Items.id_list'] = $data['id_list'];
+        }
+        if (isset($data['search']) && !empty($data['search'])) {
+            $conditions['Items.title LIKE'] = '%' . $data['search'] . '%';
+        }
+        if (isset($data['is_fav']) && !empty($data['is_fav'])) {
+            $conditions['Items.is_fav'] = 1;
+        }
+        return $conditions;
+    }
+
+    //Ordenar
+    public function order($data)
+    {
+        if (isset($data['order']) && !empty($data['order'])) {
+            //Comprobar ordenar
+            switch ($data['order']) {
+                case 'new':
+                    $order['Items.created'] = 'DESC';
+                    break;
+                case 'old':
+                    $order['Items.created'] = 'ASC';
+                    break;
+                case 'asc':
+                    $order['Items.title'] = 'ASC';
+                    break;
+                case 'desc':
+                    $order['Items.title'] = 'DESC';
+                    break;
+            }
+        } else {
+            $order['Items.created'] = 'DESC';
+        }
+        return $order;
+    }
 }
