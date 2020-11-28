@@ -71,6 +71,32 @@ let Items = {
             $(".input-custom").val("");
             Items.loadItems();
         });
+
+        // Buscar items con el buscador desplegable
+        $(document).on("click", ".btn-search", function () {
+            let valorBusqueda = $(".input-custom").val();
+            Items.searchItems(valorBusqueda);
+        });
+
+        // Evento para ocultar botón guardar al añadir un item
+        $(document).on("click", ".btn-add", function () {
+            $("#input-custom").addClass("d-none");
+            $(".navbar-icons").removeClass("d-none");
+        });
+
+        // Evento para ordenar items
+        $(document).on("change", ".order-items .select2", function () {
+            let valor = $(this).val();
+            Items.orderItems(valor);
+        });
+
+        // Scroll infinito
+        $(window).scroll(function () {
+            if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+                console.log("has llegado al final de la pagina");
+                //Items.infiniteScroll();
+            }
+        });
     },
     // Cargar items
     loadItems: function () {
@@ -184,6 +210,59 @@ let Items = {
                         title: data.message,
                     });
                 }
+            },
+        });
+    },
+    // Buscar items por título
+    searchItems: function (search) {
+        $.ajax({
+            url: "/items/results/",
+            type: "GET",
+            data: { search: search },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results").html(response);
+            }
+        });
+    },
+    // Ordenar items
+    orderItems: function (order) {
+        $.ajax({
+            url: "/items/results/",
+            type: "GET",
+            data: { order: order },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results").html(response);
+            }
+        });
+    },
+    // Scroll infinito
+    infiniteScroll: function (){
+        let maxItems = 12;
+        $.ajax({
+            url: "/items/results/",
+            type: "GET",
+            data: {maxItems : maxItems},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".modal-body-create").html(response);
+                $("#modal-tag-create").modal("show");
             },
         });
     },

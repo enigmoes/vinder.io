@@ -121,10 +121,7 @@ let Custom = {
             $("#button-input").removeClass("btn-search");
             $("#button-input").addClass("btn-add");
         });
-        $(".btn-input-custom1").on("click", function () {
-            $("#input-custom").addClass("d-none");
-            $(".navbar-icons").removeClass("d-none");
-        });
+        // Evento mostrar iconos navbar
         $(".btn-input-custom2").on("click", function () {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
@@ -144,12 +141,6 @@ let Custom = {
             let idItem = $(this).data("id");
             Custom.addTag(idItem);
         });
-
-        // Buscar items con el buscador desplegable
-        $(document).on("click", ".btn-search", function () {
-            let valorBusqueda = $(".input-custom").val();
-            Custom.searchItems(valorBusqueda);
-        });
     },
     // Abrir modal add
     openAddTag: function (id) {
@@ -163,7 +154,7 @@ let Custom = {
                 );
             },
             success: function (response) {
-                $(".modal-body-add").html(response);
+                $("#modal-tag-add .modal-body").html(response);
                 $("#modal-tag-add").modal("show");
             }
         });
@@ -184,28 +175,11 @@ let Custom = {
                 );
             },
             success: function (response) {
-                $(".modal-body-add").html(response);
+                $("#modal-tag-add .modal-body").html(response);
                 setTimeout(function () {
                     $("#modal-tag-add").modal("hide");
                 }, 1000);
             },
-        });
-    },
-    // Buscar items por título
-    searchItems: function (search) {
-        $.ajax({
-            url: "/items/results/",
-            type: "GET",
-            data: { search: search },
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    "X-CSRF-Token",
-                    $('[name="_csrfToken"]').val()
-                );
-            },
-            success: function (response) {
-                $(".results").html(response);
-            }
         });
     },
 };

@@ -17,7 +17,7 @@ use Cake\Routing\Router;
             'class' => 'form-control form-control-custom input-modal',
         ])?>
         <button type="button" class="btn btn-modal btn-modal-create ml-4 px-4">
-            <?=__('Añadir')?>
+            <?=__('Guardar')?>
         </button>
     <?= $this->Form->end() ?>
 </div>

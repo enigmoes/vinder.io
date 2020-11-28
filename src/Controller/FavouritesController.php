@@ -31,42 +31,24 @@ class FavouritesController extends AppController
     // Función para buscar las listas
     public function results()
     {
-        $search = $this->request->getQuery('search');
-        if (!empty($search)) {
+        $title = __('MI LISTA');
+        // Si hay query
+        if (!empty($this->request->getQuery())) {
             $title = __('BÚSQUEDA');
-            // Buscamos listas del usuario
-            $lists = $this->Lists->find('all', [
-                'conditions' => [
-                    'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                ],
+        }
+        // Buscamos datos en db para los items
+        $lists = $this->Lists->find('all', [
+            'conditions' => [
+                'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+            ],
+        ])->toArray();
+        foreach ($lists as $list) {
+            $this->request->query['id_list'] = $list->id;
+            $this->request->query['is_fav'] = 1;
+            $list['items'] = $this->Items->find('all', [
+                'conditions' => $this->Items->conditions($this->request->getQuery()),
+                'order' => $this->Items->order($this->request->getQuery())
             ])->toArray();
-            // Buscamos items favoritos por lista
-            foreach ($lists as $list) {
-                $list['items'] = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.is_fav' => 1,
-                        'Items.id_list' => $list->id,
-                        'Items.title LIKE' => '%' . $search . '%',
-                    ],
-                ])->toArray();
-            }
-        } else {
-            $title = __('MI LISTA');
-            // Buscamos listas del usuario
-            $lists = $this->Lists->find('all', [
-                'conditions' => [
-                    'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                ],
-            ])->toArray();
-            // Buscamos items favoritos por lista
-            foreach ($lists as $list) {
-                $list['items'] = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.is_fav' => 1,
-                        'Items.id_list' => $list->id,
-                    ],
-                ])->toArray();
-            }
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
