@@ -68,7 +68,16 @@ let Tags = {
             sessionStorage.setItem("idTag", id_tag);
             $(".tag").parent().removeClass("active");
             $(this).parent().addClass("active");
+            $(".all-tags").removeClass("bg-active");
             Tags.loadItems(id_tag);
+        });
+
+        // Evento click ver todos los items
+        $(document).on("click", ".all-tags", function () {
+            sessionStorage.removeItem("idTag");
+            $(".tag").parent().removeClass("active");
+            $(this).addClass("bg-active");
+            Tags.loadItems();
         });
 
         // Buscar tags con el buscador
@@ -108,13 +117,6 @@ let Tags = {
             Tags.loadTags();
         });
 
-        //Evento para introducir el formulario y desplegar el modal add
-        $(document).on("click", ".add-tag", function () {
-            // Recoger id item
-            let idItem = $(this).data("id");
-            Tags.openAddTag(idItem);
-        });
-
         //Evento para desplegar el modal create
         $(document).on("click", ".create-tag", function () {
             let title = $(this).data("title");
@@ -144,6 +146,12 @@ let Tags = {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
         });
+
+        // Evento para ordenar items
+        $(document).on("change", ".order-items .select2", function () {
+            let valor = $(this).val();
+            Tags.orderItems(valor);
+        });
     },
     // Cargar etiquetas
     loadTags: function () {
@@ -164,9 +172,7 @@ let Tags = {
     },
     // Cargar items
     loadItems: function (id_tag = null) {
-        id_tag === null
-            ? (url = "/tags/items")
-            : (url = "/tags/items/" + id_tag);
+        (id_tag === null) ? url = "/tags/items" : url = "/tags/items/" + id_tag;
         $.ajax({
             type: "GET",
             url: url,
@@ -387,9 +393,7 @@ let Tags = {
     // Buscar items por título
     searchItems: function (search) {
         let session = sessionStorage.getItem("idTag");
-        session === null
-            ? (url = "/tags/items/")
-            : (url = "/tags/items/" + parseInt(session));
+        session === null ? (url = "/tags/items/") : (url = "/tags/items/" + parseInt(session));
         $.ajax({
             url: url,
             type: "GET",
@@ -403,6 +407,25 @@ let Tags = {
             success: function (response) {
                 $(".results-items").html(response);
             },
+        });
+    },
+    // Ordenar items
+    orderItems: function (order) {
+        let session = sessionStorage.getItem("idTag");
+        session === null ? (url = "/tags/items/") : (url = "/tags/items/" + parseInt(session));
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: { order: order },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('[name="_csrfToken"]').val()
+                );
+            },
+            success: function (response) {
+                $(".results-items").html(response);
+            }
         });
     },
     // Añadir clase active a tags

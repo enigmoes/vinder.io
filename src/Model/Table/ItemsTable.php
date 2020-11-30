@@ -104,11 +104,19 @@ class ItemsTable extends Table
         if (isset($data['id_list']) && !empty($data['id_list'])) {
             $conditions['Items.id_list'] = $data['id_list'];
         }
+        if (isset($data['id_user']) && !empty($data['id_user'])) {
+            $conditions['Items.id_user'] = $data['id_user'];
+        }
         if (isset($data['search']) && !empty($data['search'])) {
-            $conditions['Items.title LIKE'] = '%' . $data['search'] . '%';
+            if($data['search'] !== null) {
+                $conditions['Items.title LIKE'] = '%' . $data['search'] . '%';
+            }
         }
         if (isset($data['is_fav']) && !empty($data['is_fav'])) {
             $conditions['Items.is_fav'] = 1;
+        }
+        if (isset($data['items_tags']) && !empty($data['items_tags'])) {
+            $conditions['Items.id IN'] = $data['items_tags'];
         }
         return $conditions;
     }

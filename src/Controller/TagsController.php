@@ -58,77 +58,39 @@ class TagsController extends AppController
     // Función para buscar las listas por cada etiqueta
     public function items($id_tag = null)
     {
-        $search = $this->request->getQuery('search');
-        // Declaramos items
-        $items = [];
+        $tagName = __('MI LISTA');
         //Si se ha recogido una etiqueta
         if (!is_null($id_tag)) {
             // Buscamos el nombre de la tag
             $tagName = $this->Tags->find('all', ['conditions' => ['Tags.id' => $id_tag]])->toArray()[0]->name;
-            //Si lo búsqueda no está vacía
-            if (!empty($search)) {
+            // Si hay query search cambiamos el título
+            if (!empty($this->request->getQuery('search'))) {
                 // Inicializamos tag name con el nombre de la etiqueta más "búsqueda"
                 $tagName = __('BÚSQUEDA') . "-" . $tagName;
-                // Buscamos todos los items de una etiqueta
-                $itemsTags = $this->ItemsTags->find('list', [
-                    'conditions' => [
-                        'ItemsTags.id_tag' => $id_tag,
-                    ],
-                    'keyField' => 'id', 'valueField' => function ($e) {
-                        return $e->id_item;
-                    },
-                ])->toArray();
-                // Si hay items asignados a una etiqueta
-                if (!empty($itemsTags)) {
-                    $items = $this->Items->find('all', [
-                        'conditions' => [
-                            'Items.id IN' => $itemsTags,
-                            'Items.title LIKE' => '%' . $search . '%',
-                        ],
-                    ])->order(['Items.created' => 'DESC'])->toArray();
-                }
-            } else {
-                // Buscamos todos los items de una etiqueta
-                $itemsTags = $this->ItemsTags->find('list', [
-                    'conditions' => [
-                        'ItemsTags.id_tag' => $id_tag,
-                    ],
-                    'keyField' => 'id', 'valueField' => function ($e) {
-                        return $e->id_item;
-                    },
-                ])->toArray();
-                // Si hay items asignados a una etiqueta
-                if (!empty($itemsTags)) {
-                    $items = $this->Items->find('all', [
-                        'conditions' => [
-                            'Items.id IN' => $itemsTags,
-                        ],
-                    ])->order(['Items.created' => 'DESC'])->toArray();
-                }
             }
+            // Buscamos todos los items de una etiqueta
+            $itemsTags = $this->ItemsTags->find('list', [
+                'conditions' => [
+                    'ItemsTags.id_tag' => $id_tag,
+                ],
+                'keyField' => 'id', 'valueField' => function ($e) {
+                    return $e->id_item;
+                },
+            ])->toArray();
+            $this->request->query['items_tags'] = $itemsTags;
         } else {
-            //Si lo búsqueda no está vacía
-            if (!empty($search)) {
-                // Inicializamos tag name con "búsqueda"
+            // Si hay query search cambiamos el título
+            if (!empty($this->request->getQuery('search'))) {
                 $tagName = __('BÚSQUEDA');
-                // Realizamos la búsqueda de items
-                $items = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                        'Items.title LIKE' => '%' . $search . '%',
-                    ],
-                ])->order(['Items.created' => 'DESC'])->toArray();
-            } else {
-                // Inicializamos tag name con "mi lista"
-                $tagName = __('MI LISTA');
-                // Buscamos todos los items del usuario
-                $items = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                    ],
-                ])->order(['Items.created' => 'DESC'])->toArray();
             }
+            // Realizamos las queries
+            $this->request->query['id_user'] = $this->request->getSession()->read('Auth.User.id');
         }
+        // Realizamos la búsqueda de items
+        $items = $this->Items->find('all', [
+            'conditions' => $this->Items->conditions($this->request->getQuery()),
+            'order' => $this->Items->order($this->request->getQuery())
+        ])->toArray();
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'items' => $items,
@@ -170,19 +132,17 @@ class TagsController extends AppController
                 'ItemsTags.id_tag' => $id,
             ]
         ])->toArray();
-        // Si la tag no está asignada, la eliminamos
+        // Si la tag no está asignada
         if(count($tags) == 0) {
+            $tagEmpty = true;
             $tag = $this->Tags->get($id);
             if ($this->Tags->delete($tag)) {
                 $deleted = true;
                 $message = __('Etiqueta eliminada correctamente');
             } else {
                 $deleted = false;
-                $message = __('Se produjo un error al elminar la etiqueta');
+                $message = __('Se produjo un error al eliminar la etiqueta');
             }
-        } else {
-            $deleted = false;
-            $message = __('Error al eliminar: Esta etiqueta esta asociada a un item.');
         }
         $this->set([
             'deleted' => $deleted,
