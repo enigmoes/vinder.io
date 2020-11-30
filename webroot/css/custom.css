@@ -574,6 +574,19 @@ i:hover {
     /* END NAVBAR */
 
     /* SIDEBAR */
+    .sidebar{
+        min-width: 250px;
+        max-width: 250px;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        /* top layer */
+        z-index: 9999;
+    }
+    .sidebar.active {
+        margin-left: 0;
+    }
     .navbar-collapse .form-control-tags {
         height: 1.5rem;
         width: 19rem;
@@ -608,6 +621,21 @@ i:hover {
     .results-tags i {
         font-size: x-small;
     }
+    .all-tags{
+        font-size: small;
+    }
     /* END SIDEBAR */
 }
 /* END MEDIA QUERIES */
+/* OVERLAY LAYER */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9997;
+}
+/* END OVERLAY LAYER*/
