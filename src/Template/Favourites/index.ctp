@@ -8,7 +8,7 @@ use Cake\Routing\Router;
         </div>
         <div class="col-lg-10 col-12">
             <div class="row">
-                <div class="offset-lg-8 col-lg-4 offset-6 col-6 mb-4 order-items">
+                <div class="offset-lg-8 col-lg-4 offset-md-6 col-md-6 col-12 order-items mt-3">
                     <div class="h6 h6-default text-uppercase"><?=__('Ordenar por:')?></div>
                     <select class="select2">
                         <option value="new"><?=__('Más nuevos')?></option>

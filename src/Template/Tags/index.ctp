@@ -16,6 +16,11 @@ use Cake\Routing\Router;
                             <i class="fas fa-plus mr-2"></i><?=__('Añadir')?>
                         </a>
                     </li>
+                    <li class="mt-3">
+                        <a href="javascript:void(0)" class="all-tags px-2">
+                            <?=__('Todos los ítems')?>
+                        </a>
+                    </li>
                 </ul>
                 <?= $this->Form->create('search_tag') ?>
                 <div class="input-tags d-flex align-items-center">
@@ -32,7 +37,7 @@ use Cake\Routing\Router;
         </div>
         <div class="col-lg-10 col-12">
             <div class="row">
-                <div class="offset-lg-8 col-lg-4 offset-6 col-6 mb-4 order-items">
+                <div class="offset-lg-8 col-lg-4 offset-md-6 col-md-6 col-12 order-items mt-3">
                     <div class="h6 h6-default text-uppercase"><?=__('Ordenar por:')?></div>
                     <select class="select2">
                         <option value="new"><?=__('Más nuevos')?></option>
