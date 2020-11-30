@@ -35,8 +35,8 @@ class ItemsController extends AppController
     public function results()
     {
         $title = __('MI LISTA');
-        // Si hay query
-        if (!empty($this->request->getQuery())) {
+        // Si hay query search cambiamos el título
+        if (!empty($this->request->getQuery('search'))) {
             $title = __('BÚSQUEDA');
         }
         // Buscamos datos en db para los items
