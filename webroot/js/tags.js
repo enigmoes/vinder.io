@@ -132,11 +132,13 @@ let Tags = {
         // Buscar items con el buscador desplegable
         $(document).on("click", ".btn-search", function () {
             let valorBusqueda = $(".input-custom").val();
+            sessionStorage.setItem("search", valorBusqueda);
             Tags.searchItems(valorBusqueda);
         });
 
         // Eliminar texto del input desplegable al pulsar cancelar
         $(document).on("click", ".btn-cancel", function () {
+            sessionStorage.removeItem("search");
             $(".input-custom").val("");
             Tags.loadItems(sessionStorage.getItem("idTag"));
         });
@@ -411,12 +413,13 @@ let Tags = {
     },
     // Ordenar items
     orderItems: function (order) {
+        let search = sessionStorage.getItem("search");
         let session = sessionStorage.getItem("idTag");
         session === null ? (url = "/tags/items/") : (url = "/tags/items/" + parseInt(session));
         $.ajax({
             url: url,
             type: "GET",
-            data: { order: order },
+            data: { order: order,  search: search},
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",

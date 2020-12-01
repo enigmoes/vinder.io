@@ -19,8 +19,12 @@ let Custom = {
         this.generalEvents();
         // Llamada a eventos de navbar
         this.navbarEvents();
+        // Llamada a eventos de navbar
+        this.sidebarEvents();
         // Llamada a eventos de acción comunes
         this.actionEvents();
+        // Eliminar búsqueda
+        this.deleteSearch();
     },
     generalEvents: function () {
         // Acción eliminar
@@ -105,7 +109,9 @@ let Custom = {
             $("#input-custom").removeClass("d-none");
             $(".navbar-icons").addClass("d-none");
             $(".input-custom").attr("placeholder", "Buscar...");
-            $("#button-input").text("Buscar");
+            $("#button-input span").text("Buscar");
+            $("#button-input i").addClass("fa-search");
+            $("#button-input i").removeClass("fa-plus");
             $("#button-input").removeClass("btn-add");
             $("#button-input").addClass("btn-search");
         });
@@ -117,7 +123,9 @@ let Custom = {
                 "placeholder",
                 "Guardar una URL https//..."
             );
-            $("#button-input").text("Guardar");
+            $("#button-input span").text("Guardar");
+            $("#button-input i").addClass("fa-plus");
+            $("#button-input i").removeClass("fa-search");
             $("#button-input").removeClass("btn-search");
             $("#button-input").addClass("btn-add");
         });
@@ -125,6 +133,24 @@ let Custom = {
         $(".btn-input-custom2").on("click", function () {
             $("#input-custom").addClass("d-none");
             $(".navbar-icons").removeClass("d-none");
+        });
+    },
+    sidebarEvents: function(){
+        // Evento ocultar sidebar
+        $(document).on('click', '.overlay', function () {
+            // hide sidebar
+            $('.div-sidebar').removeClass('.sidebar-active');
+            $('.div-sidebar').addClass('d-none');
+            // hide overlay
+            $('.overlay').removeClass('d-block');
+        });
+        // Evento mostrar sidebar
+        $(document).on('click', '.sidebar-button', function () {
+            // open sidebar
+            $('.div-sidebar').addClass('.sidebar-active');
+            $('.div-sidebar').removeClass('d-none');
+            // fade in the overlay
+            $('.overlay').addClass('d-block');
         });
     },
     actionEvents: function () {
@@ -182,4 +208,7 @@ let Custom = {
             },
         });
     },
+    deleteSearch: function(){
+        sessionStorage.removeItem('search');
+    }
 };

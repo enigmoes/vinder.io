@@ -59,16 +59,18 @@ let Favourites = {
             });
         });
 
-        // Eliminar texto del input desplegable al pulsar cancelar
-        $(document).on("click", ".btn-cancel", function () {
-            $(".input-custom").val("");
-            Favourites.loadFavourites();
-        });
-
         // Buscar items con el buscador desplegable
         $(document).on("click", ".btn-search", function () {
             let valorBusqueda = $(".input-custom").val();
+            sessionStorage.setItem("search", valorBusqueda);
             Favourites.searchItems(valorBusqueda);
+        });
+
+        // Eliminar texto del input desplegable al pulsar cancelar
+        $(document).on("click", ".btn-cancel", function () {
+            sessionStorage.removeItem("search");
+            $(".input-custom").val("");
+            Favourites.loadFavourites();
         });
 
         // Evento para ocultar botón guardar al añadir un item
@@ -183,10 +185,11 @@ let Favourites = {
     },
     // Ordenar items
     orderItems: function (order) {
+        let search = sessionStorage.getItem("search");
         $.ajax({
             url: "/favourites/results/",
             type: "GET",
-            data: { order: order },
+            data: { order: order,  search: search},
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
