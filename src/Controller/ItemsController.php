@@ -91,9 +91,18 @@ class ItemsController extends AppController
                     }
                 }
             });
+            // Buscamos la lista del usuario
+            $lists = $this->Lists->find('all', [
+                'conditions' => [
+                    'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+                ],
+            ])->toArray();
+            foreach ($lists as $list) {
+                $idList = $list['id'];
+            }
             // Buscar título, descripción e imagen de la url
             $item = $this->Items->newEntity();
-            $item->id_list = 1;
+            $item->id_list = $idList;
             $item->id_user = $this->request->getSession()->read('Auth.User.id');
             $item->title = $title;
             $item->description = $description;
