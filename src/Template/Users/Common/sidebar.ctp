@@ -4,6 +4,11 @@ use Cake\Routing\Router;
 <!-- Sidebar -->
 <nav class="sidebar">
     <div class="sidebar-header">
+        <div class="navbar-header d-lg-none d-block mb-5">
+            <a class="navbar-brand" href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
+                <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
+            </a>
+        </div>
         <div class="h6 h6-title font-weight-bold border-bottom-custom">
             <?= $this->request->getSession()->read('Auth.User.email') ?>
         </div>

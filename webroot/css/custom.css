@@ -562,10 +562,33 @@ i:hover {
 }
 /* END MODAL */
 /* MEDIA QUERIES */
-@media (max-width: 768px) {
+@media (max-width: 375px) {
     /* NAVBAR */
+    .container-input-custom{
+        position: absolute !important;
+        left: 15px !important;
+        right: 15px !important;
+        top: 75px !important;
+    }
+    .input-custom{
+        width: 14rem !important;
+    }
+    .btn-input-custom1 i, .btn-input-custom2 i{
+        font-size: small;
+    }
+    .btn-input-custom1 i:hover, .btn-input-custom2 i:hover{
+        color: white;
+    }
+    /* END NAVBAR */
+}
+@media (max-width: 990px) {
+    /* NAVBAR */
+    .container-input-custom{
+        position: absolute;
+        right: 15px;
+        top: 15px;
+    }
     .input-custom {
-        width: 5rem;
         font-size: small;
     }
     .btn-input-custom1, .btn-input-custom2{
@@ -574,29 +597,32 @@ i:hover {
     /* END NAVBAR */
 
     /* SIDEBAR */
-    .sidebar{
-        min-width: 250px;
-        max-width: 250px;
-        height: 100vh;
+    .div-sidebar{
         position: fixed;
         top: 0;
         left: 0;
-        /* top layer */
-        z-index: 9999;
+        z-index: 1040;
+        height: 100%;
+        width: 240px;
+        padding: 2rem;
+        margin: 0;
+        overflow: hidden;
+        background-color: white;
+        transition: all 0.3s ease;
     }
-    .sidebar.active {
-        margin-left: 0;
+    .sidebar-active{
+        transform: translateX(240px);
     }
-    .navbar-collapse .form-control-tags {
+    .div-sidebar .form-control-tags {
         height: 1.5rem;
-        width: 19rem;
+        width: 9rem;
         border-radius: 30px;
         font-size: medium;
     }
-    .navbar-collapse .results-tags a, .navbar-collapse .no-tags{
+    .div-sidebar .results-tags a, .div-sidebar .no-tags, .div-sidebar .all-tags{
         font-size: medium;
     }
-    .navbar-collapse .results-tags i {
+    .div-sidebar .results-tags i {
         font-size: small;
     }
     /* END SIDEBAR */
@@ -636,6 +662,7 @@ i:hover {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 9997;
+    z-index: 1000;
+    transition: all 3s ease;
 }
 /* END OVERLAY LAYER*/
