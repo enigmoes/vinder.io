@@ -16,7 +16,7 @@ use Cake\Routing\Router;
             'label' => false,
             'class' => 'form-control form-control-custom input-modal',
         ])?>
-        <button type="button" class="btn btn-modal btn-modal-edit ml-4 px-4" data-id="<?= $tag->id ?>">
+        <button type="button" class="btn btn-modal btn-modal-edit ml-md-4 ml-1 px-md-4 px-2" data-id="<?= $tag->id ?>">
             <?=__('Guardar')?>
         </button>
     <?= $this->Form->end() ?>

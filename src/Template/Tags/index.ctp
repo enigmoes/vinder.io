@@ -1,7 +1,7 @@
 <?php
 use Cake\Routing\Router;
 ?>
-<div class="container min-vh-100 mt-lg-5 mt-md-1">
+<div class="container min-vh-100 mt-5">
     <div class="row">
         <div class="col-lg-2 d-lg-block d-none div-sidebar">
             <?=$this->element('Common/sidebar_tags')?>

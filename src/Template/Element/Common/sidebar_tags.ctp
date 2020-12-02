@@ -19,7 +19,7 @@ use Cake\Routing\Router;
             </a>
         </li>
         <li class="mt-3">
-            <a href="javascript:void(0)" class="all-tags px-2">
+            <a href="javascript:void(0)" class="all-tags px-2 bg-active">
                 <?=__('Todos los ítems')?>
             </a>
         </li>

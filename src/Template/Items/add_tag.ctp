@@ -19,7 +19,7 @@ use Cake\Routing\Router;
                 'class' => 'select2',
             ])?>
         </div>
-        <button type="button" class="btn btn-modal btn-modal-add px-4" data-id="<?= $id_item ?>">
+        <button type="button" class="btn btn-modal btn-modal-add ml-md-4 ml-1 px-md-4 px-2" data-id="<?= $id_item ?>">
             <?=__('Guardar')?>
         </button>
     <?=$this->Form->end()?>

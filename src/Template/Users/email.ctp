@@ -45,4 +45,11 @@ use Cake\Routing\Router;
             </div>
         </div>
     </div>
+    <div class="row mt-5">
+        <div class="col-12 offset-md-3 col-md-6">
+            <a href="<?= Router::url(['controller' => 'items', 'action' => 'index']) ?>">
+                <?=$this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'img-footer'))?>
+            </a>
+        </div>
+    </div>
 </div>

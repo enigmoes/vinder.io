@@ -10,7 +10,7 @@ use Cake\Routing\Router;
             <div>
                 <?= $this->Flash->render() ?>
             </div>
-            <div id="form-perfil" class="card custom-shadow">
+            <div id="form-perfil" class="card custom-shadow mb-5">
                 <?= $this->Form->create($user) ?>
                     <div class="card-body card-block">
                         <div class="h4 h4-custom"><?= __('Editar perfil') ?></div>
@@ -42,6 +42,13 @@ use Cake\Routing\Router;
                     </div>
                 <?= $this->Form->end() ?>
             </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 offset-md-3 col-md-6">
+            <a href="<?= Router::url(['controller' => 'items', 'action' => 'index']) ?>">
+                <?=$this->Html->image('logotipo_66.png', array('alt' => 'vinder', 'class' => 'img-footer'))?>
+            </a>
         </div>
     </div>
 </div>
