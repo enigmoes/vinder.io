@@ -89,6 +89,7 @@ let Items = {
         // Evento para ordenar items
         $(document).on("change", ".order-items .select2", function () {
             let valor = $(this).val();
+            sessionStorage.setItem("order", valor);
             Items.orderItems(valor);
         });
 
@@ -102,9 +103,11 @@ let Items = {
     },
     // Cargar items
     loadItems: function () {
+        let order = sessionStorage.getItem("order");
         $.ajax({
             type: "GET",
             url: "/items/results",
+            data: { order: order },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -156,9 +159,9 @@ let Items = {
             title: data.message,
             icon: "question",
             showCancelButton: true,
-            cancelButtonColor: "#d33",
             confirmButtonText: data.ok,
             cancelButtonText: data.cancel,
+            customClass: "custom-sweet-alert",
         }).then((result) => {
             if (result.value) {
                 $.ajax({
@@ -217,10 +220,11 @@ let Items = {
     },
     // Buscar items por título
     searchItems: function (search) {
+        let order = sessionStorage.getItem("order");
         $.ajax({
             url: "/items/results/",
             type: "GET",
-            data: { search: search },
+            data: { search: search, order: order},
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",

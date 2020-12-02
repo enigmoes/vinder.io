@@ -24,7 +24,7 @@ let Custom = {
         // Llamada a eventos de acción comunes
         this.actionEvents();
         // Eliminar búsqueda
-        this.deleteSearch();
+        this.deleteSessions();
     },
     generalEvents: function () {
         // Acción eliminar
@@ -208,7 +208,10 @@ let Custom = {
             },
         });
     },
-    deleteSearch: function(){
+    // Eliminar sesiones search y order
+    deleteSessions: function(){
+        sessionStorage.removeItem("idTag");
         sessionStorage.removeItem('search');
+        sessionStorage.removeItem('order');
     }
 };
