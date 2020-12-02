@@ -558,9 +558,36 @@ i:hover {
     text-align: center;
 }
 .input-modal{
-    width: 125%;
+    width: 100%;
 }
 /* END MODAL */
+/* OVERLAY LAYER */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: all 3s ease;
+}
+/* END OVERLAY LAYER*/
+/* SWEET ALERT */
+.custom-sweet-alert .swal2-actions .swal2-confirm{
+    box-shadow: none;
+    color: white;
+    background: var(--secondary);
+}
+.custom-sweet-alert .swal2-actions .swal2-confirm:active{
+    box-shadow: 0 0 0 0.2rem rgba(var(--secondary_rgb), 0.5);
+}
+.custom-sweet-alert .swal2-actions .swal2-cancel{
+    color: black;
+    background: var(--primary);
+}
+/* END SWEET ALERT*/
 /* MEDIA QUERIES */
 @media (max-width: 375px) {
     /* NAVBAR */
@@ -580,6 +607,11 @@ i:hover {
         color: white;
     }
     /* END NAVBAR */
+    /* MODAL */
+    .input-modal{
+        width: 90%;
+    }
+    /* END MODAL */
 }
 @media (max-width: 990px) {
     /* NAVBAR */
@@ -653,16 +685,3 @@ i:hover {
     /* END SIDEBAR */
 }
 /* END MEDIA QUERIES */
-/* OVERLAY LAYER */
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    transition: all 3s ease;
-}
-/* END OVERLAY LAYER*/
