@@ -18,7 +18,6 @@ let Tags = {
         this.loadTags();
         // LLamada a cargar items
         this.loadItems();
-        sessionStorage.removeItem("idTag");
     },
     attributes: function () {
         this.toast = Swal.mixin({
@@ -88,12 +87,14 @@ let Tags = {
 
         //Evento para eliminar tags
         $(document).on("click", ".tag-delete", function () {
+            let id = $(this).data("id");
             let url = $(this).data("url");
             let message = $(this).data("message");
+            let message2 = $(this).data("message2");
             let ok = $(this).data("ok");
             let cancel = $(this).data("cancel");
-            let data = { url: url, message: message, ok: ok, cancel: cancel };
-            Tags.deleteTag(data);
+            let dataContent = { id: id, url: url, message: message, message2: message2, ok: ok, cancel: cancel };
+            Tags.deleteTag(dataContent);
         });
 
         //Evento para introducir el formulario y desplegar el modal edit
@@ -152,6 +153,7 @@ let Tags = {
         // Evento para ordenar items
         $(document).on("change", ".order-items .select2", function () {
             let valor = $(this).val();
+            sessionStorage.setItem("order", valor);
             Tags.orderItems(valor);
         });
     },
@@ -174,10 +176,12 @@ let Tags = {
     },
     // Cargar items
     loadItems: function (id_tag = null) {
+        let order = sessionStorage.getItem("order");
         (id_tag === null) ? url = "/tags/items" : url = "/tags/items/" + id_tag;
         $.ajax({
             type: "GET",
             url: url,
+            data: { order: order },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -195,9 +199,9 @@ let Tags = {
             title: data.message,
             icon: "question",
             showCancelButton: true,
-            cancelButtonColor: "#d33",
             confirmButtonText: data.ok,
             cancelButtonText: data.cancel,
+            customClass: "custom-sweet-alert",
         }).then((result) => {
             if (result.value) {
                 $.ajax({
@@ -272,19 +276,74 @@ let Tags = {
         });
     },
     // Eliminar tag
-    deleteTag: function (data) {
+    deleteTag: function (dataContent) {
         Swal.fire({
-            title: data.message,
+            title: dataContent.message,
             icon: "question",
             showCancelButton: true,
-            cancelButtonColor: "#d33",
-            confirmButtonText: data.ok,
-            cancelButtonText: data.cancel,
+            confirmButtonText: dataContent.ok,
+            cancelButtonText: dataContent.cancel,
+            customClass: "custom-sweet-alert",
         }).then((result) => {
             if (result.value) {
                 $.ajax({
                     type: "GET",
-                    url: data.url,
+                    url: "/tags/hasItems/" + dataContent.id,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader(
+                            "X-CSRF-Token",
+                            $('[name="_csrfToken"]').val()
+                        );
+                    },
+                    success: function (data) {
+                        if (data.hasItems) {
+                            Tags.showDeleteAlert(dataContent);
+                        } else {
+                            $.ajax({
+                                type: "GET",
+                                url: dataContent.url,
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader(
+                                        "X-CSRF-Token",
+                                        $('[name="_csrfToken"]').val()
+                                    );
+                                },
+                                success: function (data) {
+                                    if (data.deleted) {
+                                        Tags.loadTags();
+                                        Tags.activeTag();
+                                        Tags.toast.fire({
+                                            icon: "success",
+                                            title: data.message,
+                                        });
+                                    } else {
+                                        Tags.toast.fire({
+                                            icon: "error",
+                                            title: data.message,
+                                        });
+                                    }
+                                },
+                            });
+                        }
+                    },
+                });
+            }
+        });
+    },
+    // Mostrar alert al borrar si una tag tiene items
+    showDeleteAlert: function (dataContent){
+        Swal.fire({
+            title: dataContent.message2,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: dataContent.ok,
+            cancelButtonText: dataContent.cancel,
+            customClass: "custom-sweet-alert",
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "GET",
+                    url: dataContent.url,
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader(
                             "X-CSRF-Token",
@@ -394,12 +453,13 @@ let Tags = {
     },
     // Buscar items por título
     searchItems: function (search) {
+        let order = sessionStorage.getItem("order");
         let session = sessionStorage.getItem("idTag");
         session === null ? (url = "/tags/items/") : (url = "/tags/items/" + parseInt(session));
         $.ajax({
             url: url,
             type: "GET",
-            data: { search: search },
+            data: { search: search, order: order},
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",

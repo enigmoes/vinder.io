@@ -126,28 +126,38 @@ class TagsController extends AppController
     // Función para borrar tags
     public function delete($id)
     {
+        $tag = $this->Tags->get($id);
+        if ($this->Tags->delete($tag)) {
+            $deleted = true;
+            $message = __('Etiqueta eliminada correctamente');
+        } else {
+            $deleted = false;
+            $message = __('Se produjo un error al eliminar la etiqueta');
+        }
+        $this->set([
+            'deleted' => $deleted,
+            'message' => $message,
+            '_serialize' => ['deleted', 'message'],
+        ]);
+        $this->RequestHandler->renderAs($this, 'json');
+    }
+
+    // Función para comprobar si una tag tiene items asignados
+    public function hasItems($id){
         // Buscamos si la tag está asignada a un item
         $tags = $this->ItemsTags->find('list', [
             'conditions' => [
                 'ItemsTags.id_tag' => $id,
             ]
         ])->toArray();
-        // Si la tag no está asignada
         if(count($tags) == 0) {
-            $tagEmpty = true;
-            $tag = $this->Tags->get($id);
-            if ($this->Tags->delete($tag)) {
-                $deleted = true;
-                $message = __('Etiqueta eliminada correctamente');
-            } else {
-                $deleted = false;
-                $message = __('Se produjo un error al eliminar la etiqueta');
-            }
+            $hasItems = false;
+        } else {
+            $hasItems = true;
         }
         $this->set([
-            'deleted' => $deleted,
-            'message' => $message,
-            '_serialize' => ['deleted', 'message'],
+            'hasItems' => $hasItems,
+            '_serialize' => ['hasItems'],
         ]);
         $this->RequestHandler->renderAs($this, 'json');
     }
