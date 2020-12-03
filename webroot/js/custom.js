@@ -135,22 +135,13 @@ let Custom = {
             $(".navbar-icons").removeClass("d-none");
         });
     },
-    sidebarEvents: function(){
-        // Evento ocultar sidebar
-        $(document).on('click', '.overlay', function () {
-            // hide sidebar
-            $('.div-sidebar').removeClass('.sidebar-active');
-            $('.div-sidebar').addClass('d-none');
-            // hide overlay
-            $('.overlay').removeClass('d-block');
-        });
-        // Evento mostrar sidebar
-        $(document).on('click', '.sidebar-button', function () {
-            // open sidebar
-            $('.div-sidebar').addClass('.sidebar-active');
-            $('.div-sidebar').removeClass('d-none');
-            // fade in the overlay
-            $('.overlay').addClass('d-block');
+    sidebarEvents: function() {
+        // Evento mostrar / ocultar sidebar
+        $(document).on('click', '.overlay, .sidebar-button', function () {
+            // hide/show sidebar
+            $('.div-sidebar').toggleClass('sidebar-active');
+            // hide/show overlay
+            $('.overlay').toggleClass('d-block');
         });
     },
     actionEvents: function () {

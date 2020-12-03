@@ -3,7 +3,7 @@ use Cake\Routing\Router;
 ?>
 <div class="container min-vh-100 mt-5">
     <div class="row">
-        <div class="col-lg-2 d-lg-block d-none div-sidebar">
+        <div class="col-lg-2 d-lg-block div-sidebar">
             <?=$this->element('Common/sidebar_tags')?>
         </div>
         <div class="col-lg-10 col-12">
@@ -18,7 +18,7 @@ use Cake\Routing\Router;
                     </select>
                 </div>
             </div>
-            <div class="results-items"></div>
+            <div class="results-items mt-4"></div>
         </div>
     </div>
 </div>

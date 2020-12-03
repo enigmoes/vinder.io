@@ -2,7 +2,7 @@
 use Cake\Routing\Router;
 ?>
 <div class="row">
-    <div class="col-6 mb-4">
+    <div class="col-md-6 col-12 mb-4">
         <div class="h4 h4-default text-uppercase"><?=$tagName?></div>
     </div>
 </div>

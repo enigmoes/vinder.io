@@ -627,12 +627,11 @@ i:hover {
         font-size: small;
     }
     /* END NAVBAR */
-
     /* SIDEBAR */
-    .div-sidebar{
-        position: fixed;
+    .div-sidebar {
+        position: absolute;
         top: 0;
-        left: 0;
+        left: -240px;
         z-index: 1040;
         height: 100%;
         width: 240px;
@@ -640,9 +639,9 @@ i:hover {
         margin: 0;
         overflow: hidden;
         background-color: white;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease-in-out;
     }
-    .sidebar-active{
+    .sidebar-active {
         transform: translateX(240px);
     }
     .div-sidebar .form-control-tags {
