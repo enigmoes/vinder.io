@@ -145,4 +145,15 @@ class ItemsTable extends Table
         }
         return $order;
     }
+
+    //Paginación limitada
+    public function limit($data)
+    {   
+        if(isset($data['limit']) && !empty($data['limit'])){
+            $limit = $data['limit'];
+        } else {
+            $limit = 9;
+        }
+        return $limit;
+    }
 }

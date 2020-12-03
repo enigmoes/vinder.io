@@ -16,6 +16,7 @@ let Items = {
         this.events();
         // LLamada a cargar items
         this.loadItems();
+        limit = 9;
     },
     attributes: function () {
         this.toast = Swal.mixin({
@@ -96,8 +97,8 @@ let Items = {
         // Scroll infinito
         $(window).scroll(function () {
             if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-                console.log("has llegado al final de la pagina");
-                //Items.infiniteScroll();
+                // alert("has llegado al final de la pagina");
+                Items.infiniteScroll();
             }
         });
     },
@@ -256,11 +257,13 @@ let Items = {
     },
     // Scroll infinito
     infiniteScroll: function (){
-        let maxItems = 12;
+        let search = sessionStorage.getItem("search");
+        let order = sessionStorage.getItem("order");
+        $('.charge-img').addClass('d-block');
         $.ajax({
             url: "/items/results/",
             type: "GET",
-            data: {maxItems : maxItems},
+            data: {limit : limit, search: search, order: order},
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -268,9 +271,11 @@ let Items = {
                 );
             },
             success: function (response) {
-                $(".modal-body-create").html(response);
-                $("#modal-tag-create").modal("show");
-            },
+                $(".results").html(response);
+                $('.charge-img').addClass('d-none');
+                $('.charge-img').removeClass('d-block');
+                limit = limit + 9;
+            }
         });
     },
 };

@@ -3,7 +3,7 @@ use Cake\Routing\Router;
 ?>
 <div class="container min-vh-100 mt-5">
     <div class="row">
-        <div class="col-lg-2 d-lg-block d-none div-sidebar">
+        <div class="col-lg-2 d-lg-block div-sidebar">
             <?=$this->element('Common/sidebar')?>
         </div>
         <div class="col-lg-10 col-12">
@@ -19,6 +19,9 @@ use Cake\Routing\Router;
                 </div>
             </div>
             <div class="results mt-4"></div>
+            <div class="col-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4 d-none charge-img">
+                <?=$this->Html->image('charge.gif')?>
+            </div>
         </div>
     </div>
     <?=$this->Form->create()?>
