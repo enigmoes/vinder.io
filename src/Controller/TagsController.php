@@ -59,6 +59,7 @@ class TagsController extends AppController
     public function items($id_tag = null)
     {
         $tagName = __('MI LISTA');
+        $items = [];
         //Si se ha recogido una etiqueta
         if (!is_null($id_tag)) {
             // Buscamos el nombre de la tag
@@ -78,6 +79,13 @@ class TagsController extends AppController
                 },
             ])->toArray();
             $this->request->query['items_tags'] = $itemsTags;
+            // Realizamos la búsqueda de items
+            if (!empty($itemsTags)) {
+                $items = $this->Items->find('all', [
+                    'conditions' => $this->Items->conditions($this->request->getQuery()),
+                    'order' => $this->Items->order($this->request->getQuery())
+                ])->toArray();
+            }
         } else {
             // Si hay query search cambiamos el título
             if (!empty($this->request->getQuery('search'))) {
@@ -85,12 +93,12 @@ class TagsController extends AppController
             }
             // Realizamos las queries
             $this->request->query['id_user'] = $this->request->getSession()->read('Auth.User.id');
+            // Realizamos la búsqueda de items
+            $items = $this->Items->find('all', [
+                'conditions' => $this->Items->conditions($this->request->getQuery()),
+                'order' => $this->Items->order($this->request->getQuery())
+            ])->toArray();
         }
-        // Realizamos la búsqueda de items
-        $items = $this->Items->find('all', [
-            'conditions' => $this->Items->conditions($this->request->getQuery()),
-            'order' => $this->Items->order($this->request->getQuery())
-        ])->toArray();
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'items' => $items,
