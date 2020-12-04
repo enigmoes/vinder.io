@@ -199,7 +199,7 @@ let Custom = {
             },
         });
     },
-    // Eliminar sesiones search y order
+    // Eliminar sesiones search, idTag y order
     deleteSessions: function(){
         sessionStorage.removeItem("idTag");
         sessionStorage.removeItem('search');

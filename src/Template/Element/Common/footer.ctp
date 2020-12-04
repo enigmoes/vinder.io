@@ -15,7 +15,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body d-flex justify-content-center my-3"></div>
+            <div class="modal-body my-3"></div>
         </div>
     </div>
 </div>
