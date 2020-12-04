@@ -492,6 +492,7 @@ i:hover {
     color: gold;
 }
 /* END CARD ITEMS */
+
 /* TAGS */
 .results-tags{
     height: 10rem;
@@ -540,6 +541,7 @@ i:hover {
     color: var(--secondary_hover);
 }
 /* END TAGS */
+
 /* MODAL */
 .btn-modal{
     color: var(--secondary);
@@ -561,6 +563,7 @@ i:hover {
     width: 100%;
 }
 /* END MODAL */
+
 /* OVERLAY LAYER */
 .overlay {
     display: none;
@@ -574,6 +577,7 @@ i:hover {
     transition: all 3s ease;
 }
 /* END OVERLAY LAYER*/
+
 /* SWEET ALERT */
 .custom-sweet-alert .swal2-actions .swal2-confirm{
     box-shadow: none;
@@ -588,6 +592,7 @@ i:hover {
     background: var(--primary);
 }
 /* END SWEET ALERT*/
+
 /* MEDIA QUERIES */
 @media (max-width: 375px) {
     /* NAVBAR */
@@ -607,11 +612,6 @@ i:hover {
         color: white;
     }
     /* END NAVBAR */
-    /* MODAL */
-    .input-modal{
-        width: 90%;
-    }
-    /* END MODAL */
 }
 @media (max-width: 990px) {
     /* NAVBAR */
