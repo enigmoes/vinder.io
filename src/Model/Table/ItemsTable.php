@@ -147,6 +147,15 @@ class ItemsTable extends Table
     }
 
     //Paginación limitada
+    // public function limit($data)
+    // {   
+    //     $limit = "";
+    //     if(isset($data['first']) && !empty($data['first']) && isset($data['limit']) && !empty($data['limit'])){
+    //         $limit = $data['first'] . $data['limit'];
+    //     }
+    //     return $limit;
+    // }
+
     public function limit($data)
     {   
         if(isset($data['limit']) && !empty($data['limit'])){

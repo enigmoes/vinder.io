@@ -97,7 +97,6 @@ let Items = {
         // Scroll infinito
         $(window).scroll(function () {
             if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-                // alert("has llegado al final de la pagina");
                 Items.infiniteScroll();
             }
         });
@@ -259,6 +258,8 @@ let Items = {
     infiniteScroll: function (){
         let search = sessionStorage.getItem("search");
         let order = sessionStorage.getItem("order");
+        // first = $('#first').val();
+		// limit = $('#limit').val();
         $('.charge-img').addClass('d-block');
         $.ajax({
             url: "/items/results/",
@@ -271,6 +272,9 @@ let Items = {
                 );
             },
             success: function (response) {
+                // first = parseInt($('#first').val());
+				// limit = parseInt($('#limit').val());
+				// $('#first').val(first + limit);
                 $(".results").html(response);
                 $('.charge-img').addClass('d-none');
                 $('.charge-img').removeClass('d-block');
