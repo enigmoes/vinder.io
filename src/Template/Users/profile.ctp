@@ -3,7 +3,7 @@ use Cake\Routing\Router;
 ?>
 <div class="container min-vh-100 mt-5">
     <div class="row">
-        <div class="col-lg-2 d-lg-block d-none div-sidebar">
+        <div class="col-lg-2 d-lg-block div-sidebar">
             <?=$this->element('../Users/Common/sidebar')?>
         </div>
         <div class="offset-lg-1 col-lg-6 col-12">
