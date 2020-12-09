@@ -27,7 +27,7 @@ class AppController extends Controller
             }
 
             $this->loadComponent('Auth', [
-                'authError' => __('No has iniciado sesión!'),
+                // 'authError' => __('No has iniciado sesión!'),
                 'authorize' => ['Controller'],
                 'authenticate' => [
                     'Form' => [
