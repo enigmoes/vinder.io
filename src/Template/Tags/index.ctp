@@ -22,7 +22,7 @@ use Cake\Routing\Router;
         </div>
     </div>
 </div>
-<div id="modal-tag" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalTag" aria-hidden="true">
+<div id="modal-tag" class="modal fade" data-backdrop="static" data-keyboard="false" aria-labelledby="modalTag" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header modal-header-custom">

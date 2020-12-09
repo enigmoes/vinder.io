@@ -166,7 +166,7 @@ a:hover {
     border-color: var(--secondary);
 }
 /* CUSTOM SELECT2 */
-.select2-container {
+.select2 {
     width: 100% !important;
 }
 .select2-container .select2-selection--single {

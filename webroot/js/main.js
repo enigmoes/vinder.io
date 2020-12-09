@@ -48,7 +48,9 @@ $(document).ready(function () {
     }
 
     // INIT Select2
-    $('.select2').select2();
+    $('.select2').select2({
+        width: 'resolve'
+    });
     $('.select2-multiple').select2({
         maximumSelectionLength: 1
     });
