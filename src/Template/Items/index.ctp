@@ -19,16 +19,6 @@ use Cake\Routing\Router;
                 </div>
             </div>
             <div class="results mt-4"></div>
-            <?=$this->Form->control('start', [
-                'type' => 'hidden',
-                'class' => 'start',
-                'value' => 1,
-            ])?>
-            <?=$this->Form->control('limit', [
-                'type' => 'hidden',
-                'class' => 'limit',
-                'value' => 9,
-            ])?>
             <div class="col-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4 d-none charge-img">
                 <?=$this->Html->image('charge.gif')?>
             </div>

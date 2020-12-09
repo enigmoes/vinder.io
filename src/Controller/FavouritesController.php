@@ -47,11 +47,17 @@ class FavouritesController extends AppController
             $this->request->query['is_fav'] = 1;
             $list['items'] = $this->Items->find('all', [
                 'conditions' => $this->Items->conditions($this->request->getQuery()),
-                'order' => $this->Items->order($this->request->getQuery())
+                'order' => $this->Items->order($this->request->getQuery()),
+                'limit' => $this->Items->limit($this->request->getQuery())
             ])->toArray();
+            $count = $this->Items->find('all', [
+                'conditions' => $this->Items->conditions($this->request->getQuery()),
+                'order' => $this->Items->order($this->request->getQuery()),
+            ])->count();
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
+            'count' => $count,
             'lists' => $lists,
             'title' => $title,
         ]);

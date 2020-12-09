@@ -16,6 +16,7 @@ let Favourites = {
         this.events();
         // LLamada a cargar favoritos
         this.loadFavourites();
+        limit = 6;
     },
     attributes: function () {
         this.toast = Swal.mixin({
@@ -84,6 +85,15 @@ let Favourites = {
             let valor = $(this).val();
             sessionStorage.setItem("order", valor);
             Favourites.orderItems(valor);
+        });
+
+        // Scroll infinito
+        $(window).scroll(function () {
+            let pos = $(window).scrollTop() - 100;
+            let bottom = ($(document).height() - $(window).height()) - 100;
+            if (pos >= bottom) {
+                Favourites.infiniteScroll();
+            }
         });
     },
     // Cargar favoritos
@@ -204,5 +214,33 @@ let Favourites = {
                 $(".results").html(response);
             },
         });
+    },
+    // Scroll infinito
+    infiniteScroll: function () {
+        let search = sessionStorage.getItem("search");
+        let order = sessionStorage.getItem("order");
+        // Ultimo item
+        let last = $('.item').last().data('number');
+        let count = ($('.count').data('count') - 1);
+        if (last < count) {
+            $('.charge-img').addClass('d-block');
+            $.ajax({
+                url: "/favourites/results/",
+                type: "GET",
+                data: {limit : limit, search: search, order: order},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "X-CSRF-Token",
+                        $('[name="_csrfToken"]').val()
+                    );
+                },
+                success: function (response) {
+                    $(".results").html(response);
+                    $('.charge-img').addClass('d-none');
+                    $('.charge-img').removeClass('d-block');
+                    limit = limit + 6;
+                }
+            });
+        }
     },
 };

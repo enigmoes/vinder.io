@@ -155,10 +155,10 @@ $(document).ready(function () {
     }
 
     // INIT Scroll controll
-    $('.page-wrapper').scroll(function() {
+    $(window).scroll(function() {
         //Si el scroll es mayor de 100 aparece icono de subir
-        if ($('.page-wrapper').scrollTop() > 100) {
-            $('.scroll').removeClass('fadeOut fadeOutDown').addClass('fadeInUp');
+        if ($(window).scrollTop() > 100) {
+            $('.scroll').removeClass('d-none fadeOut fadeOutDown').addClass('fadeInUp');
         } else {
             $('.scroll').removeClass('fadeOut fadeInUp').addClass('fadeOutDown');
         }

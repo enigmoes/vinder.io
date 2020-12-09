@@ -19,6 +19,9 @@ use Cake\Routing\Router;
                 </div>
             </div>
             <div class="results-items mt-4"></div>
+            <div class="col-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4 d-none charge-img">
+                <?=$this->Html->image('charge.gif')?>
+            </div>
         </div>
     </div>
 </div>
