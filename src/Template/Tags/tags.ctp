@@ -9,8 +9,10 @@ use Cake\Routing\Router;
                     <?=$tag->name?>
                 </a>
                 <a href="javascript:void(0)" class="tag-delete"
+                data-id="<?=$tag->id?>"
                 data-url="<?=Router::url(['controller' => 'tags', 'action' => 'delete', $tag->id])?>"
                 data-message="<?=__('¿Seguro que desea eliminar?')?>"
+                data-message2="<?=__('Esta etiqueta tiene items. ¿Está seguro que desea eliminarla?')?>"
                 data-ok="<?=__('Aceptar')?>"
                 data-cancel="<?=__('Cancelar')?>">
                     <i class="mt-1 fas fa-trash-alt"></i>

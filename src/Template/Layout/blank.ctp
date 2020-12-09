@@ -54,6 +54,7 @@
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
         <!-- END CONTENT -->
+        <div class="overlay"></div>
     </div>
 </body>
 </html>

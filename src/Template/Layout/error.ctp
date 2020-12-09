@@ -59,6 +59,7 @@
         <!-- FOOTER -->
         <?= $this->element('Common/footer') ?>
         <!-- FOOTER -->
+        <div class="overlay"></div>
     </div>
 </body>
 </html>

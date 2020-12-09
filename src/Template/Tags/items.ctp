@@ -2,14 +2,15 @@
 use Cake\Routing\Router;
 ?>
 <div class="row">
-    <div class="col-6 mb-4">
+    <div class="col-md-6 col-12 mb-4">
         <div class="h4 h4-default text-uppercase"><?=$tagName?></div>
     </div>
 </div>
 <?php if (isset($items) && count($items) > 0): ?>
+    <span class="count" style="display: none;" data-count="<?= $count ?>"></span>
     <div class="row row row-cols-1 row-cols-md-2 row-cols-lg-3">
-        <?php foreach ($items as $item): ?>
-            <div class="col mb-5">
+        <?php foreach ($items as $key => $item): ?>
+            <div class="col mb-5 item" data-number="<?= $key ?>">
                 <div class="card card-items h-100 rounded-0">
                     <div class="card-body card-block position-relative">
                         <a class="window-link" href="javascript:void(0)" data-url="<?=$item->link?>">

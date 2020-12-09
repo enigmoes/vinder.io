@@ -9,9 +9,10 @@ use Cake\Routing\Router;
 <?php if (isset($lists) && count($lists) > 0): ?>
     <?php foreach ($lists as $list): ?>
         <?php if (isset($list->items) && count($list->items) > 0): ?>
+            <span class="count" style="display: none;" data-count="<?= $count ?>"></span>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
-                <?php foreach ($list->items as $item): ?>
-                    <div class="col mb-5">
+                <?php foreach ($list->items as $key => $item): ?>
+                    <div class="col mb-5 item" data-number="<?= $key ?>">
                         <div class="card card-items h-100 rounded-0">
                             <div class="card-body card-block position-relative">
                                 <a class="window-link" href="javascript:void(0)" data-url="<?=$item->link?>">

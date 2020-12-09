@@ -31,7 +31,7 @@ use Cake\Routing\Router;
                                 'label' => false,
                                 'type' => 'password',
                                 'class' => 'form-control form-control-custom',
-                                'placeholder' => __('Confirma nueva contraseña')
+                                'placeholder' => __('Confirmar contraseña')
                             ]) ?>
                             <i class='fas fa-eye show-password'></i>
                         </div>

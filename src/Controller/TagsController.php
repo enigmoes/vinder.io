@@ -58,79 +58,60 @@ class TagsController extends AppController
     // Función para buscar las listas por cada etiqueta
     public function items($id_tag = null)
     {
-        $search = $this->request->getQuery('search');
-        // Declaramos items
+        $tagName = __('MI LISTA');
         $items = [];
         //Si se ha recogido una etiqueta
         if (!is_null($id_tag)) {
             // Buscamos el nombre de la tag
             $tagName = $this->Tags->find('all', ['conditions' => ['Tags.id' => $id_tag]])->toArray()[0]->name;
-            //Si lo búsqueda no está vacía
-            if (!empty($search)) {
+            // Si hay query search cambiamos el título
+            if (!empty($this->request->getQuery('search'))) {
                 // Inicializamos tag name con el nombre de la etiqueta más "búsqueda"
                 $tagName = __('BÚSQUEDA') . "-" . $tagName;
-                // Buscamos todos los items de una etiqueta
-                $itemsTags = $this->ItemsTags->find('list', [
-                    'conditions' => [
-                        'ItemsTags.id_tag' => $id_tag,
-                    ],
-                    'keyField' => 'id', 'valueField' => function ($e) {
-                        return $e->id_item;
-                    },
+            }
+            // Buscamos todos los items de una etiqueta
+            $itemsTags = $this->ItemsTags->find('list', [
+                'conditions' => [
+                    'ItemsTags.id_tag' => $id_tag,
+                ],
+                'keyField' => 'id', 'valueField' => function ($e) {
+                    return $e->id_item;
+                },
+            ])->toArray();
+            $this->request->query['items_tags'] = $itemsTags;
+            // Realizamos la búsqueda de items
+            if (!empty($itemsTags)) {
+                $items = $this->Items->find('all', [
+                    'conditions' => $this->Items->conditions($this->request->getQuery()),
+                    'order' => $this->Items->order($this->request->getQuery()),
+                    'limit' => $this->Items->limit($this->request->getQuery())
                 ])->toArray();
-                // Si hay items asignados a una etiqueta
-                if (!empty($itemsTags)) {
-                    $items = $this->Items->find('all', [
-                        'conditions' => [
-                            'Items.id IN' => $itemsTags,
-                            'Items.title LIKE' => '%' . $search . '%',
-                        ],
-                    ])->order(['Items.created' => 'DESC'])->toArray();
-                }
-            } else {
-                // Buscamos todos los items de una etiqueta
-                $itemsTags = $this->ItemsTags->find('list', [
-                    'conditions' => [
-                        'ItemsTags.id_tag' => $id_tag,
-                    ],
-                    'keyField' => 'id', 'valueField' => function ($e) {
-                        return $e->id_item;
-                    },
-                ])->toArray();
-                // Si hay items asignados a una etiqueta
-                if (!empty($itemsTags)) {
-                    $items = $this->Items->find('all', [
-                        'conditions' => [
-                            'Items.id IN' => $itemsTags,
-                        ],
-                    ])->order(['Items.created' => 'DESC'])->toArray();
-                }
+                $count = $this->Items->find('all', [
+                    'conditions' => $this->Items->conditions($this->request->getQuery()),
+                    'order' => $this->Items->order($this->request->getQuery()),
+                ])->count();
             }
         } else {
-            //Si lo búsqueda no está vacía
-            if (!empty($search)) {
-                // Inicializamos tag name con "búsqueda"
+            // Si hay query search cambiamos el título
+            if (!empty($this->request->getQuery('search'))) {
                 $tagName = __('BÚSQUEDA');
-                // Realizamos la búsqueda de items
-                $items = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                        'Items.title LIKE' => '%' . $search . '%',
-                    ],
-                ])->order(['Items.created' => 'DESC'])->toArray();
-            } else {
-                // Inicializamos tag name con "mi lista"
-                $tagName = __('MI LISTA');
-                // Buscamos todos los items del usuario
-                $items = $this->Items->find('all', [
-                    'conditions' => [
-                        'Items.id_user' => $this->request->getSession()->read('Auth.User.id'),
-                    ],
-                ])->order(['Items.created' => 'DESC'])->toArray();
             }
+            // Realizamos las queries
+            $this->request->query['id_user'] = $this->request->getSession()->read('Auth.User.id');
+            // Realizamos la búsqueda de items
+            $items = $this->Items->find('all', [
+                'conditions' => $this->Items->conditions($this->request->getQuery()),
+                'order' => $this->Items->order($this->request->getQuery()),
+                'limit' => $this->Items->limit($this->request->getQuery())
+            ])->toArray();
+            $count = $this->Items->find('all', [
+                'conditions' => $this->Items->conditions($this->request->getQuery()),
+                'order' => $this->Items->order($this->request->getQuery()),
+            ])->count();
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
+            'count' => $count,
             'items' => $items,
             'tagName' => $tagName,
         ]);
@@ -164,30 +145,38 @@ class TagsController extends AppController
     // Función para borrar tags
     public function delete($id)
     {
+        $tag = $this->Tags->get($id);
+        if ($this->Tags->delete($tag)) {
+            $deleted = true;
+            $message = __('Etiqueta eliminada correctamente');
+        } else {
+            $deleted = false;
+            $message = __('Se produjo un error al eliminar la etiqueta');
+        }
+        $this->set([
+            'deleted' => $deleted,
+            'message' => $message,
+            '_serialize' => ['deleted', 'message'],
+        ]);
+        $this->RequestHandler->renderAs($this, 'json');
+    }
+
+    // Función para comprobar si una tag tiene items asignados
+    public function hasItems($id){
         // Buscamos si la tag está asignada a un item
         $tags = $this->ItemsTags->find('list', [
             'conditions' => [
                 'ItemsTags.id_tag' => $id,
             ]
         ])->toArray();
-        // Si la tag no está asignada, la eliminamos
         if(count($tags) == 0) {
-            $tag = $this->Tags->get($id);
-            if ($this->Tags->delete($tag)) {
-                $deleted = true;
-                $message = __('Etiqueta eliminada correctamente');
-            } else {
-                $deleted = false;
-                $message = __('Se produjo un error al elminar la etiqueta');
-            }
+            $hasItems = false;
         } else {
-            $deleted = false;
-            $message = __('Error al eliminar: Esta etiqueta esta asociada a un item.');
+            $hasItems = true;
         }
         $this->set([
-            'deleted' => $deleted,
-            'message' => $message,
-            '_serialize' => ['deleted', 'message'],
+            'hasItems' => $hasItems,
+            '_serialize' => ['hasItems'],
         ]);
         $this->RequestHandler->renderAs($this, 'json');
     }

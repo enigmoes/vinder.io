@@ -1,38 +1,14 @@
 <?php
 use Cake\Routing\Router;
 ?>
-<div class="container min-vh-100 mt-lg-5 mt-md-1">
+<div class="container min-vh-100 mt-5">
     <div class="row">
-        <div class="col-lg-2 d-lg-block d-none">
-            <nav class="sidebar">
-                <ul class="list-unstyled components2">
-                    <li class="bg-active">
-                        <a href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
-                            <i class="fas fa-chevron-left"></i><?=__('Etiquetas')?>
-                        </a>
-                    </li>
-                    <li class="mt-3">
-                        <a href="javascript:void(0)" class="create-tag" data-title="<?=__('Añadir etiqueta')?>">
-                            <i class="fas fa-plus mr-2"></i><?=__('Añadir')?>
-                        </a>
-                    </li>
-                </ul>
-                <?= $this->Form->create('search_tag') ?>
-                <div class="input-tags d-flex align-items-center">
-                    <i class='fas fa-search search-icon'></i>
-                    <?=$this->Form->control('text', [
-                        'div' => false,
-                        'label' => false,
-                        'class' => 'form-control form-control-tags',
-                    ])?>
-                </div>
-                <?= $this->Form->end() ?>
-                <div class="results-tags overflow-auto"></div>
-            </nav>
+        <div class="col-lg-2 d-lg-block div-sidebar">
+            <?=$this->element('Common/sidebar_tags')?>
         </div>
         <div class="col-lg-10 col-12">
             <div class="row">
-                <div class="offset-lg-8 col-lg-4 offset-6 col-6 mb-4 order-items">
+                <div class="offset-lg-8 col-lg-4 offset-md-6 col-md-6 col-12 order-items mt-3 mb-lg-0 mb-3">
                     <div class="h6 h6-default text-uppercase"><?=__('Ordenar por:')?></div>
                     <select class="select2">
                         <option value="new"><?=__('Más nuevos')?></option>
@@ -42,11 +18,14 @@ use Cake\Routing\Router;
                     </select>
                 </div>
             </div>
-            <div class="results-items"></div>
+            <div class="results-items mt-4"></div>
+            <div class="col-12 offset-md-3 col-md-6 offset-lg-4 col-lg-4 d-none charge-img">
+                <?=$this->Html->image('charge.gif')?>
+            </div>
         </div>
     </div>
 </div>
-<div id="modal-tag" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="modalTag" aria-hidden="true">
+<div id="modal-tag" class="modal fade" data-backdrop="static" data-keyboard="false" aria-labelledby="modalTag" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header modal-header-custom">

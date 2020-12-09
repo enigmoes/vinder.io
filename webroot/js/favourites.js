@@ -16,6 +16,7 @@ let Favourites = {
         this.events();
         // LLamada a cargar favoritos
         this.loadFavourites();
+        limit = 6;
     },
     attributes: function () {
         this.toast = Swal.mixin({
@@ -59,16 +60,18 @@ let Favourites = {
             });
         });
 
-        // Eliminar texto del input desplegable al pulsar cancelar
-        $(document).on("click", ".btn-cancel", function () {
-            $(".input-custom").val("");
-            Favourites.loadFavourites();
-        });
-
         // Buscar items con el buscador desplegable
         $(document).on("click", ".btn-search", function () {
             let valorBusqueda = $(".input-custom").val();
+            sessionStorage.setItem("search", valorBusqueda);
             Favourites.searchItems(valorBusqueda);
+        });
+
+        // Eliminar texto del input desplegable al pulsar cancelar
+        $(document).on("click", ".btn-cancel", function () {
+            sessionStorage.removeItem("search");
+            $(".input-custom").val("");
+            Favourites.loadFavourites();
         });
 
         // Evento para ocultar botón guardar al añadir un item
@@ -80,14 +83,26 @@ let Favourites = {
         // Evento para ordenar items
         $(document).on("change", ".order-items .select2", function () {
             let valor = $(this).val();
+            sessionStorage.setItem("order", valor);
             Favourites.orderItems(valor);
+        });
+
+        // Scroll infinito
+        $(window).scroll(function () {
+            let pos = $(window).scrollTop() - 100;
+            let bottom = ($(document).height() - $(window).height()) - 100;
+            if (pos >= bottom) {
+                Favourites.infiniteScroll();
+            }
         });
     },
     // Cargar favoritos
     loadFavourites: function () {
+        let order = sessionStorage.getItem("order");
         $.ajax({
             type: "GET",
             url: "/favourites/results",
+            data: { order: order },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -105,9 +120,9 @@ let Favourites = {
             title: data.message,
             icon: "question",
             showCancelButton: true,
-            cancelButtonColor: "#d33",
             confirmButtonText: data.ok,
             cancelButtonText: data.cancel,
+            customClass: "custom-sweet-alert",
         }).then((result) => {
             if (result.value) {
                 $.ajax({
@@ -166,10 +181,11 @@ let Favourites = {
     },
     // Buscar items por título
     searchItems: function (search) {
+        let order = sessionStorage.getItem("order");
         $.ajax({
             url: "/favourites/results/",
             type: "GET",
-            data: { search: search },
+            data: { search: search, order: order },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -178,15 +194,16 @@ let Favourites = {
             },
             success: function (response) {
                 $(".results").html(response);
-            }
+            },
         });
     },
     // Ordenar items
     orderItems: function (order) {
+        let search = sessionStorage.getItem("search");
         $.ajax({
             url: "/favourites/results/",
             type: "GET",
-            data: { order: order },
+            data: { order: order, search: search },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -195,7 +212,35 @@ let Favourites = {
             },
             success: function (response) {
                 $(".results").html(response);
-            }
+            },
         });
+    },
+    // Scroll infinito
+    infiniteScroll: function () {
+        let search = sessionStorage.getItem("search");
+        let order = sessionStorage.getItem("order");
+        // Ultimo item
+        let last = $('.item').last().data('number');
+        let count = ($('.count').data('count') - 1);
+        if (last < count) {
+            $('.charge-img').addClass('d-block');
+            $.ajax({
+                url: "/favourites/results/",
+                type: "GET",
+                data: {limit : limit, search: search, order: order},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "X-CSRF-Token",
+                        $('[name="_csrfToken"]').val()
+                    );
+                },
+                success: function (response) {
+                    $(".results").html(response);
+                    $('.charge-img').addClass('d-none');
+                    $('.charge-img').removeClass('d-block');
+                    limit = limit + 6;
+                }
+            });
+        }
     },
 };

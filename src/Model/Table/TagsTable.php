@@ -41,6 +41,8 @@ class TagsTable extends Table
         $this->hasMany('ItemsTags', [
             'foreignKey' => 'id_tag',
             'bindingKey' => 'id',
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
     }
 

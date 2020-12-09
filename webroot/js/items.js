@@ -16,6 +16,7 @@ let Items = {
         this.events();
         // LLamada a cargar items
         this.loadItems();
+        limit = 6;
     },
     attributes: function () {
         this.toast = Swal.mixin({
@@ -66,16 +67,18 @@ let Items = {
             $(".input-custom").val("");
         });
 
-        // Eliminar texto del input desplegable al pulsar cancelar
-        $(document).on("click", ".btn-cancel", function () {
-            $(".input-custom").val("");
-            Items.loadItems();
-        });
-
         // Buscar items con el buscador desplegable
         $(document).on("click", ".btn-search", function () {
             let valorBusqueda = $(".input-custom").val();
+            sessionStorage.setItem("search", valorBusqueda);
             Items.searchItems(valorBusqueda);
+        });
+        
+        // Eliminar texto del input desplegable al pulsar cancelar
+        $(document).on("click", ".btn-cancel", function () {
+            sessionStorage.removeItem("search");
+            $(".input-custom").val("");
+            Items.loadItems();
         });
 
         // Evento para ocultar botón guardar al añadir un item
@@ -87,22 +90,26 @@ let Items = {
         // Evento para ordenar items
         $(document).on("change", ".order-items .select2", function () {
             let valor = $(this).val();
+            sessionStorage.setItem("order", valor);
             Items.orderItems(valor);
         });
 
         // Scroll infinito
         $(window).scroll(function () {
-            if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
-                console.log("has llegado al final de la pagina");
-                //Items.infiniteScroll();
+            let pos = $(window).scrollTop() - 100;
+            let bottom = ($(document).height() - $(window).height()) - 100;
+            if (pos >= bottom) {
+                Items.infiniteScroll();
             }
         });
     },
     // Cargar items
     loadItems: function () {
+        let order = sessionStorage.getItem("order");
         $.ajax({
             type: "GET",
             url: "/items/results",
+            data: { order: order },
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -154,9 +161,9 @@ let Items = {
             title: data.message,
             icon: "question",
             showCancelButton: true,
-            cancelButtonColor: "#d33",
             confirmButtonText: data.ok,
             cancelButtonText: data.cancel,
+            customClass: "custom-sweet-alert",
         }).then((result) => {
             if (result.value) {
                 $.ajax({
@@ -215,10 +222,11 @@ let Items = {
     },
     // Buscar items por título
     searchItems: function (search) {
+        let order = sessionStorage.getItem("order");
         $.ajax({
             url: "/items/results/",
             type: "GET",
-            data: { search: search },
+            data: { search: search, order: order},
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -232,10 +240,11 @@ let Items = {
     },
     // Ordenar items
     orderItems: function (order) {
+        let search = sessionStorage.getItem("search");
         $.ajax({
             url: "/items/results/",
             type: "GET",
-            data: { order: order },
+            data: { order: order,  search: search},
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
                     "X-CSRF-Token",
@@ -248,22 +257,31 @@ let Items = {
         });
     },
     // Scroll infinito
-    infiniteScroll: function (){
-        let maxItems = 12;
-        $.ajax({
-            url: "/items/results/",
-            type: "GET",
-            data: {maxItems : maxItems},
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    "X-CSRF-Token",
-                    $('[name="_csrfToken"]').val()
-                );
-            },
-            success: function (response) {
-                $(".modal-body-create").html(response);
-                $("#modal-tag-create").modal("show");
-            },
-        });
+    infiniteScroll: function () {
+        let search = sessionStorage.getItem("search");
+        let order = sessionStorage.getItem("order");
+        // Ultimo item
+        let last = $('.item').last().data('number');
+        let count = ($('.count').data('count') - 1);
+        if (last < count) {
+            $('.charge-img').addClass('d-block');
+            $.ajax({
+                url: "/items/results/",
+                type: "GET",
+                data: {limit : limit, search: search, order: order},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "X-CSRF-Token",
+                        $('[name="_csrfToken"]').val()
+                    );
+                },
+                success: function (response) {
+                    $(".results").html(response);
+                    $('.charge-img').addClass('d-none');
+                    $('.charge-img').removeClass('d-block');
+                    limit = limit + 6;
+                }
+            });
+        }
     },
 };

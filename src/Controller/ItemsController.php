@@ -35,10 +35,11 @@ class ItemsController extends AppController
     public function results()
     {
         $title = __('MI LISTA');
-        // Si hay query
-        if (!empty($this->request->getQuery())) {
+        // Si hay query search cambiamos el título
+        if (!empty($this->request->getQuery('search'))) {
             $title = __('BÚSQUEDA');
         }
+        $count = 0;
         // Buscamos datos en db para los items
         $lists = $this->Lists->find('all', [
             'conditions' => [
@@ -49,11 +50,17 @@ class ItemsController extends AppController
             $this->request->query['id_list'] = $list->id;
             $list['items'] = $this->Items->find('all', [
                 'conditions' => $this->Items->conditions($this->request->getQuery()),
-                'order' => $this->Items->order($this->request->getQuery())
+                'order' => $this->Items->order($this->request->getQuery()),
+                'limit' => $this->Items->limit($this->request->getQuery())
             ])->toArray();
+            $count = $this->Items->find('all', [
+                'conditions' => $this->Items->conditions($this->request->getQuery()),
+                'order' => $this->Items->order($this->request->getQuery()),
+            ])->count();
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
+            'count' => $count,
             'lists' => $lists,
             'title' => $title,
         ]);
@@ -91,9 +98,18 @@ class ItemsController extends AppController
                     }
                 }
             });
+            // Buscamos la lista del usuario
+            $lists = $this->Lists->find('all', [
+                'conditions' => [
+                    'Lists.id_user' => $this->request->getSession()->read('Auth.User.id'),
+                ],
+            ])->toArray();
+            foreach ($lists as $list) {
+                $idList = $list['id'];
+            }
             // Buscar título, descripción e imagen de la url
             $item = $this->Items->newEntity();
-            $item->id_list = 1;
+            $item->id_list = $idList;
             $item->id_user = $this->request->getSession()->read('Auth.User.id');
             $item->title = $title;
             $item->description = $description;

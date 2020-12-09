@@ -4,18 +4,18 @@ use Cake\Routing\Router;
 <nav class="navbar navbar-default px-lg-5 px-2">
     <div class="container">
         <div class="navbar-header">
-            <?php if ($this->request->controller != 'Users'): ?>
-                <button class="navbar-toggler d-inline-block d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon">
-                        <svg viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
-                    </span>
-                </button>
+            <?php if (!in_array($this->request->action, ['login','recover','register','validate','change'])): ?>
+            <button class="navbar-toggler d-inline-block d-lg-none sidebar-button pl-0" type="button">
+                <span class="navbar-toggler-icon">
+                    <svg viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </span>
+            </button>
             <?php endif?>
-                <a class="navbar-brand" href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
-                    <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
-                </a>
+            <a class="navbar-brand" href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
+                <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
+            </a>
         </div>
         <?php if ($this->request->controller != 'Users'): ?>
         <div id="input-custom" class="d-none">
@@ -25,11 +25,11 @@ use Cake\Routing\Router;
                     'class' => 'input-custom',
                     'placeholder' => __('Buscar...'),
                 ])?>
-                <button id="button-input" class="btn btn-input-custom1 btn-search ml-3 mr-lg-3 mr-1 px-3 py-0" type="submit">
-                    <?=__('Buscar')?>
+                <button id="button-input" class="btn btn-input-custom1 btn-search ml-3 mr-lg-3 mr-2 px-lg-3 px-2 py-md-0 py-1" type="submit">
+                    <span class="d-md-block d-none"><?=__('Buscar')?></span><i class="fas fa-search d-md-none d-block"></i>
                 </button>
-                <button class="btn btn-input-custom2 btn-cancel px-lg-3 px-1 py-0" type="button">
-                    <?=__('Cancelar')?>
+                <button class="btn btn-input-custom2 btn-cancel px-lg-3 px-2 py-md-0 py-1" type="button">
+                    <span class="d-md-block d-none"><?=__('Cancelar')?></span><i class="fas fa-times d-md-none d-block"></i>
                 </button>         
             </div>
         </div>
@@ -39,7 +39,7 @@ use Cake\Routing\Router;
                     <i class="fas fa-search"></i>
                 </a>
             </li>
-            <?php if ($this->request->controller != 'Tags'): ?>
+            <?php if ($this->request->controller == 'Items'): ?>
                 <li class="mr-md-5 mr-4">
                     <a href="javascript:void(0)" class="add-navbar">
                         <i class="fas fa-plus"></i>
@@ -65,9 +65,6 @@ use Cake\Routing\Router;
                 </div>
             </li>
         </ul>
-        <div class="collapse navbar-collapse d-lg-none mt-3" id="navbarSupportedContent">
-            <?= $this->element('Common/sidebar') ?>
-        </div>
         <?php endif?>
     </div>
 </nav>
