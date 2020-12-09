@@ -39,6 +39,7 @@ class ItemsController extends AppController
         if (!empty($this->request->getQuery('search'))) {
             $title = __('BÚSQUEDA');
         }
+        $count = 0;
         // Buscamos datos en db para los items
         $lists = $this->Lists->find('all', [
             'conditions' => [
@@ -52,9 +53,14 @@ class ItemsController extends AppController
                 'order' => $this->Items->order($this->request->getQuery()),
                 'limit' => $this->Items->limit($this->request->getQuery())
             ])->toArray();
+            $count = $this->Items->find('all', [
+                'conditions' => $this->Items->conditions($this->request->getQuery()),
+                'order' => $this->Items->order($this->request->getQuery()),
+            ])->count();
         }
         $this->viewBuilder()->setLayout('ajax');
         $this->set([
+            'count' => $count,
             'lists' => $lists,
             'title' => $title,
         ]);
