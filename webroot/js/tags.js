@@ -160,10 +160,11 @@ let Tags = {
 
         // Scroll infinito
         $(window).scroll(function () {
+            let id_tag = sessionStorage.getItem("idTag");
             let pos = $(window).scrollTop() - 100;
             let bottom = ($(document).height() - $(window).height()) - 100;
             if (pos >= bottom) {
-                Tags.infiniteScroll();
+                Tags.infiniteScroll(id_tag);
             }
         });
     },
@@ -512,16 +513,17 @@ let Tags = {
         });
     },
     // Scroll infinito
-    infiniteScroll: function () {
+    infiniteScroll: function (id_tag = null) {
         let search = sessionStorage.getItem("search");
         let order = sessionStorage.getItem("order");
+        (id_tag === null) ? url = "/tags/items" : url = "/tags/items/" + id_tag;
         // Ultimo item
         let last = $('.item').last().data('number');
         let count = ($('.count').data('count') - 1);
         if (last < count) {
             $('.charge-img').addClass('d-block');
             $.ajax({
-                url: "/tags/items/",
+                url: url,
                 type: "GET",
                 data: {limit : limit, search: search, order: order},
                 beforeSend: function (xhr) {
