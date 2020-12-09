@@ -588,7 +588,7 @@ i:hover {
     box-shadow: 0 0 0 0.2rem rgba(var(--secondary_rgb), 0.5);
 }
 .custom-sweet-alert .swal2-actions .swal2-cancel{
-    color: black;
+    color: var(--secondary);
     background: var(--primary);
 }
 /* END SWEET ALERT*/
@@ -600,7 +600,7 @@ i:hover {
         position: absolute !important;
         left: 15px !important;
         right: 15px !important;
-        top: 75px !important;
+        top: 15px !important;
     }
     .input-custom{
         width: 14rem !important;
@@ -655,6 +655,10 @@ i:hover {
     }
     .div-sidebar .results-tags i {
         font-size: small;
+    }
+    .close-sidebar{
+        position: absolute;
+        right: 25px;
     }
     /* END SIDEBAR */
 }
