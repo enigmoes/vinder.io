@@ -588,8 +588,8 @@ i:hover {
 .custom-sweet-alert .swal2-actions .swal2-confirm:active {
     box-shadow: 0 0 0 0.2rem rgba(var(--secondary_rgb), 0.5);
 }
-.custom-sweet-alert .swal2-actions .swal2-cancel {
-    color: black;
+.custom-sweet-alert .swal2-actions .swal2-cancel{
+    color: var(--secondary);
     background: var(--primary);
 }
 /* END SWEET ALERT*/
@@ -661,6 +661,10 @@ i:hover {
     }
     .div-sidebar .results-tags i {
         font-size: small;
+    }
+    .close-sidebar{
+        position: absolute;
+        right: 25px;
     }
     /* END SIDEBAR */
 }

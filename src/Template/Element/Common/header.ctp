@@ -4,6 +4,7 @@ use Cake\Routing\Router;
 <nav class="navbar navbar-default px-lg-5 px-2">
     <div class="container">
         <div class="navbar-header">
+            <?php if (!in_array($this->request->action, ['login','recover','register','validate','change'])): ?>
             <button class="navbar-toggler d-inline-block d-lg-none sidebar-button pl-0" type="button">
                 <span class="navbar-toggler-icon">
                     <svg viewBox="0 0 16 16" class="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -11,6 +12,7 @@ use Cake\Routing\Router;
                     </svg>
                 </span>
             </button>
+            <?php endif?>
             <a class="navbar-brand" href="<?=Router::url(['controller' => 'items', 'action' => 'index'])?>">
                 <?=$this->Html->image('logotipo_35.png', array('alt' => 'vinder', 'class' => 'w-10'))?>
             </a>

@@ -143,6 +143,11 @@ let Custom = {
             // hide/show overlay
             $('.overlay').toggleClass('d-block');
         });
+        // Evento cerrar sidebar
+        $(document).on('click', '.close-sidebar', function () {
+            $('.div-sidebar').removeClass('sidebar-active');
+            $('.overlay').removeClass('d-block');
+        });
     },
     actionEvents: function () {
         //Evento para introducir el formulario y desplegar el modal add
