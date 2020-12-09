@@ -146,22 +146,12 @@ class ItemsTable extends Table
         return $order;
     }
 
-    //Paginación limitada
-    // public function limit($data)
-    // {   
-    //     $limit = "";
-    //     if(isset($data['first']) && !empty($data['first']) && isset($data['limit']) && !empty($data['limit'])){
-    //         $limit = $data['first'] . $data['limit'];
-    //     }
-    //     return $limit;
-    // }
-
     public function limit($data)
-    {   
-        if(isset($data['limit']) && !empty($data['limit'])){
+    {
+        if(isset($data['limit']) && !empty($data['limit'])) {
             $limit = $data['limit'];
         } else {
-            $limit = 9;
+            $limit = 6;
         }
         return $limit;
     }

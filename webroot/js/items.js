@@ -16,7 +16,7 @@ let Items = {
         this.events();
         // LLamada a cargar items
         this.loadItems();
-        limit = 9;
+        limit = 6;
     },
     attributes: function () {
         this.toast = Swal.mixin({
@@ -96,7 +96,9 @@ let Items = {
 
         // Scroll infinito
         $(window).scroll(function () {
-            if ($(window).scrollTop() >= $(document).height() - $(window).height()) {
+            let pos = $(window).scrollTop() - 100;
+            let bottom = ($(document).height() - $(window).height()) - 100;
+            if (pos >= bottom) {
                 Items.infiniteScroll();
             }
         });
@@ -255,31 +257,31 @@ let Items = {
         });
     },
     // Scroll infinito
-    infiniteScroll: function (){
+    infiniteScroll: function () {
         let search = sessionStorage.getItem("search");
         let order = sessionStorage.getItem("order");
-        // first = $('#first').val();
-		// limit = $('#limit').val();
-        $('.charge-img').addClass('d-block');
-        $.ajax({
-            url: "/items/results/",
-            type: "GET",
-            data: {limit : limit, search: search, order: order},
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    "X-CSRF-Token",
-                    $('[name="_csrfToken"]').val()
-                );
-            },
-            success: function (response) {
-                // first = parseInt($('#first').val());
-				// limit = parseInt($('#limit').val());
-				// $('#first').val(first + limit);
-                $(".results").html(response);
-                $('.charge-img').addClass('d-none');
-                $('.charge-img').removeClass('d-block');
-                limit = limit + 9;
-            }
-        });
+        // Ultimo item
+        let last = $('.item').last().data('number');
+        let count = ($('.count').data('count') - 1);
+        if (last < count) {
+            $('.charge-img').addClass('d-block');
+            $.ajax({
+                url: "/items/results/",
+                type: "GET",
+                data: {limit : limit, search: search, order: order},
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "X-CSRF-Token",
+                        $('[name="_csrfToken"]').val()
+                    );
+                },
+                success: function (response) {
+                    $(".results").html(response);
+                    $('.charge-img').addClass('d-none');
+                    $('.charge-img').removeClass('d-block');
+                    limit = limit + 6;
+                }
+            });
+        }
     },
 };
