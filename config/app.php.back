@@ -213,7 +213,7 @@ return [
             'host' => 'enigmo.io',
             'port' => 587,
             'timeout' => 30,
-            'username' => '',
+            'username' => 'noreply@vinder.enigmo.io',
             'password' => '',
             'client' => null,
             'tls' => false,
@@ -233,7 +233,7 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'noreply@vinder.io',
+            'from' => 'noreply@vinder.enigmo.io',
             //'charset' => 'utf-8',
             //'headerCharset' => 'utf-8',
         ],
@@ -273,7 +273,7 @@ return [
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
              */
-            //'encoding' => 'utf8mb4',
+            'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'flags' => [],
             'cacheMetadata' => true,
