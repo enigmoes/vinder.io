@@ -45,10 +45,7 @@ use Cake\Routing\Router;
                                 'class' => 'custom-control-input'
                             ]) ?>
                             <label class="custom-control-label" for="privacidad">
-                                <?= __('Acepto la') ?>
-                                <a href="<?= Router::url(['controller' => 'legal', 'action' => 'privacity']) ?>" class="link">
-                                    <?= __('política de privacidad') ?>
-                                </a>
+                                <?= __('Acepto la política de privacidad') ?>
                             </label>
                         </div>
                         <button type="submit" class="btn btn-default mb-3 px-4">
