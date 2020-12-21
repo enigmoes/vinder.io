@@ -633,7 +633,7 @@ i:hover {
     /* END NAVBAR */
     /* SIDEBAR */
     .div-sidebar {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: -240px;
         z-index: 1040;
