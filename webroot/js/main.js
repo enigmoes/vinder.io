@@ -166,8 +166,8 @@ $(document).ready(function () {
 
     // INIT Scroll to top
     $('.scroll').click(function () {
-        $('.page-wrapper').animate({
-            scrollTop: $('.page-wrapper').offset().top
+        $('html,body').animate({
+            scrollTop: 0
         }, 500)
     });
 
