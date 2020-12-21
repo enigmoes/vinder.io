@@ -656,7 +656,8 @@ i:hover {
     }
     .div-sidebar .results-tags a,
     .div-sidebar .no-tags,
-    .div-sidebar .all-tags {
+    .div-sidebar .all-tags,
+    .div-sidebar .empty-tags {
         font-size: medium;
     }
     .div-sidebar .results-tags i {
@@ -690,6 +691,9 @@ i:hover {
         font-size: x-small;
     }
     .all-tags {
+        font-size: small;
+    }
+    .empty-tags {
         font-size: small;
     }
     /* END SIDEBAR */

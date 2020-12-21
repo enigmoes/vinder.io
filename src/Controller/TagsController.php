@@ -62,34 +62,65 @@ class TagsController extends AppController
         $items = [];
         //Si se ha recogido una etiqueta
         if (!is_null($id_tag)) {
-            // Buscamos el nombre de la tag
-            $tagName = $this->Tags->find('all', ['conditions' => ['Tags.id' => $id_tag]])->toArray()[0]->name;
-            // Si hay query search cambiamos el título
-            if (!empty($this->request->getQuery('search'))) {
-                // Inicializamos tag name con el nombre de la etiqueta más "búsqueda"
-                $tagName = __('BÚSQUEDA') . "-" . $tagName;
-            }
-            // Buscamos todos los items de una etiqueta
-            $itemsTags = $this->ItemsTags->find('list', [
-                'conditions' => [
-                    'ItemsTags.id_tag' => $id_tag,
-                ],
-                'keyField' => 'id', 'valueField' => function ($e) {
-                    return $e->id_item;
-                },
-            ])->toArray();
-            $this->request->query['items_tags'] = $itemsTags;
-            // Realizamos la búsqueda de items
-            if (!empty($itemsTags)) {
-                $items = $this->Items->find('all', [
-                    'conditions' => $this->Items->conditions($this->request->getQuery()),
-                    'order' => $this->Items->order($this->request->getQuery()),
-                    'limit' => $this->Items->limit($this->request->getQuery())
+            // Items sin etiquetar
+            if($id_tag == 0){
+                $tagName = __('SIN ETIQUETAR');
+                // Si hay query search cambiamos el título
+                if (!empty($this->request->getQuery('search'))) {
+                    // Inicializamos tag name con el nombre de la etiqueta más "búsqueda"
+                    $tagName = __('BÚSQUEDA');
+                }
+                // Buscar todos los items relacionados
+                $itemsTags = $this->ItemsTags->find('list', [
+                    'keyField' => 'id', 'valueField' => function ($e) {
+                        return $e->id_item;
+                    },
                 ])->toArray();
-                $count = $this->Items->find('all', [
-                    'conditions' => $this->Items->conditions($this->request->getQuery()),
-                    'order' => $this->Items->order($this->request->getQuery()),
-                ])->count();
+                $this->request->query['all_items_tags'] = $itemsTags;
+                // Realizamos las queries
+                $this->request->query['id_user'] = $this->request->getSession()->read('Auth.User.id');
+                // Realizamos la búsqueda de items
+                if (!empty($itemsTags)) {
+                    $items = $this->Items->find('all', [
+                        'conditions' => $this->Items->conditions($this->request->getQuery()),
+                        'order' => $this->Items->order($this->request->getQuery()),
+                        'limit' => $this->Items->limit($this->request->getQuery())
+                    ])->toArray();
+                    $count = $this->Items->find('all', [
+                        'conditions' => $this->Items->conditions($this->request->getQuery()),
+                        'order' => $this->Items->order($this->request->getQuery()),
+                    ])->count();
+                }
+            } else {
+                // Buscamos el nombre de la tag
+                $tagName = $this->Tags->find('all', ['conditions' => ['Tags.id' => $id_tag]])->toArray()[0]->name;
+                // Si hay query search cambiamos el título
+                if (!empty($this->request->getQuery('search'))) {
+                    // Inicializamos tag name con el nombre de la etiqueta más "búsqueda"
+                    $tagName = __('BÚSQUEDA') . "-" . $tagName;
+                }
+                // Buscamos todos los items de una etiqueta
+                $itemsTags = $this->ItemsTags->find('list', [
+                    'conditions' => [
+                        'ItemsTags.id_tag' => $id_tag,
+                    ],
+                    'keyField' => 'id', 'valueField' => function ($e) {
+                        return $e->id_item;
+                    },
+                ])->toArray();
+                $this->request->query['items_tags'] = $itemsTags;
+                // Realizamos la búsqueda de items
+                if (!empty($itemsTags)) {
+                    $items = $this->Items->find('all', [
+                        'conditions' => $this->Items->conditions($this->request->getQuery()),
+                        'order' => $this->Items->order($this->request->getQuery()),
+                        'limit' => $this->Items->limit($this->request->getQuery())
+                    ])->toArray();
+                    $count = $this->Items->find('all', [
+                        'conditions' => $this->Items->conditions($this->request->getQuery()),
+                        'order' => $this->Items->order($this->request->getQuery()),
+                    ])->count();
+                }
             }
         } else {
             // Si hay query search cambiamos el título

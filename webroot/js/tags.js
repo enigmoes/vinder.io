@@ -69,6 +69,7 @@ let Tags = {
             $(".tag").parent().removeClass("active");
             $(this).parent().addClass("active");
             $(".all-tags").removeClass("bg-active");
+            $(".empty-tags").removeClass("bg-active");
             Tags.loadItems(id_tag);
         });
 
@@ -76,8 +77,19 @@ let Tags = {
         $(document).on("click", ".all-tags", function () {
             sessionStorage.removeItem("idTag");
             $(".tag").parent().removeClass("active");
+            $(".empty-tags").removeClass("bg-active");
             $(this).addClass("bg-active");
             Tags.loadItems();
+        });
+
+        // Evento click ver items sin etiquetar
+        $(document).on("click", ".empty-tags", function () {
+            sessionStorage.setItem("idTag", 0);
+            $(".tag").parent().removeClass("active");
+            $(".all-tags").removeClass("bg-active");
+            $(this).addClass("bg-active");
+            let id_tag = sessionStorage.getItem('idTag');
+            Tags.loadItems(parseInt(id_tag));
         });
 
         // Buscar tags con el buscador

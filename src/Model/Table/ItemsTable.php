@@ -118,6 +118,9 @@ class ItemsTable extends Table
         if (isset($data['items_tags']) && !empty($data['items_tags'])) {
             $conditions['Items.id IN'] = $data['items_tags'];
         }
+        if (isset($data['all_items_tags']) && !empty($data['all_items_tags'])) {
+            $conditions['Items.id NOT IN'] = $data['all_items_tags'];
+        }
         return $conditions;
     }
 

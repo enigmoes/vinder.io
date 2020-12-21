@@ -211,7 +211,11 @@ class ItemsController extends AppController
                 $this->commit();
                 $this->Flash->success(__('Etiqueta añadida correctamente'));
             } else {
-                $this->Flash->error(__('Se produjo un error al añadir la etiqueta'));
+                if(empty($this->ItemsTags->saveMany($itemsTags))){
+                    $this->Flash->success(__('Etiquetas retiradas del ítem'));
+                } else {
+                    $this->Flash->error(__('Se produjo un error al añadir la etiqueta'));
+                }
             }
         }
         // Buscamos datos en db para sacar las tags del usuario

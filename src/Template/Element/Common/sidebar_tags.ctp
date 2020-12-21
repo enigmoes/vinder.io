@@ -28,6 +28,11 @@ use Cake\Routing\Router;
                 <?=__('Todos los ítems')?>
             </a>
         </li>
+        <li class="mt-3">
+            <a href="javascript:void(0)" class="empty-tags px-2">
+                <?=__('Sin etiquetar')?>
+            </a>
+        </li>
     </ul>
     <?= $this->Form->create('search_tag') ?>
     <div class="input-tags d-flex align-items-center">
